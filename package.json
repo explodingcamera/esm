@@ -4,10 +4,13 @@
   "keywords": [],
   "license": "ISC",
   "scripts": {
-    "build": "turbo run build  --include-dependencies"
+    "build": "turbo run build  --include-dependencies",
+    "test": "turbo run test --include-dependencies",
+    "publish-packages": "turbo run build test && changeset version && changeset publish"
   },
   "devDependencies": {
     "@types/node": "^18.11.18",
+    "changeset": "^0.2.6",
     "rome": "11.0.0",
     "turbo": "^1.6.3"
   }
