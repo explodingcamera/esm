@@ -1,0 +1,25 @@
+{
+  "name": "lit-q",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "build": "scripts build --name lit-q ./lib/index.ts -e lit"
+  },
+  "devDependencies": {
+    "lit": "^2.5.0",
+    "scripts": "workspace:*"
+  },
+  "peerDependencies": {
+    "lit": "^2.5.0"
+  },
+  "peerDependenciesMeta": {
+    "lit": {
+      "optional": false
+    }
+  },
+  "keywords": [],
+  "author": "Henry Gressmann",
+  "license": "ISC"
+}
