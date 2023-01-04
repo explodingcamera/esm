@@ -1,6 +1,6 @@
 # Henry's Libraries
 
-> A collection of small esm (TypeScript/JavaScript) libaries not big enough to be their own repo
+> A collection of small esm-only (TypeScript/JavaScript) libaries not big enough to be their own repo
 
 ## Projects
 
