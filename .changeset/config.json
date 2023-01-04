@@ -6,7 +6,7 @@
       "repo": "explodingcamera/esm"
     }
   ],
-  "commit": ["@changesets/cli/commit", { "skipCI": "version" }],
+  "commit": false,
   "fixed": [],
   "linked": [],
   "access": "public",

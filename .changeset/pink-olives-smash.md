@@ -1,5 +1,5 @@
 ---
-"lit-q": major
+"lit-q": patch
 ---
 
 add readme

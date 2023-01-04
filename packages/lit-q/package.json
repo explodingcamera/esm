@@ -34,8 +34,7 @@
     }
   },
   "keywords": [],
-  "author": "Henry Gressmann",
   "license": "ISC",
   "homepage": "https://github.com/explodingcamera/esm/tree/main/packages/lit-q",
-  "repository": "https://github.com/explodingcamera/esm/tree/main/packages/lit-q"
+  "repository": "https://github.com/explodingcamera/esm"
 }
