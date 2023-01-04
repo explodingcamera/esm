@@ -1,9 +1,20 @@
 {
   "name": "lit-q",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "",
-  "main": "index.js",
   "type": "module",
+  "main": "dist/lit-q.js",
+  "exports": {
+    ".": {
+      "require": "./dist/lit-q.cjs",
+      "import": "./dist/lit-q.js"
+    }
+  },
+  "types": "types/index.d.ts",
+  "files": [
+    "dist",
+    "types"
+  ],
   "scripts": {
     "build": "scripts build --name lit-q ./lib/index.ts -e lit",
     "test": "scripts test run"

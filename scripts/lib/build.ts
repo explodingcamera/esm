@@ -30,7 +30,7 @@ export const build = async (args: string[], opts: Options<BuildOptions | DevOpti
 		plugins: [
 			visualize && visualizer(),
 			dts({
-				exclude: ["node_modules", "../../node_modules"],
+				exclude: ["node_modules", "../../node_modules", "types"],
 				outputDir: "types",
 			}),
 		],
