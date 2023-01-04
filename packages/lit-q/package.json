@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "description": "",
   "type": "module",
-  "main": "dist/lit-q.js",
+  "main": "dist/lit-q.cjs",
+  "module": "dist/lit-q.js",
   "exports": {
     ".": {
       "require": "./dist/lit-q.cjs",
@@ -34,5 +35,7 @@
   },
   "keywords": [],
   "author": "Henry Gressmann",
-  "license": "ISC"
+  "license": "ISC",
+  "homepage": "https://github.com/explodingcamera/esm/tree/main/packages/lit-q",
+  "repository": "https://github.com/explodingcamera/esm/tree/main/packages/lit-q"
 }

@@ -1,6 +1,6 @@
 # Internet Systems Consortium license
 
-Copyright (c) `<year>`, `<copyright holders>`
+Copyright (c) 2023, Henry Gressmann
 
 Permission to use, copy, modify, and/or distribute this software for any purpose
 with or without fee is hereby granted, provided that the above copyright notice
