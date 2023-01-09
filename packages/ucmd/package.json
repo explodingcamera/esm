@@ -1,13 +1,12 @@
 {
-  "name": "template",
+  "name": "ucmd",
   "version": "0.0.1",
-  "private": true,
   "description": "",
-  "main": "dist/template.js",
-  "types": "types/lib/index.d.ts",
+  "main": "dist/ucmd.js",
+  "types": "types/index/index.d.ts",
   "type": "module",
   "scripts": {
-    "build": "scripts build --name template ./lib/index.ts",
+    "build": "scripts build --name ucmd ./lib/index.ts",
     "test": "scripts test run"
   },
   "devDependencies": {
