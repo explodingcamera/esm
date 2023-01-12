@@ -41,6 +41,8 @@ class UCMD<TCommands extends Commands, T extends ucmdState<TCommands>> {
 		if (commandArgs[0] && !commandArgs[0].startsWith("-")) {
 			command = commandArgs[0];
 			commandArgs = commandArgs.slice(1);
+
+			if (!this.#state.commands[command]) return console.log("Command not found. Try --help");
 			run = this.#state.commands[command]!.run;
 			options = toCommandArgs(this.#state.commands?.[command]?.args || []);
 		}

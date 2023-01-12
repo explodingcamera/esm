@@ -1,0 +1,38 @@
+name: CI Workflow
+
+on:
+  push:
+    paths:
+      - "packages/**/*"
+      - "pnpm-lock.yaml"
+      - ".github/workflows/*"
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Git Checkout
+        uses: actions/checkout@v2
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          registry-url: "https://npm.pkg.github.com"
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2.2.2
+        id: pnpm-install
+        with:
+          version: 7.24.3
+          run_install: true
+
+      - name: Build
+        run: pnpm run build
+
+      - name: Build
+        run: pnpm run lint
+
+      - name: Test
+        run: pnpm run test

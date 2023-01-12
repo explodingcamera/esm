@@ -4,6 +4,9 @@
     "indentStyle": "tab",
     "lineWidth": 120
   },
+  "files": {
+    "ignore": ["node_modules/", "dist/"]
+  },
   "linter": {
     "enabled": true,
     "rules": {
