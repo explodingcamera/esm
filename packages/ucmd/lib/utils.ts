@@ -16,18 +16,26 @@ export const generateOptions = (options: CommandArg[]): Record<string, ParseArgs
 	let opts = options.map((option) => {
 		if (typeof option === "string")
 			return {
-				[option]: { type: "string" },
+				[option]: toParseArgOptions({}),
 			};
 
 		if (Array.isArray(option))
 			return {
-				[option[0]]: { type: "string" },
+				[option[0]]: toParseArgOptions(option[1]),
 			};
 
 		return {
-			[option.name]: { type: "string" },
+			[option.name]: toParseArgOptions(option),
 		};
 	});
 
 	return Object.assign({}, ...opts);
+};
+
+const toParseArgOptions = (options: CommandArgOptions): ParseArgsOptionConfig => {
+	return {
+		type: "string",
+		default: options.default,
+		short: options.short,
+	};
 };

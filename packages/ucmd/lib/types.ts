@@ -1,6 +1,7 @@
 import type { ParseArgsConfig } from "node:util";
 
-export type CommandFn = (args: string[]) => void;
+// TODO: pass typed args to run
+export type CommandFn = (args: Record<string, string>) => void;
 
 export type Command<TCommandName> = {
 	name: TCommandName;
@@ -16,6 +17,8 @@ export type ParseArgsOptionConfig = ValueOf<Exclude<ParseArgsConfig["options"], 
 export type CommandArgOptions = {
 	description?: string | undefined;
 	optional?: boolean | undefined;
+	default?: string | undefined;
+	short?: string | undefined;
 };
 
 export type CommandArg =

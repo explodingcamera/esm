@@ -1,5 +1,5 @@
 import { parseArgs } from "node:util";
-import type { AddCommand, Command, CommandFn, Commands, ucmdState } from "./types";
+import type { AddCommand, Command, CommandArg, CommandFn, Commands, ucmdState } from "./types";
 import { generateOptions, toCommandArgs } from "./utils";
 
 const defaultState: ucmdState<{}> = {
@@ -32,9 +32,20 @@ class UCMD<TCommands extends Commands, T extends ucmdState<TCommands>> {
 	}
 
 	parse(args?: string[]) {
-		let [command, ...rest] = (args || process.argv).slice(2);
-
 		let run: CommandFn = () => console.log("Command not found. Try --help");
+		let commandArgs = args || process.argv.slice(2);
+		let command: string | undefined = undefined;
+		let options: CommandArg[] = [];
+
+		// Get the command
+		if (commandArgs[0] && !commandArgs[0].startsWith("-")) {
+			command = commandArgs[0];
+			commandArgs = commandArgs.slice(1);
+			run = this.#state.commands[command]!.run;
+			options = toCommandArgs(this.#state.commands?.[command]?.args || []);
+		}
+
+		// If no command is specified, run the noCommand
 		if (!command) {
 			if (!this.#state.noCommand) {
 				console.log("No command specified");
@@ -42,37 +53,26 @@ class UCMD<TCommands extends Commands, T extends ucmdState<TCommands>> {
 			}
 
 			run = this.#state.noCommand.run;
+			options = toCommandArgs(this.#state.noCommand.args || []);
 			return;
 		}
 
-		let options = this.#state.commands[command]?.args;
-		if (this.#state.commands[command]) {
-			run = this.#state.commands[command]!.run;
-		}
-
 		let res = parseArgs({
-			args: rest,
-			options: generateOptions(toCommandArgs(options || [])),
+			args: commandArgs,
+			options: generateOptions(options),
 		});
 
-		return this.#state.commands;
+		return { res, run };
 	}
 
-	run(args?: string[]) {}
+	run(args?: string[]) {
+		let parsedArgs = this.parse(args);
+		if (parseArgs === undefined) return;
+		const { res, run } = parsedArgs!;
+		run(res.values as Record<string, string>);
+	}
 }
 
 export const ucmd = <T extends string>(name: T) => {
 	return new UCMD().withName(name);
 };
-
-const build = () => {};
-
-const foo = ucmd("asdf")
-	.withCommand("build", build)
-	.withCommand({
-		name: "build",
-		description: "Builds the project",
-		args: { run: {} },
-		run: console.log,
-	})
-	.parse();
