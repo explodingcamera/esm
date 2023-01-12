@@ -4,8 +4,12 @@
   "private": true,
   "description": "",
   "main": "dist/template.js",
-  "types": "types/lib/index.d.ts",
+  "types": "types/index.d.ts",
   "type": "module",
+  "files": [
+    "dist",
+    "types"
+  ],
   "scripts": {
     "build": "scripts build --name template ./lib/index.ts",
     "test": "scripts test run"

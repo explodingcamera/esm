@@ -11,6 +11,9 @@
         "useBlockStatements": "off",
         "useSingleVarDeclarator": "off",
         "noUnusedTemplateLiteral": "off"
+      },
+      "suspicious": {
+        "noExplicitAny": "warn"
       }
     }
   }

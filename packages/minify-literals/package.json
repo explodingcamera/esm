@@ -1,0 +1,35 @@
+{
+  "name": "minify-literals",
+  "version": "0.0.1",
+  "private": true,
+  "description": "",
+  "main": "dist/minify-literals.js",
+  "types": "types/index.d.ts",
+  "type": "module",
+  "files": [
+    "dist",
+    "types"
+  ],
+  "scripts": {
+    "build": "scripts build --name minify-literals --external clean-css --external html-minifier-terser --external magic-string --external parse-literals ./lib/index.ts",
+    "test": "scripts test run"
+  },
+  "devDependencies": {
+    "@types/clean-css": "^4.2.6",
+    "@types/html-minifier-terser": "^7.0.0",
+    "@types/sinon": "^10.0.13",
+    "scripts": "workspace:*",
+    "sinon": "^15.0.1",
+    "vitest": "^0.27.1"
+  },
+  "peerDependenciesMeta": {},
+  "keywords": [],
+  "author": "Henry Gressmann",
+  "license": "MIT",
+  "dependencies": {
+    "clean-css": "^5.3.1",
+    "html-minifier-terser": "^7.1.0",
+    "magic-string": "^0.27.0",
+    "parse-literals": "^1.2.1"
+  }
+}

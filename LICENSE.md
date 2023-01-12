@@ -1,5 +1,7 @@
 # Internet Systems Consortium license
 
+Unless otherwise noted (e.g with a seperate LICENSE.md file), all files in this repository are licensed under the ISC License:
+
 Copyright (c) 2023, Henry Gressmann
 
 Permission to use, copy, modify, and/or distribute this software for any purpose
