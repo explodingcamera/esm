@@ -1,36 +1,6 @@
-type Command<TCommandName> = {
-	name: TCommandName;
-	description?: string | undefined;
-	args?: CommandArg[] | Record<string, CommandArgOptions | true> | undefined;
-	run?: (args: string[]) => void | undefined;
-};
-
-type CommandArgOptions = {
-	description?: string | undefined;
-	optional?: boolean | undefined;
-};
-
-type CommandArg =
-	| string
-	| [string, CommandArgOptions]
-	| ({
-			name: string;
-	  } & CommandArgOptions);
-
-type Commands<TCommands extends Record<string, Command<string>> = Record<string, Command<string>>,> = {
-	[key in keyof TCommands]: TCommands[key];
-};
-
-type AddCommand<TCommands extends Commands, TCommand extends Command<string>> = {
-	[key in keyof TCommands]: TCommands[key];
-} & {
-	[key in TCommand["name"]]: TCommand;
-};
-
-type ucmdState<TCommands extends Commands> = {
-	name: string;
-	commands: TCommands;
-};
+import { parseArgs } from "node:util";
+import type { AddCommand, Command, CommandFn, Commands, ucmdState } from "./types";
+import { generateOptions, toCommandArgs } from "./utils";
 
 const defaultState: ucmdState<{}> = {
 	name: "",
@@ -57,7 +27,34 @@ class UCMD<TCommands extends Commands, T extends ucmdState<TCommands>> {
 		return this as unknown as UCMD<TNewCommands, T & { commands: TNewCommands }>;
 	}
 
+	withNoCommand<TCommand extends Command<string>>(): UCMD<TCommands, T & { noCommand: TCommand }> {
+		return this as unknown as UCMD<TCommands, T & { noCommand: TCommand }>;
+	}
+
 	parse(args?: string[]) {
+		let [command, ...rest] = (args || process.argv).slice(2);
+
+		let run: CommandFn = () => console.log("Command not found. Try --help");
+		if (!command) {
+			if (!this.#state.noCommand) {
+				console.log("No command specified");
+				return;
+			}
+
+			run = this.#state.noCommand.run;
+			return;
+		}
+
+		let options = this.#state.commands[command]?.args;
+		if (this.#state.commands[command]) {
+			run = this.#state.commands[command]!.run;
+		}
+
+		let res = parseArgs({
+			args: rest,
+			options: generateOptions(toCommandArgs(options || [])),
+		});
+
 		return this.#state.commands;
 	}
 

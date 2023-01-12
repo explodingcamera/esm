@@ -9,8 +9,8 @@
     "test": "exit 0"
   },
   "peerDependencies": {
-    "vitest": "^0.26.3",
-    "vite": "^4.0.4"
+    "vite": "^4.0.4",
+    "vitest": "^0.26.3"
   },
   "peerDependenciesMeta": {
     "vitest": {
@@ -28,8 +28,8 @@
     "vite-plugin-dts": "^1.7.1"
   },
   "devDependencies": {
+    "@types/node": "^18.11.18",
     "vite": "^4.0.4",
-    "vitest": "^0.26.3",
-    "@types/node": "^18.11.18"
+    "vitest": "^0.27.1"
   }
 }

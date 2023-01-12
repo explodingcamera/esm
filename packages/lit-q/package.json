@@ -21,9 +21,9 @@
     "test": "scripts test run"
   },
   "devDependencies": {
-    "lit": "^2.5.0",
+    "lit": "^2.6.1",
     "scripts": "workspace:0.0.0",
-    "vitest": "^0.26.3"
+    "vitest": "^0.27.1"
   },
   "peerDependencies": {
     "lit": "^2.5.0"

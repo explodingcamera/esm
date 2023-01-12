@@ -7,4 +7,8 @@ test("test", async () => {
 		description: "Builds the project",
 		run: console.log,
 	});
+
+	ucmd("asdf")
+		.withCommand("build", () => {})
+		.parse([...process.argv, "build"]);
 });

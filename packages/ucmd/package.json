@@ -6,14 +6,13 @@
   "types": "types/index/index.d.ts",
   "type": "module",
   "scripts": {
-    "build": "scripts build --name ucmd ./lib/index.ts",
+    "build": "scripts build --name ucmd --external node:util ./lib/index.ts",
     "test": "scripts test run"
   },
   "devDependencies": {
     "scripts": "workspace:*",
-    "vitest": "^0.26.3"
+    "vitest": "^0.27.1"
   },
-  "peerDependencies": {},
   "peerDependenciesMeta": {},
   "keywords": [],
   "author": "Henry Gressmann",
