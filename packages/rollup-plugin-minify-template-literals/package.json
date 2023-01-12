@@ -1,9 +1,8 @@
 {
-  "name": "rollup-plugin-minify-literals",
+  "name": "rollup-plugin-minify-template-literals",
   "version": "0.0.1",
-  "private": true,
   "description": "",
-  "main": "dist/rollup-plugin-minify-literals.js",
+  "main": "dist/rollup-plugin-minify-template-literals.js",
   "types": "types/index.d.ts",
   "type": "module",
   "files": [
@@ -11,7 +10,7 @@
     "types"
   ],
   "scripts": {
-    "build": "scripts build --name rollup-plugin-minify-literals --external @rollup/pluginutils --external minify-literals ./lib/index.ts",
+    "build": "scripts build --name rollup-plugin-minify-template-literals --external @rollup/pluginutils --external minify-literals ./lib/index.ts",
     "test": "scripts test run"
   },
   "devDependencies": {

@@ -1,7 +1,6 @@
 {
   "name": "minify-literals",
   "version": "0.0.1",
-  "private": true,
   "description": "",
   "main": "dist/minify-literals.js",
   "types": "types/index.d.ts",

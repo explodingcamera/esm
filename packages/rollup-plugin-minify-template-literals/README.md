@@ -1,4 +1,4 @@
-# rollup-plugin-minify-literals
+# rollup-plugin-minify-template-literals
 
 > Minify HTML & CSS markup inside JavaScript/TypeScript template literal strings - for vite and rollup.
 
