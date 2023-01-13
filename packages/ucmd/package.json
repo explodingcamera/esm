@@ -2,7 +2,8 @@
   "name": "ucmd",
   "version": "0.0.1",
   "description": "",
-  "main": "dist/ucmd.js",
+  "main": "dist/ucmd.jsc",
+  "module": "dist/ucmd.js",
   "types": "types/index/index.d.ts",
   "type": "module",
   "scripts": {

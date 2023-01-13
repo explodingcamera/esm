@@ -2,7 +2,8 @@
   "name": "rollup-plugin-minify-template-literals",
   "version": "0.0.1",
   "description": "",
-  "main": "dist/rollup-plugin-minify-template-literals.js",
+  "main": "dist/rollup-plugin-minify-template-literals.cjs",
+  "module": "dist/rollup-plugin-minify-template-literals.js",
   "types": "types/index.d.ts",
   "type": "module",
   "files": [

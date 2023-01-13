@@ -1,6 +1,6 @@
 # Henry's Libraries &nbsp;![GitHub Workflow Status (with branch)](https://img.shields.io/github/actions/workflow/status/explodingcamera/esm/ci.yaml?branch=main&label=ALL%20BUILDS)
 
-> A collection of small esm-only (TypeScript/JavaScript) libaries not big enough for their own repo
+> A collection of esm-only (TypeScript/JavaScript) libraries
 
 <br />
 

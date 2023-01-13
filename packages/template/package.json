@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "private": true,
   "description": "",
-  "main": "dist/template.js",
+  "main": "dist/template.cjs",
+  "module": "dist/template.js",
   "types": "types/index.d.ts",
   "type": "module",
   "files": [

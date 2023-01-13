@@ -2,7 +2,8 @@
   "name": "minify-literals",
   "version": "0.0.1",
   "description": "",
-  "main": "dist/minify-literals.js",
+  "main": "dist/minify-literals.cjs",
+  "module": "dist/minify-literals.js",
   "types": "types/index.d.ts",
   "type": "module",
   "files": [

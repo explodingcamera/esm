@@ -69,3 +69,4 @@ export const RollupPluginMinifyHTMLLiterals = function RollupPluginMinifyHTMLLit
 };
 
 export default RollupPluginMinifyHTMLLiterals;
+export const minifyHTMLLiterals = RollupPluginMinifyHTMLLiterals;
