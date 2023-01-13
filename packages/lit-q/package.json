@@ -1,16 +1,29 @@
 {
   "name": "lit-q",
   "version": "0.1.1",
-  "description": "",
+  "description": "A simple async query/mutation library for Lit/LitElement inspired by react-query",
+  "keywords": [
+    "lit",
+    "lit-html",
+    "lit-element",
+    "query",
+    "fetch",
+    "promise",
+    "mutation",
+    "react-query"
+  ],
+  "homepage": "https://github.com/explodingcamera/esm/tree/main/packages/lit-q",
+  "repository": "https://github.com/explodingcamera/esm",
+  "license": "ISC",
   "type": "module",
-  "main": "dist/lit-q.cjs",
-  "module": "dist/lit-q.js",
   "exports": {
     ".": {
       "require": "./dist/lit-q.cjs",
       "import": "./dist/lit-q.js"
     }
   },
+  "main": "dist/lit-q.cjs",
+  "module": "dist/lit-q.js",
   "types": "types/index.d.ts",
   "files": [
     "dist",
@@ -32,9 +45,5 @@
     "lit": {
       "optional": false
     }
-  },
-  "keywords": [],
-  "license": "ISC",
-  "homepage": "https://github.com/explodingcamera/esm/tree/main/packages/lit-q",
-  "repository": "https://github.com/explodingcamera/esm"
+  }
 }

@@ -1,11 +1,28 @@
 {
   "name": "rollup-plugin-minify-template-literals",
   "version": "0.1.0",
-  "description": "",
+  "description": "A Vite/Rollup plugin that minifies template literals.",
+  "keywords": [
+    "rollup",
+    "vite",
+    "lit",
+    "lit-html",
+    "lit-element",
+    "literals",
+    "minify",
+    "minification",
+    "css",
+    "html",
+    "template-literals"
+  ],
+  "homepage": "https://github.com/explodingcamera/esm/tree/main/packages/rollup-plugin-minify-template-literals",
+  "repository": "https://github.com/explodingcamera/esm",
+  "license": "MIT",
+  "author": "Henry Gressmann <mail@henrygressmann.de> (https://henrygressmann.de)",
+  "type": "module",
   "main": "dist/rollup-plugin-minify-template-literals.cjs",
   "module": "dist/rollup-plugin-minify-template-literals.js",
   "types": "types/index.d.ts",
-  "type": "module",
   "files": [
     "dist",
     "types"
@@ -14,19 +31,15 @@
     "build": "scripts build --name rollup-plugin-minify-template-literals --external @rollup/pluginutils --external minify-literals ./lib/index.ts",
     "test": "scripts test run"
   },
+  "dependencies": {
+    "@rollup/pluginutils": "^5.0.2",
+    "minify-literals": "workspace:*"
+  },
   "devDependencies": {
     "@types/sinon": "^10.0.13",
     "rollup": "^3.10.0",
     "scripts": "workspace:*",
     "sinon": "^15.0.1",
     "vitest": "^0.27.1"
-  },
-  "peerDependenciesMeta": {},
-  "keywords": [],
-  "author": "Henry Gressmann",
-  "license": "MIT",
-  "dependencies": {
-    "@rollup/pluginutils": "^5.0.2",
-    "minify-literals": "workspace:*"
   }
 }

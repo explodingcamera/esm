@@ -3,10 +3,19 @@
   "version": "0.0.1",
   "private": true,
   "description": "",
+  "keywords": [],
+  "license": "ISC",
+  "author": "Henry Gressmann <mail@henrygressmann.de> (https://henrygressmann.de)",
+  "type": "module",
+  "exports": {
+    ".": {
+      "require": "./dist/template.cjs",
+      "import": "./dist/template.js"
+    }
+  },
   "main": "dist/template.cjs",
   "module": "dist/template.js",
   "types": "types/index.d.ts",
-  "type": "module",
   "files": [
     "dist",
     "types"
@@ -18,9 +27,5 @@
   "devDependencies": {
     "scripts": "workspace:*",
     "vitest": "^0.27.1"
-  },
-  "peerDependenciesMeta": {},
-  "keywords": [],
-  "author": "Henry Gressmann",
-  "license": "ISC"
+  }
 }

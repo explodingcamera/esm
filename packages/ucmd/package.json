@@ -1,11 +1,25 @@
 {
   "name": "ucmd",
   "version": "0.0.2",
-  "description": "",
+  "description": "µCMD is a minimal and strictly typed argument parsing library for node.js",
+  "keywords": [
+    "cli",
+    "command"
+  ],
+  "homepage": "https://github.com/explodingcamera/esm/tree/main/packages/ucmd",
+  "repository": "https://github.com/explodingcamera/esm",
+  "license": "ISC",
+  "author": "Henry Gressmann <mail@henrygressmann.de> (https://henrygressmann.de)",
+  "type": "module",
+  "exports": {
+    ".": {
+      "require": "./dist/ucmd.cjs",
+      "import": "./dist/ucmd.js"
+    }
+  },
   "main": "dist/ucmd.jsc",
   "module": "dist/ucmd.js",
   "types": "types/index/index.d.ts",
-  "type": "module",
   "scripts": {
     "build": "scripts build --name ucmd --external node:util ./lib/index.ts",
     "test": "scripts test run"
@@ -14,8 +28,7 @@
     "scripts": "workspace:*",
     "vitest": "^0.27.1"
   },
-  "peerDependenciesMeta": {},
-  "keywords": [],
-  "author": "Henry Gressmann",
-  "license": "ISC"
+  "engines": {
+    "node": ">=19.0.0"
+  }
 }

@@ -5,9 +5,9 @@
   "license": "ISC",
   "scripts": {
     "build": "turbo run build  --include-dependencies",
-    "test": "turbo run test --include-dependencies",
     "lint": "rome check packages",
-    "publish-packages": "turbo run build test && changeset version && changeset publish"
+    "publish-packages": "turbo run build test && changeset version && changeset publish",
+    "test": "turbo run test --include-dependencies"
   },
   "devDependencies": {
     "@changesets/changelog-github": "^0.4.8",
