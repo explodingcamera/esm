@@ -2,6 +2,60 @@
 
 > Minify HTML & CSS markup inside JavaScript/TypeScript template literal strings.
 
+Uses [html-minifier-terser](https://www.npmjs.com/package/html-minifier-terser) to minify HTML and [clean-css](https://www.npmjs.com/package/clean-css) to minify CSS.
+
+## Usage
+
+```ts
+import { minifyHTMLLiterals } from "minify-literals";
+
+const source = `
+		const el = html\`<div > <h1>  Hello World  </h1 > </div>\`;
+		const css = css\` .foo { color: red; }  \`;
+	`;
+
+let { code, map } = await minifyHTMLLiterals(source);
+// or with options: await minifyHTMLLiterals(source, { fileName: "test.js" });
+
+console.log(code);
+// const el = html`<div><h1>Hello World</h1></div>`;
+// const css = css`.foo{color:red}`;
+
+console.log(map);
+// SourceMap {
+//   "file": ".map",
+//   "mappings": "AAAA;AACA,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC, [...]
+//   "names": [],
+//   "sources": [
+//     null,
+//   ],
+//   "sourcesContent": [
+//     null,
+//   ],
+//   "version": 3,
+// },
+```
+
+## Options
+
+```ts
+export interface Options {
+  /**
+   * Minify HTML options, see https://github.com/terser/html-minifier-terser#options-quick-reference
+   * @default .//src/defaultOptions.ts
+   */
+  minifyOptions?: Partial<minify.Options>;
+
+	/**
+	 * Override the default strategy for how to minify HTML.
+   * More info:
+   *  https://github.com/explodingcamera/esm/blob/main/packages/minify-literals/lib/strategy.ts
+   *
+   * @optional
+	 */
+	strategy: S;
+```
+
 ## Credits
 
 This package is based on [minify-html-literals](https://github.com/asyncLiz/minify-html-literals) by [Elizabeth Mitchell](https://github.com/asyncLiz)

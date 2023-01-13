@@ -17,7 +17,7 @@ export interface Options {
 	exclude?: string | string[];
 	/**
 	 * Minify options, see
-	 * https://www.npmjs.com/package/minify-html-literals#options.
+	 * https://github.com/explodingcamera/esm/tree/main/packages/minify-literals#options.
 	 */
 	options?: Partial<minify.Options>;
 	/**

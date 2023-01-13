@@ -297,8 +297,6 @@ export async function minifyHTMLLiterals(source: string, options: Options = {}):
 		const minParts = strategy.splitHTMLByPlaceholder(min, placeholder);
 		if (validate) validate.ensureHTMLPartsValid(template.parts, minParts);
 
-		console.log(minParts);
-
 		for (let [index, part] of template.parts.entries()) {
 			if (part.start < part.end)
 				// Only overwrite if the literal part has text content

@@ -1,4 +1,4 @@
-import { afterEach, beforeEach, describe, expect, it } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, test } from "vitest";
 
 import MagicString, { SourceMapOptions } from "magic-string";
 import { ParseLiteralsOptions, Template, TemplatePart, parseLiterals } from "parse-literals";
@@ -12,6 +12,34 @@ import {
 	minifyHTMLLiterals,
 } from "./";
 import { defaultMinifyOptions, defaultStrategy } from "./strategy";
+
+test("example", async () => {
+	const source = `
+		const el = html\`<div > <h1>  Hello World  </h1 > </div>\`;
+		const css = css\` .foo { color: red; }  \`;
+	`;
+
+	expect(await minifyHTMLLiterals(source)).toMatchInlineSnapshot(`
+		{
+		  "code": "
+				const el = html\`<div><h1>Hello World</h1></div>\`;
+				const css = css\`.foo{color:red}\`;
+			",
+		  "map": SourceMap {
+		    "file": ".map",
+		    "mappings": "AAAA;AACA,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,+BAAuC,CAAC,CAAC;AAC3D,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,eAAuB,CAAC,CAAC;AAC3C",
+		    "names": [],
+		    "sources": [
+		      null,
+		    ],
+		    "sourcesContent": [
+		      null,
+		    ],
+		    "version": 3,
+		  },
+		}
+	`);
+});
 
 class MagicStringLike {
 	generateMap(options?: Partial<SourceMapOptions>): SourceMap {
