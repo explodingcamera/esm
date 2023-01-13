@@ -1,6 +1,6 @@
 {
   "name": "minify-literals",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "",
   "main": "dist/minify-literals.cjs",
   "module": "dist/minify-literals.js",

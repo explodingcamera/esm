@@ -1,6 +1,6 @@
 {
   "name": "rollup-plugin-minify-template-literals",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "",
   "main": "dist/rollup-plugin-minify-template-literals.cjs",
   "module": "dist/rollup-plugin-minify-template-literals.js",
