@@ -201,7 +201,8 @@ export function defaultShouldMinify(template: Template) {
  * @returns true if the template should be minified
  */
 export function defaultShouldMinifyCSS(template: Template) {
-	return !!template.tag && template.tag.toLowerCase().includes("css");
+	if (!template?.tag?.toLowerCase().includes("css")) return false;
+	return true;
 }
 
 /**
@@ -264,11 +265,28 @@ export async function minifyHTMLLiterals(source: string, options: Options = {}):
 		validate = options.validate || defaultValidation;
 	}
 
+	let skipCSS = false;
+	let skipHTML = false;
+
+	if (strategy.minifyCSS && source.includes("unsafeCSS")) {
+		console.warn(
+			`minify-html-literals: unsafeCSS() detected in source. CSS minification will not be performed for this file.`,
+		);
+		skipCSS = true;
+	}
+
+	if (source.includes("unsafeHTML")) {
+		console.warn(
+			`minify-html-literals: unsafeHTML() detected in source. HTML minification will not be performed for this file.`,
+		);
+		skipHTML = true;
+	}
+
 	const ms = new options.MagicString(source);
 
 	let promises = templates.map(async (template) => {
-		const minifyHTML = shouldMinify(template);
-		const minifyCSS = !!strategy.minifyCSS && shouldMinifyCSS(template);
+		const minifyHTML = !skipHTML && shouldMinify(template);
+		const minifyCSS = !skipCSS && strategy.minifyCSS && shouldMinifyCSS(template);
 
 		if (!(minifyHTML || minifyCSS)) return;
 

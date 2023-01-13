@@ -110,6 +110,9 @@ export const defaultStrategy: Strategy<HTMLOptions, CleanCSS.Options> = {
 	async minifyHTML(html, options = {}) {
 		let minifyCSSOptions: HTMLOptions["minifyCSS"];
 
+		html = html.replaceAll("<@TEMPLATE_EXPRESSION();", "<TEMPLATE_EXPRESSION___");
+		html = html.replaceAll("</@TEMPLATE_EXPRESSION();", "</TEMPLATE_EXPRESSION___");
+
 		if (options.minifyCSS) {
 			if (options.minifyCSS !== true && typeof options.minifyCSS !== "function") {
 				minifyCSSOptions = { ...options.minifyCSS };
@@ -129,6 +132,9 @@ export const defaultStrategy: Strategy<HTMLOptions, CleanCSS.Options> = {
 			...options,
 			minifyCSS: adjustedMinifyCSSOptions,
 		});
+
+		result = result.replaceAll("<TEMPLATE_EXPRESSION___", "<@TEMPLATE_EXPRESSION();");
+		result = result.replaceAll("</TEMPLATE_EXPRESSION___", "</@TEMPLATE_EXPRESSION();");
 
 		if (options.collapseWhitespace) {
 			// html-minifier does not support removing newlines inside <svg>

@@ -59,3 +59,11 @@ export interface Options {
 ## Credits
 
 This package is based on [minify-html-literals](https://github.com/asyncLiz/minify-html-literals) by [Elizabeth Mitchell](https://github.com/asyncLiz)
+I've fixed a few bugs, ported it to ES modules, and refactored it a bit.
+
+Some of the fixed bugs:
+
+- https://github.com/asyncLiz/minify-html-literals/issues/37
+- https://github.com/asyncLiz/minify-html-literals/issues/45
+- https://github.com/asyncLiz/minify-html-literals/issues/46
+- https://github.com/asyncLiz/minify-html-literals/issues/40

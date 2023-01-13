@@ -66,4 +66,5 @@ export interface Options {
 
 ## Credits
 
-This package is based on [rollup-plugin-minify-html-literals](https://github.com/asyncLiz/minify-html-literals) by [Elizabeth Mitchell](https://github.com/asyncLiz)
+This package is based on [rollup-plugin-minify-html-literals](https://github.com/asyncLiz/minify-html-literals) by [Elizabeth Mitchell](https://github.com/asyncLiz).
+I've fixed a few bugs, ported it to ES modules, and refactored it a bit.

@@ -13,6 +13,65 @@ import {
 } from "./";
 import { defaultMinifyOptions, defaultStrategy } from "./strategy";
 
+// Comments https://github.com/asyncLiz/minify-html-literals/issues/49
+// no fix is planned for this, should be easy enough just not to use comments in template literals
+describe("handle comments correctly", () => {
+	it("should remove comments", async () => {
+		const source = `const el = html\`<div><!-- comment --></div>\``;
+		const expected = `const el = html\`<div></div>\``;
+		expect((await minifyHTMLLiterals(source))?.code).toBe(expected);
+	});
+
+	it.skip("works with templates inside of html comments", async () => {
+		const source = `const el = html\`<div><!-- \${console.log(1)} --></div>\``;
+		const expected = `const el = html\`<div></div>\``;
+		expect((await minifyHTMLLiterals(source))?.code).toBe(expected);
+	});
+
+	it.skip("works with templates inside of js comments", async () => {
+		const source = `const el = html\`<div>\${/*console.log(1)*/}</div>\``;
+		const expected = `const el = html\`<div></div>\``;
+		expect((await minifyHTMLLiterals(source))?.code).toBe(expected);
+	});
+});
+
+// https://github.com/asyncLiz/minify-html-literals/issues/46
+// currently, we skip the entire file if we find a template literal that is not tagged with html or css
+// instead, we should just skip the template literal (but we need to update parse-literals for that)
+describe("don't minify code with unsafeCSS / unsafeHTML", () => {
+	it("should not remove styles from dynamically inserted selectors", async () => {
+		const source = `
+			css\`
+				foo {
+					bar: baz;
+				}
+
+				\${unsafeCSS('#foo-id')} {
+					bar: baz;
+				}
+			\`
+		`.trim();
+
+		expect(await minifyHTMLLiterals(source)).toBe(null);
+	});
+});
+
+// https://github.com/asyncLiz/minify-html-literals/issues/37
+describe("minify templates with static tag literals", () => {
+	it("should minify html", async () => {
+		const STATIC_LITERAL_IN_TAG_NAME = `
+			html\`<\${Component.litTagName} id="container">
+					<span>Some content here</span>
+				</\${Component.litTagName}>
+				\`
+		`.trim();
+
+		const expected = `html\`<\${Component.litTagName} id="container"><span>Some content here</span></\${Component.litTagName}>\``;
+
+		expect((await minifyHTMLLiterals(STATIC_LITERAL_IN_TAG_NAME))?.code).toBe(expected);
+	});
+});
+
 test("example", async () => {
 	const source = `
 		const el = html\`<div > <h1>  Hello World  </h1 > </div>\`;
