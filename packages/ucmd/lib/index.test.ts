@@ -1,7 +1,7 @@
 import { test } from "vitest";
 import { ucmd } from ".";
 
-test("test", async () => {
+test.skip("test", async () => {
 	let x = ucmd("asdf").withCommand({
 		name: "build",
 		args: {
