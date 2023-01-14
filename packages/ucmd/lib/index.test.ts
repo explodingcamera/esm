@@ -2,13 +2,14 @@ import { test } from "vitest";
 import { ucmd } from ".";
 
 test("test", async () => {
-	ucmd("asdf").withCommand({
+	let x = ucmd("asdf").withCommand({
 		name: "build",
-		description: "Builds the project",
-		run: console.log,
+		args: {
+			foo: true,
+			bar: false,
+		},
+		run: (ctx) => {},
 	});
 
-	ucmd("asdf")
-		.withCommand("build", () => {})
-		.parse([...process.argv, "build"]);
+	let args = x.state.commands.build;
 });

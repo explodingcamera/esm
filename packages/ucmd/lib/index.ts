@@ -1,38 +1,58 @@
 import { parseArgs } from "node:util";
-import type { AddCommand, Command, CommandArg, CommandFn, Commands, ucmdState } from "./types";
+import type { CommandArg } from "../types/types";
+import type { AddCommand, Command, CommandArgs, CommandFn, CommandsLike, LiteralString, ucmdState } from "./types";
 import { generateOptions, toCommandArgs } from "./utils";
 
 const defaultState: ucmdState<{}> = {
 	name: "",
-	commands: {},
+	commands: {
+		help: {
+			asdf: "asdf",
+		},
+	},
 };
 
-class UCMD<TCommands extends Commands, T extends ucmdState<TCommands>> {
-	#state: T = defaultState as T;
+class UCMD<TCommands extends CommandsLike, TBaseCommand> {
+	#state: ucmdState<TCommands, TBaseCommand> = defaultState as ucmdState<TCommands, TBaseCommand>;
+
+	get state() {
+		return this.#state;
+	}
 
 	constructor() {}
 
-	withName<TName extends string>(name: TName): UCMD<TCommands, T & { name: TName }> {
+	withName(name: string) {
 		this.#state.name = name;
-		return this as unknown as UCMD<TCommands, T & { name: TName }>;
+		return this;
 	}
 
 	withCommand<
-		TCommandName extends string,
-		TCommand extends Readonly<Command<TCommandName>>,
-		TNewCommands extends AddCommand<TCommands, TCommand>,
-	>(command: TCommand | TCommandName, run?: () => void): UCMD<TNewCommands, T & { commands: TNewCommands }> {
-		const newCmd = (typeof command === "string" ? { name: command, run } : command) as TNewCommands[TCommandName];
-		(this.#state.commands as unknown as TNewCommands)[newCmd.name] = newCmd;
-		return this as unknown as UCMD<TNewCommands, T & { commands: TNewCommands }>;
+		TNewCommandArgs extends CommandArgs,
+		TNewCommandName extends string,
+		TNewCommand extends Command<TNewCommandArgs, TNewCommandName>,
+		TUpdatedCommands extends AddCommand<TCommands, TNewCommandArgs, TNewCommandName, TNewCommand>,
+	>(
+		command: LiteralString<TNewCommandName> | Partial<Command<TNewCommandArgs, LiteralString<TNewCommandName>>>,
+		run?: CommandFn<TNewCommandArgs extends infer T ? T : never>,
+	): UCMD<TUpdatedCommands, TBaseCommand> {
+		let newCMD = typeof command === "string" ? <TNewCommand>{ name: command as string } : command;
+		let runfn = typeof run === "undefined" ? run : newCMD?.run;
+
+		if (run && newCMD?.run) throw new Error("Only one run function is allowed");
+		if (!runfn) throw new Error("Run function is required");
+		if (!newCMD.name) throw new Error("Command name is required");
+		newCMD.run = runfn;
+
+		Object.assign(this.#state.commands, { [newCMD.name]: newCMD });
+		return this as unknown as UCMD<TUpdatedCommands, TBaseCommand>;
 	}
 
-	withNoCommand<TCommand extends Command<string>>(): UCMD<TCommands, T & { noCommand: TCommand }> {
-		return this as unknown as UCMD<TCommands, T & { noCommand: TCommand }>;
+	withBaseCommand<TNewBaseCommand extends Command<CommandArgs, string>>(): UCMD<TCommands, TNewBaseCommand> {
+		return this as unknown as UCMD<TCommands, TNewBaseCommand>;
 	}
 
 	parse(args?: string[]) {
-		let run: CommandFn = () => console.log("Command not found. Try --help");
+		let run: CommandFn<{}> = () => console.log("Command not found. Try --help");
 		let commandArgs = args || process.argv.slice(2);
 		let command: string | undefined = undefined;
 		let options: CommandArg[] = [];
@@ -47,15 +67,15 @@ class UCMD<TCommands extends Commands, T extends ucmdState<TCommands>> {
 			options = toCommandArgs(this.#state.commands?.[command]?.args || []);
 		}
 
-		// If no command is specified, run the noCommand
+		// If no command is specified, run the baseCommand
 		if (!command) {
-			if (!this.#state.noCommand) {
+			if (!this.#state.baseCommand) {
 				console.log("No command specified");
 				return;
 			}
 
-			run = this.#state.noCommand.run;
-			options = toCommandArgs(this.#state.noCommand.args || []);
+			run = this.#state.baseCommand.run;
+			options = toCommandArgs(this.#state.baseCommand.args || []);
 			return;
 		}
 
@@ -71,7 +91,7 @@ class UCMD<TCommands extends Commands, T extends ucmdState<TCommands>> {
 		let parsedArgs = this.parse(args);
 		if (parseArgs === undefined) return;
 		const { res, run } = parsedArgs!;
-		run(res.values as Record<string, string>);
+		run({ args: res.values as Record<string, string> });
 	}
 }
 

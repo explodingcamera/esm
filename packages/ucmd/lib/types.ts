@@ -1,45 +1,58 @@
 import type { ParseArgsConfig } from "node:util";
 
-// TODO: pass typed args to run
-export type CommandFn = (args: Record<string, string>) => void;
-
-export type Command<TCommandName> = {
-	name: TCommandName;
-	run: CommandFn;
-
-	description?: string | undefined;
-	args?: CommandArg[] | Record<string, CommandArgOptions | true> | undefined;
-};
-
-export type ValueOf<T> = T[keyof T];
-export type ParseArgsOptionConfig = ValueOf<Exclude<ParseArgsConfig["options"], undefined>>;
-
 export type CommandArgOptions = {
 	description?: string | undefined;
 	optional?: boolean | undefined;
 	default?: string | undefined;
 	short?: string | undefined;
+	type?: "string" | "number" | "boolean" | undefined;
+	multiple?: boolean | undefined;
 };
 
-export type CommandArg =
-	| string
-	| [string, CommandArgOptions]
-	| ({
-			name: string;
-	  } & CommandArgOptions);
+export type CommandArgs<TCommandArgs extends Record<string, CommandArgOptions | true> = {}> = {
+	[key in keyof TCommandArgs]: CommandArgOptions | true;
+};
 
-export type Commands<TCommands extends Record<string, Command<string>> = Record<string, Command<string>>,> = {
+export type BaseCommand<TCommandArguments> = {
+	run: CommandFn<TCommandArguments>;
+	description?: string | undefined;
+	args?: TCommandArguments | undefined;
+};
+
+export type CommandLike = Command<CommandArgs, string>;
+export type Command<TCommandArguments, TCommandName extends string> = BaseCommand<TCommandArguments> & {
+	name: TCommandName;
+};
+
+export type CommandsLike = Commands<Record<string, CommandLike>>;
+export type Commands<TCommands extends Record<string, Command<CommandArgs, string>>> = {
 	[key in keyof TCommands]: TCommands[key];
 };
 
-export type AddCommand<TCommands extends Commands, TCommand extends Command<string>> = {
+export type ucmdState<TCommands extends CommandsLike, TNoCommandCommand = undefined> = {
+	name: string;
+	commands: TCommands;
+	baseCommand?: TNoCommandCommand extends BaseCommand<CommandArgs> ? TNoCommandCommand : undefined;
+};
+
+export type AddCommand<
+	TCommands extends CommandsLike,
+	TCommandArgs extends CommandArgs,
+	TCommandName extends string,
+	TCommand extends Command<TCommandArgs, TCommandName>,
+> = {
 	[key in keyof TCommands]: TCommands[key];
 } & {
 	[key in TCommand["name"]]: TCommand;
 };
 
-export type ucmdState<TCommands extends Commands> = {
-	name: string;
-	commands: TCommands;
-	noCommand?: Command<string>;
-};
+export type CommandFn<TCommandArguments> = (ctx: {
+	args: TCommandArguments;
+}) => void;
+
+export type ValueOf<T> = T[keyof T];
+export type ParseArgsOptionConfig = ValueOf<Exclude<ParseArgsConfig["options"], undefined>>;
+
+type UnUnion<T, S> = T extends S ? ([S] extends [T] ? T : never) : never;
+type NotUnion<T> = UnUnion<T, T>;
+export type LiteralString<T extends string> = string extends T ? never : NotUnion<T>;
