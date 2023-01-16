@@ -31,7 +31,7 @@
   ],
   "scripts": {
     "build": "scripts build --name lit-q ./lib/index.ts -e lit",
-    "test": "scripts test run"
+    "test": "vitest run"
   },
   "devDependencies": {
     "lit": "^2.6.1",
