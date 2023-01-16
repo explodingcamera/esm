@@ -13,14 +13,17 @@ export type CommandArgs<TCommandArgs extends Record<string, CommandArgOptions | 
 	[key in keyof TCommandArgs]: CommandArgOptions | true;
 };
 
-export type BaseCommand<TCommandArguments> = {
-	run: CommandFn<TCommandArguments>;
+export type BaseCommand<TCommandArguments extends CommandArgs> = {
 	description?: string | undefined;
+	run?: CommandFn<TCommandArguments>;
 	args?: TCommandArguments | undefined;
 };
 
 export type CommandLike = Command<CommandArgs, string>;
-export type Command<TCommandArguments, TCommandName extends string> = BaseCommand<TCommandArguments> & {
+export type Command<
+	TCommandArguments extends CommandArgs = CommandArgs,
+	TCommandName extends string = string,
+> = BaseCommand<TCommandArguments> & {
 	name: TCommandName;
 };
 
@@ -46,9 +49,11 @@ export type AddCommand<
 	[key in TCommand["name"]]: TCommand;
 };
 
-export type CommandFn<TCommandArguments> = (ctx: {
+type CommandContextBody<TCommandArguments extends CommandArgs> = {
 	args: TCommandArguments;
-}) => void;
+};
+export type CommandFn<TCommandArguments extends CommandArgs> = (ctx: CommandContextBody<TCommandArguments>) => void;
+export type CommandContext<T> = T extends Command<infer TArgs, string> ? CommandContextBody<TArgs> : never;
 
 export type ValueOf<T> = T[keyof T];
 export type ParseArgsOptionConfig = ValueOf<Exclude<ParseArgsConfig["options"], undefined>>;
