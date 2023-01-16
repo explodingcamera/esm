@@ -1,5 +1,5 @@
 import { html, LitElement } from "lit";
-import { customElement } from "lit/decorators";
+import { customElement } from "lit/decorators.js";
 import { test } from "vitest";
 import { Mutation, Query } from ".";
 
