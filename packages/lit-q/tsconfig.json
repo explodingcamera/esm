@@ -1,7 +1,9 @@
 {
   "compilerOptions": {
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "experimentalDecorators": true,
-    "lib": ["ESNext", "dom"]
+    "useDefineForClassFields": false,
+    "importsNotUsedAsValues": "preserve"
   },
   "extends": "../../configs/tsconfig.base.json"
 }

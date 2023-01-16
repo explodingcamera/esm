@@ -1,11 +1,10 @@
 import type { ReactiveController, ReactiveControllerHost } from "lit";
-import { state } from "lit/decorators.js";
 
 export type LitQContext = {
 	signal?: AbortSignal | undefined;
 };
 
-const abortControllerAvailable = typeof AbortController !== "undefined";
+const abortControllerAvailable = typeof fetch !== "undefined" && typeof AbortController === "undefined";
 
 type RemoveFirstFromTuple<T extends any[]> = ((...args: T) => void) extends (_: any, ...args: infer R) => void
 	? R
@@ -20,22 +19,60 @@ export class Mutation<
 	) => Promise<TResponse>,
 > implements ReactiveController
 {
-	host: ReactiveControllerHost;
+	#host: ReactiveControllerHost;
 
 	#name: string;
 	#fetcher: TFetcher;
-	abortController = abortControllerAvailable ? new AbortController() : undefined;
+	abortController;
 
-	@state() loading = false;
-	@state() error?: Error | TError | undefined;
-	@state() data?: TResponse | undefined;
-	@state() statusCode?: number | undefined;
+	#loading = false;
+	#error?: Error | TError | undefined;
+	#data?: TResponse | undefined;
+	#statusCode?: number | undefined;
+
+	set loading(value: boolean) {
+		this.#loading = value;
+		this.#host.requestUpdate();
+	}
+
+	get loading() {
+		return this.#loading;
+	}
+
+	set error(value: Error | TError | undefined) {
+		this.#error = value;
+		this.#host.requestUpdate();
+	}
+
+	get error() {
+		return this.#error;
+	}
+
+	set data(value: TResponse | undefined) {
+		this.#data = value;
+		this.#host.requestUpdate();
+	}
+
+	get data() {
+		return this.#data;
+	}
+
+	set statusCode(value: number | undefined) {
+		this.#statusCode = value;
+		this.#host.requestUpdate();
+	}
+
+	get statusCode() {
+		return this.#statusCode;
+	}
 
 	constructor(host: ReactiveControllerHost, name: string, fetcher: TFetcher) {
-		(this.host = host).addController(this);
+		(this.#host = host).addController(this);
 
 		this.#name = name;
 		this.#fetcher = fetcher;
+
+		if (abortControllerAvailable) this.abortController = new AbortController();
 	}
 
 	hostConnected() {}

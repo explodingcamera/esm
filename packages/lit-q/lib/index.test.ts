@@ -1,15 +1,25 @@
 import { html, LitElement } from "lit";
 import { customElement } from "lit/decorators.js";
-import { test } from "vitest";
+import { expect, test, vi } from "vitest";
 import { Mutation, Query } from ".";
+
+const fetchMock = vi.fn((_url: string, _options?: RequestInit) => {
+	return Promise.resolve({
+		json: () =>
+			Promise.resolve({
+				foo: "bar",
+			}),
+	});
+});
 
 test("Mutation", async () => {
 	@customElement("example-element")
 	class ExampleElement extends LitElement {
-		myQuery = new Query(this, "my-query", () => fetch("https://example.com"));
-		myMutation = new Mutation(this, "my-mutation", (ctx, x: number) =>
-			fetch(`https://example.com/${x}`, { method: "POST", signal: ctx.signal }),
-		);
+		myQuery = new Query(this, "my-query", () => fetchMock("https://example.com/"));
+		myMutation = new Mutation(this, "my-mutation", (ctx, x: number) => {
+			expect(x).toBe(10);
+			return fetchMock(`https://example.com/${x}`, { method: "POST", signal: ctx.signal });
+		});
 		override render() {
 			return html`
 			<h1>My Query</h1>
@@ -29,10 +39,18 @@ test("Mutation", async () => {
 			</p>
 			`;
 		}
-
 		handleClick() {
 			// typesafe arguments based on the type of the fetcher function :)
 			this.myMutation.run(10);
 		}
 	}
+
+	const el = new ExampleElement();
+	document.body.appendChild(el);
+	await el.myMutation.run(10);
+
+	expect(el.myQuery.data).toBeDefined();
+	expect(el.myMutation.data).toBeDefined();
+
+	document.body.removeChild(el);
 });
