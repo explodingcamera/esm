@@ -1,5 +1,11 @@
 # ucmd
 
+## 0.2.0
+
+### Minor Changes
+
+- [`63e65e9`](https://github.com/explodingcamera/esm/commit/63e65e9d54fa435c73ce7159c74c9098fd0d8d01) Thanks [@explodingcamera](https://github.com/explodingcamera)! - improve command api - commands can now be created using createCommand and command context infered using Context<T extends Command> for more modular projects.
+
 ## 0.1.0
 
 ### Minor Changes

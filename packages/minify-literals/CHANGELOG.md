@@ -1,5 +1,11 @@
 # minify-literals
 
+## 0.2.1
+
+### Patch Changes
+
+- [`135ceba`](https://github.com/explodingcamera/esm/commit/135cebae5020bb17694600792785eddb4e5e3bab) Thanks [@explodingcamera](https://github.com/explodingcamera)! - fix html/css comments & template literals as property names
+
 ## 0.2.0
 
 ### Minor Changes

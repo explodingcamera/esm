@@ -1,5 +1,11 @@
 # lit-q
 
+## 0.3.0
+
+### Minor Changes
+
+- [`cb01385`](https://github.com/explodingcamera/esm/commit/cb01385f2fd79dca2e6b45a7bdb0f052e692cb1d) Thanks [@explodingcamera](https://github.com/explodingcamera)! - add fetcher context & abort signal support
+
 ## 0.2.0
 
 ### Minor Changes
