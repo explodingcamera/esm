@@ -325,6 +325,7 @@ export async function minifyHTMLLiterals(source: string, options: Options = {}):
 	await Promise.all(promises);
 
 	const sourceMin = ms.toString();
+
 	if (source === sourceMin) return null;
 
 	let map: SourceMap | undefined;

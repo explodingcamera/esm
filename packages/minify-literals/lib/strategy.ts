@@ -110,6 +110,13 @@ export const defaultStrategy: Strategy<HTMLOptions, CleanCSS.Options> = {
 	async minifyHTML(html, options = {}) {
 		let minifyCSSOptions: HTMLOptions["minifyCSS"];
 
+		if (html.match(/<!--(.*?)@TEMPLATE_EXPRESSION\(\);(.*?)-->/g)) {
+			console.warn(
+				"minify-html-literals:: HTML minification is not supported for template expressions inside comments. Minification for this file will be skipped.",
+			);
+			return html;
+		}
+
 		html = html.replaceAll("<@TEMPLATE_EXPRESSION();", "<TEMPLATE_EXPRESSION___");
 		html = html.replaceAll("</@TEMPLATE_EXPRESSION();", "</TEMPLATE_EXPRESSION___");
 
@@ -163,14 +170,25 @@ export const defaultStrategy: Strategy<HTMLOptions, CleanCSS.Options> = {
 	async minifyCSS(css, options = {}) {
 		const adjustedOptions = adjustMinifyCSSOptions(options);
 
+		css = css.replaceAll(/@TEMPLATE_EXPRESSION\(\);:/g, "@TEMPLATE_EXPRESSION():");
 		const output = await new CleanCSS({
 			...adjustedOptions,
 			returnPromise: true,
 		}).minify(css);
 
 		if (output.errors?.length) throw new Error(output.errors.join("\n\n"));
-		output.styles = fixCleanCssTidySelectors(css, output.styles);
 
+		// If there are warnings, return the unminified CSS.
+		// CleanCSS can sometimes struggle with our preprocessed CSS due to the replaced template expressions.
+		if (output.warnings?.length) console.log(css, output.styles);
+		if (output.warnings.length) {
+			console.warn(output.warnings.join("\n\n"));
+			console.warn("minify-html-literals: warnings during CSS minification, file was skipped. See above for details.");
+			return css.replace(/(\n)|(\r)/g, "");
+		}
+
+		css = css.replaceAll(/@TEMPLATE_EXPRESSION\(\);:/g, "@TEMPLATE_EXPRESSION():");
+		output.styles = fixCleanCssTidySelectors(css, output.styles);
 		return output.styles;
 	},
 	splitHTMLByPlaceholder(html, placeholder) {

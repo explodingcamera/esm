@@ -13,8 +13,15 @@ import {
 } from "./";
 import { defaultMinifyOptions, defaultStrategy } from "./strategy";
 
+// https://github.com/explodingcamera/esm/issues/1
+describe("handle key value pairs correctly", () => {
+	it("should minify html", async () => {
+		const source = `const css = css\`:host{\${"color"}: \${"red"}}\``;
+		expect((await minifyHTMLLiterals(source))?.code).toMatchInlineSnapshot("undefined");
+	});
+});
+
 // Comments https://github.com/asyncLiz/minify-html-literals/issues/49
-// no fix is planned for this, should be easy enough just not to use comments in template literals
 describe("handle comments correctly", () => {
 	it("should remove comments", async () => {
 		const source = `const el = html\`<div><!-- comment --></div>\``;
@@ -22,22 +29,20 @@ describe("handle comments correctly", () => {
 		expect((await minifyHTMLLiterals(source))?.code).toBe(expected);
 	});
 
-	it.skip("works with templates inside of html comments", async () => {
+	it("templates inside of html comments are not minified", async () => {
 		const source = `const el = html\`<div><!-- \${console.log(1)} --></div>\``;
-		const expected = `const el = html\`<div></div>\``;
-		expect((await minifyHTMLLiterals(source))?.code).toBe(expected);
+		expect(await minifyHTMLLiterals(source)).toBe(null);
 	});
 
-	it.skip("works with templates inside of js comments", async () => {
+	it("comments inside of literals are not removed", async () => {
 		const source = `const el = html\`<div>\${/*console.log(1)*/}</div>\``;
-		const expected = `const el = html\`<div></div>\``;
-		expect((await minifyHTMLLiterals(source))?.code).toBe(expected);
+		expect(await minifyHTMLLiterals(source)).toBe(null);
 	});
 });
 
 // https://github.com/asyncLiz/minify-html-literals/issues/46
-// currently, we skip the entire file if we find a template literal that is not tagged with html or css
-// instead, we should just skip the template literal (but we need to update parse-literals for that)
+// currently, we skip the entire file if we find a template literal that uses unsafeCSS / unsafeHTML.
+// instead, we should ideally just skip the template literal (but we need to update parse-literals for that)
 describe("don't minify code with unsafeCSS / unsafeHTML", () => {
 	it("should not remove styles from dynamically inserted selectors", async () => {
 		const source = `
