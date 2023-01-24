@@ -20,7 +20,7 @@ importers:
     specifiers:
       jsdom: ^21.1.0
       lit: ^2.6.1
-      scripts: workspace:0.0.0
+      scripts: workspace:0.0.1
       vite: ^4.0.4
       vitest: ^0.28.1
     devDependencies:
