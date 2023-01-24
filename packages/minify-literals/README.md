@@ -1,4 +1,4 @@
-# minify-literals
+# minify-literals [![API Docs](https://img.shields.io/badge/API%20Docs-blue.svg)](https://paka.dev/npm/minify-literals)
 
 > Minify HTML & CSS markup inside JavaScript/TypeScript template literal strings.
 
@@ -46,14 +46,15 @@ export interface Options {
    */
   minifyOptions?: Partial<minify.Options>;
 
-	/**
-	 * Override the default strategy for how to minify HTML.
+  /**
+   * Override the default strategy for how to minify HTML.
    * More info:
    *  https://github.com/explodingcamera/esm/blob/main/packages/minify-literals/lib/strategy.ts
    *
    * @optional
-	 */
-	strategy: S;
+   */
+  strategy: S;
+}
 ```
 
 ## Credits

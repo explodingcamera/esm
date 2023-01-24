@@ -1,5 +1,5 @@
 import { parseArgs } from "node:util";
-import type { CommandArg } from "../types/types";
+
 import type {
 	AddCommand,
 	Command,
@@ -10,7 +10,7 @@ import type {
 	LiteralString,
 	ucmdState,
 } from "./types";
-import { generateOptions, toCommandArgs } from "./utils";
+import { generateOptions, toCommandArgs, CommandArg } from "./utils";
 
 const defaultState: ucmdState<{}> = {
 	name: "",

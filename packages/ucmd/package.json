@@ -19,14 +19,14 @@
   },
   "main": "dist/ucmd.jsc",
   "module": "dist/ucmd.js",
-  "types": "types/index/index.d.ts",
+  "types": "types/index.d.ts",
   "scripts": {
     "build": "scripts build --name ucmd --external node:util ./lib/index.ts",
     "test": "scripts test run"
   },
   "devDependencies": {
     "scripts": "workspace:*",
-    "vitest": "^0.27.2"
+    "vitest": "^0.28.1"
   },
   "engines": {
     "node": ">=19.0.0"

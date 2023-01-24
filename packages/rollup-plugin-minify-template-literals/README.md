@@ -1,4 +1,4 @@
-# rollup-plugin-minify-template-literals
+# rollup-plugin-minify-template-literals [![API Docs](https://img.shields.io/badge/API%20Docs-blue.svg)](https://paka.dev/npm/rollup-plugin-minify-template-literals)
 
 > Minify HTML & CSS markup inside JavaScript/TypeScript template literal strings - for vite and rollup.
 

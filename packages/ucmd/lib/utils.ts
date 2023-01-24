@@ -1,6 +1,6 @@
 import type { CommandArgOptions, ParseArgsOptionConfig } from "./types";
 
-type CommandArg = string | [string, CommandArgOptions] | (CommandArgOptions & { name: string });
+export type CommandArg = string | [string, CommandArgOptions] | (CommandArgOptions & { name: string });
 
 export const toCommandArgs = (args: Record<string, CommandArgOptions | true> | CommandArg[]): CommandArg[] => {
 	if (Array.isArray(args)) return args;
