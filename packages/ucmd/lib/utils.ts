@@ -1,43 +1,47 @@
-import type { CommandArgOptions, ParseArgsOptionConfig } from "./types";
+import type { CommandArgOptions, CommandArgs, ParseArgsOptionConfig } from "./types";
 
-export type CommandArg = string | [string, CommandArgOptions] | (CommandArgOptions & { name: string });
+export type NormalizedCommandArg = CommandArgOptions & { name: string };
 
-export const toCommandArgs = (args: Record<string, CommandArgOptions | true> | CommandArg[]): CommandArg[] => {
+export const normalizeCommandArgs = (args: CommandArgs | NormalizedCommandArg[]): NormalizedCommandArg[] => {
 	if (Array.isArray(args)) return args;
 
-	return Object.entries(args).map(([name, options]) => {
-		if (typeof options === "boolean") return name;
-		return {
-			name,
-			...options,
-		};
-	});
+	return Object.entries(args)
+		.map(([name, options]) => {
+			if (options === false) return undefined;
+			if (options === undefined || options === true) return { name };
+			if (options === null || typeof options !== "object") throw new Error(`Invalid command arg options for ${name}`);
+			let opts: CommandArgOptions = options;
+			return <NormalizedCommandArg>{
+				name,
+				...opts,
+			};
+		})
+		.filter((arg) => arg !== undefined) as NormalizedCommandArg[];
 };
 
-export const generateOptions = (options: CommandArg[]): Record<string, ParseArgsOptionConfig> => {
-	let opts = options.map((option) => {
-		if (typeof option === "string")
-			return {
-				[option]: toParseArgOptions({}),
-			};
+export const toParseArgOptions = (options: NormalizedCommandArg[]): Record<string, ParseArgsOptionConfig> =>
+	Object.assign(
+		{},
+		...options.map((option) => ({
+			[option.name]: toParseArgOption(option),
+		})),
+	);
 
-		if (Array.isArray(option))
-			return {
-				[option[0]]: toParseArgOptions(option[1]),
-			};
-
-		return {
-			[option.name]: toParseArgOptions(option),
-		};
-	});
-
-	return Object.assign({}, ...opts);
-};
-
-const toParseArgOptions = (options: CommandArgOptions): ParseArgsOptionConfig => {
-	return {
-		type: "string",
-		default: options.default,
-		short: options.short,
+const toParseArgOption = (options: CommandArgOptions): ParseArgsOptionConfig => {
+	let opt = <ParseArgsOptionConfig>{
+		type: "boolean",
 	};
+
+	if (options.default !== undefined) opt.default = options.default;
+	if (options.type !== undefined) {
+		if (options.type === "number") {
+			opt.type = "string";
+		} else {
+			opt.type = options.type;
+		}
+	}
+	if (options.short !== undefined) opt.short = options.short;
+	if (options.multiple !== undefined) opt.multiple = options.multiple;
+
+	return opt;
 };

@@ -2,6 +2,61 @@ import { describe, expect, test } from "vitest";
 import { createCommand, ucmd } from ".";
 import type { CommandContext, Command } from ".";
 
+describe("parse commands", () => {
+	test("ucmd", () => {
+		let x = ucmd("example")
+			.withBaseCommand({
+				args: {
+					foo: true,
+					bar: false,
+				},
+			})
+			.withCommand({
+				name: "build",
+				args: {
+					test: {
+						type: "string",
+						default: "test",
+					},
+					foo: true,
+					bar: false,
+				},
+			});
+
+		expect(x.parse(["build", "test1", "--foo", "--test", "test", "test2"])).toMatchInlineSnapshot(`
+			{
+			  "res": {
+			    "positionals": [
+			      "test1",
+			      "test2",
+			    ],
+			    "values": {
+			      "foo": true,
+			      "test": "test",
+			    },
+			  },
+			  "run": [Function],
+			}
+		`);
+
+		expect(x.parse(["test1", "--foo", "test", "test2"])).toMatchInlineSnapshot(`
+			{
+			  "res": {
+			    "positionals": [
+			      "test1",
+			      "test",
+			      "test2",
+			    ],
+			    "values": {
+			      "foo": true,
+			    },
+			  },
+			  "run": [Function],
+			}
+		`);
+	});
+});
+
 describe("basic api", () => {
 	test("ucmd", () => {
 		let x = ucmd("example");
@@ -39,7 +94,8 @@ describe("basic api", () => {
 			name: "build",
 			args: {
 				foo: true,
-				bar: false,
+				bar: {},
+				baz: false,
 			},
 		});
 
@@ -48,7 +104,8 @@ describe("basic api", () => {
 			name: "build",
 			args: {
 				foo: true,
-				bar: false,
+				bar: {},
+				baz: false,
 			},
 		};
 

@@ -9,14 +9,14 @@ export type CommandArgOptions = {
 	multiple?: boolean | undefined;
 };
 
-export type CommandArgs<TCommandArgs extends Record<string, CommandArgOptions | true> = {}> = {
-	[key in keyof TCommandArgs]: CommandArgOptions | true;
+export type CommandArgs<TCommandArgs extends Record<string, CommandArgOptions | boolean> = {}> = {
+	[key in keyof TCommandArgs]: CommandArgOptions | boolean;
 };
 
 export type BaseCommand<TCommandArguments extends CommandArgs> = {
 	description?: string | undefined;
 	run?: CommandFn<TCommandArguments>;
-	args?: TCommandArguments | undefined;
+	args?: Record<string, CommandArgOptions | boolean> | TCommandArguments;
 };
 
 export type CommandLike = Command<CommandArgs, string>;

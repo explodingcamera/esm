@@ -2,6 +2,7 @@ import { parseArgs } from "node:util";
 
 import type {
 	AddCommand,
+	BaseCommand,
 	Command,
 	CommandArgs,
 	CommandContext,
@@ -10,7 +11,7 @@ import type {
 	LiteralString,
 	ucmdState,
 } from "./types";
-import { generateOptions, toCommandArgs, CommandArg } from "./utils";
+import { normalizeCommandArgs, NormalizedCommandArg, toParseArgOptions } from "./utils";
 
 const defaultState: ucmdState<{}> = {
 	name: "",
@@ -43,8 +44,8 @@ class UCMD<TCommands extends CommandsLike, TBaseCommand> {
 	>(
 		command:
 			| LiteralString<TNewCommandName>
-			| Partial<Command<TNewCommandArgs, LiteralString<TNewCommandName>>>
-			| Command<TNewCommandArgs, LiteralString<TNewCommandName>>,
+			| Command<TNewCommandArgs, LiteralString<TNewCommandName>>
+			| Partial<Command<TNewCommandArgs, LiteralString<TNewCommandName>>>,
 		run?: CommandFn<TNewCommandArgs extends infer T ? T : never>,
 	): UCMD<TUpdatedCommands, TBaseCommand> {
 		let newCMD = createCommand(command, run);
@@ -52,7 +53,10 @@ class UCMD<TCommands extends CommandsLike, TBaseCommand> {
 		return this as unknown as UCMD<TUpdatedCommands, TBaseCommand>;
 	}
 
-	withBaseCommand<TNewBaseCommand extends Command<CommandArgs, string>>(): UCMD<TCommands, TNewBaseCommand> {
+	withBaseCommand<TNewBaseCommand extends BaseCommand<CommandArgs>>(
+		baseCommand: TNewBaseCommand,
+	): UCMD<TCommands, TNewBaseCommand> {
+		(this.#state as unknown as { baseCommand: TNewBaseCommand }).baseCommand = baseCommand;
 		return this as unknown as UCMD<TCommands, TNewBaseCommand>;
 	}
 
@@ -61,34 +65,32 @@ class UCMD<TCommands extends CommandsLike, TBaseCommand> {
 
 		let run: CommandFn<{}> = defaultCommand;
 		let commandArgs = args || process.argv.slice(2);
-		let command: string | undefined = undefined;
-		let options: CommandArg[] = [];
+		let command: string | undefined = commandArgs[0];
+		let options: NormalizedCommandArg[] = [];
 
 		// Get the command
-		if (commandArgs[0] && !commandArgs[0].startsWith("-")) {
-			command = commandArgs[0];
+		if (command && !command.startsWith("-") && this.#state.commands[command]) {
 			commandArgs = commandArgs.slice(1);
 
-			if (!this.#state.commands[command]) return console.log("Command not found. Try --help");
 			run = this.#state.commands[command]?.run ?? defaultCommand;
-			options = toCommandArgs(this.#state.commands?.[command]?.args || []);
+			options = normalizeCommandArgs(this.#state.commands?.[command]?.args || []);
 		}
 
 		// If no command is specified, run the baseCommand
-		else if (!command) {
+		else {
 			if (!this.#state.baseCommand) {
 				console.log("No command specified");
 				return;
 			}
 
 			run = this.#state.baseCommand.run ?? defaultCommand;
-			options = toCommandArgs(this.#state.baseCommand.args || []);
-			return;
+			options = normalizeCommandArgs(this.#state.baseCommand.args || []);
 		}
 
 		let res = parseArgs({
 			args: commandArgs,
-			options: generateOptions(options),
+			allowPositionals: true,
+			options: toParseArgOptions(options),
 		});
 
 		return { res, run };
@@ -103,7 +105,6 @@ class UCMD<TCommands extends CommandsLike, TBaseCommand> {
 }
 
 export const ucmd = <T extends string>(name: T) => {
-	console.log(name);
 	return new UCMD().withName(name);
 };
 
