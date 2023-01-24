@@ -1,6 +1,6 @@
 {
   "name": "ucmd",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "µCMD is a minimal and strictly typed argument parsing library for node.js",
   "keywords": [
     "cli",
