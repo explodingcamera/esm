@@ -1,5 +1,11 @@
 # minify-literals
 
+## 0.2.3
+
+### Patch Changes
+
+- [`7d31d3a`](https://github.com/explodingcamera/esm/commit/7d31d3aa301e519209c8019d9675434a1a011f03) Thanks [@explodingcamera](https://github.com/explodingcamera)! - fix issues with kv-pairs
+
 ## 0.2.2
 
 ### Patch Changes
