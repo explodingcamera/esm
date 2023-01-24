@@ -112,7 +112,7 @@ export const defaultStrategy: Strategy<HTMLOptions, CleanCSS.Options> = {
 
 		if (html.match(/<!--(.*?)@TEMPLATE_EXPRESSION\(\);(.*?)-->/g)) {
 			console.warn(
-				"minify-html-literals:: HTML minification is not supported for template expressions inside comments. Minification for this file will be skipped.",
+				"minify-html-literals: HTML minification is not supported for template expressions inside comments. Minification for this file will be skipped.",
 			);
 			return html;
 		}
@@ -170,7 +170,7 @@ export const defaultStrategy: Strategy<HTMLOptions, CleanCSS.Options> = {
 	async minifyCSS(css, options = {}) {
 		const adjustedOptions = adjustMinifyCSSOptions(options);
 
-		css = css.replaceAll(/@TEMPLATE_EXPRESSION\(\);:/g, "@TEMPLATE_EXPRESSION():");
+		css = css.replaceAll(/@TEMPLATE_EXPRESSION\(\);:/g, "--TEMPLATE-EXPRESSION:");
 		const output = await new CleanCSS({
 			...adjustedOptions,
 			returnPromise: true,
@@ -187,7 +187,7 @@ export const defaultStrategy: Strategy<HTMLOptions, CleanCSS.Options> = {
 			return css.replace(/(\n)|(\r)/g, "");
 		}
 
-		css = css.replaceAll(/@TEMPLATE_EXPRESSION\(\);:/g, "@TEMPLATE_EXPRESSION():");
+		output.styles = output.styles.replaceAll("--TEMPLATE-EXPRESSION:", "@TEMPLATE_EXPRESSION();:");
 		output.styles = fixCleanCssTidySelectors(css, output.styles);
 		return output.styles;
 	},

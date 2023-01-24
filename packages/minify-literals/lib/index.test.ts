@@ -1,4 +1,4 @@
-import { afterEach, beforeEach, describe, expect, it, test } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, test, vi } from "vitest";
 
 import MagicString, { SourceMapOptions } from "magic-string";
 import { ParseLiteralsOptions, Template, TemplatePart, parseLiterals } from "parse-literals";
@@ -13,11 +13,21 @@ import {
 } from "./";
 import { defaultMinifyOptions, defaultStrategy } from "./strategy";
 
+const consoleMock = {
+	log: vi.fn(),
+	warn: vi.fn(),
+	error: vi.fn(),
+};
+
+vi.stubGlobal("console", consoleMock);
+
 // https://github.com/explodingcamera/esm/issues/1
 describe("handle key value pairs correctly", () => {
 	it("should minify html", async () => {
 		const source = `const css = css\`:host{\${"color"}: \${"red"}}\``;
-		expect((await minifyHTMLLiterals(source))?.code).toMatchInlineSnapshot("undefined");
+		expect((await minifyHTMLLiterals(source))?.code).toMatchInlineSnapshot(
+			'"const css = css`:host{${\\"color\\"}:${\\"red\\"}}`"',
+		);
 	});
 });
 
@@ -30,8 +40,10 @@ describe("handle comments correctly", () => {
 	});
 
 	it("templates inside of html comments are not minified", async () => {
+		const spy = vi.spyOn(console, "warn");
 		const source = `const el = html\`<div><!-- \${console.log(1)} --></div>\``;
 		expect(await minifyHTMLLiterals(source)).toBe(null);
+		expect(spy).toHaveBeenCalledTimes(1);
 	});
 
 	it("comments inside of literals are not removed", async () => {
@@ -57,7 +69,9 @@ describe("don't minify code with unsafeCSS / unsafeHTML", () => {
 			\`
 		`.trim();
 
+		const spy = vi.spyOn(console, "warn");
 		expect(await minifyHTMLLiterals(source)).toBe(null);
+		expect(spy).toHaveBeenCalledTimes(1);
 	});
 });
 
