@@ -99,15 +99,14 @@ describe("basic api", () => {
 			},
 		});
 
-		// NOTE: this won't give us type inference for the args, createCommand is the preferred way to create commands due to the infere keyword only supporting function arguments
-		let twoCmdDirect: Command = {
+		let twoCmdDirect = {
 			name: "build",
 			args: {
 				foo: true,
 				bar: {},
 				baz: false,
 			},
-		};
+		} satisfies Command;
 
 		expect(twoCmd).toEqual(twoCmdDirect);
 

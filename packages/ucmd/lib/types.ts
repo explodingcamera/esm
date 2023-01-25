@@ -2,7 +2,7 @@ import type { ParseArgsConfig } from "node:util";
 
 export type CommandArgOptions = {
 	description?: string | undefined;
-	optional?: boolean | undefined;
+	required?: boolean | undefined;
 	default?: string | undefined;
 	short?: string | undefined;
 	type?: "string" | "number" | "boolean" | undefined;
@@ -50,8 +50,29 @@ export type AddCommand<
 };
 
 type CommandContextBody<TCommandArguments extends CommandArgs> = {
-	args: TCommandArguments;
+	positionals: string[];
+	args: CommandArgValues<TCommandArguments>;
 };
+
+type GetCommandArgType<TCommandArgOptions extends CommandArgOptions,> = (TCommandArgOptions["type"] extends
+	| "string"
+	| undefined
+	? string
+	: TCommandArgOptions["type"] extends "number"
+	? number
+	: TCommandArgOptions["type"] extends "boolean"
+	? boolean
+	: string) &
+	(TCommandArgOptions["required"] extends true ? undefined : never);
+
+export type CommandArgValues<TCommandArguments extends CommandArgs> = {
+	[key in keyof TCommandArguments]: TCommandArguments[key] extends CommandArgOptions
+		? TCommandArguments[key]["multiple"] extends true
+			? GetCommandArgType<TCommandArguments[key]>[]
+			: GetCommandArgType<TCommandArguments[key]>
+		: never;
+};
+
 export type CommandFn<TCommandArguments extends CommandArgs> = (ctx: CommandContextBody<TCommandArguments>) => void;
 export type CommandContext<T> = T extends Command<infer TArgs, string> ? CommandContextBody<TArgs> : never;
 

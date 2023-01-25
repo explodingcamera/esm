@@ -18,27 +18,28 @@
   "type": "module",
   "exports": {
     ".": {
-      "require": "./dist/lit-q.cjs",
-      "import": "./dist/lit-q.js"
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "types": "./dist/index.d.ts"
     }
   },
-  "main": "dist/lit-q.cjs",
-  "module": "dist/lit-q.js",
-  "types": "types/index.d.ts",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
   "files": [
-    "dist",
-    "types"
+    "dist"
   ],
   "scripts": {
-    "build": "scripts build --name lit-q ./lib/index.ts -e lit",
-    "test": "vitest run"
+    "build": "scripts build --name lit-q",
+    "test": "scripts test run"
   },
   "devDependencies": {
+    "@types/node": "^18.11.18",
     "jsdom": "^21.1.0",
     "lit": "^2.6.1",
     "scripts": "workspace:0.0.1",
     "vite": "^4.0.4",
-    "vitest": "^0.28.1"
+    "vitest": "^0.28.2"
   },
   "peerDependencies": {
     "lit": "^2.5.0"

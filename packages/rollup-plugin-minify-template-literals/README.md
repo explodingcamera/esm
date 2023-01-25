@@ -2,12 +2,28 @@
 
 > Minify HTML & CSS markup inside JavaScript/TypeScript template literal strings - for vite and rollup.
 
+## Installation
+
+```bash
+$ npm i rollup-plugin-minify-template-literals
+# or
+$ yarn add rollup-plugin-minify-template-literals
+# or
+$ pnpm add rollup-plugin-minify-template-literals
+```
+
 ## Usage
 
 ### Vite
 
+<table>
+<tr>
+<td> vite.config.ts </td>
+</tr>
+<tr>
+<td>
+
 ```ts
-// vite.config.ts
 import { defineConfig } from "vite";
 import { minifyTemplateLiterals } from "rollup-plugin-minify-template-literals";
 
@@ -16,16 +32,30 @@ export default defineConfig({
 });
 ```
 
+</td>
+</tr>
+</table>
+
 ### Rollup
 
+<table>
+<tr>
+<td> rollup.config.js </td>
+</tr>
+<tr>
+<td>
+
 ```ts
-// rollup.config.js
 import { minifyTemplateLiterals } from "rollup-plugin-minify-template-literals";
 
 export default {
   plugins: [minifyTemplateLiterals()],
 };
 ```
+
+</td>
+</tr>
+</table>
 
 ## ES5 Support
 

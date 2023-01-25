@@ -22,6 +22,7 @@
     "importsNotUsedAsValues": "error",
     "outDir": "dist"
   },
+  "exclude": ["dist/*"],
   "ts-node": {
     "transpileOnly": true
   }

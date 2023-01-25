@@ -2,16 +2,48 @@
 
 > minimal and strictly typed argument parsing for node.js 19+
 
-## Install
+## Installation
 
 ```bash
-npm i ucmd
+$ npm i ucmd
+# or
+$ yarn add ucmd
+# or
+$ pnpm add ucmd
 ```
 
 ## Usage
 
-```ts
-import { ucmd } from "ucmd";
+<table>
+<tr>
+<td> TypeScript </td>
+</tr>
+<tr>
+<td>
 
-ucmd("example").command("hello", "say hello");
+```ts
+import { ucmd, Command } from "ucmd";
+
+const buildCommand = {
+  name: "build",
+  run: (ctx) => console.log(ctx.args, ctx.positionals),
+  args: {
+    config: {
+      type: "string",
+      short: "c",
+    },
+  },
+} satisfies Command;
+
+ucmd("scripts")
+  .withCommand({
+    name: "test",
+    run: (ctx) => console.log(ctx.args, ctx.positionals),
+  })
+  .withCommand(buildCommand)
+  .run();
 ```
+
+</td>
+</tr>
+</table>

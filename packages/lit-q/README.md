@@ -1,6 +1,25 @@
 # Lit-q [![API Docs](https://img.shields.io/badge/API%20Docs-blue.svg)](https://paka.dev/npm/lit-q)
 
+> A simple query and mutation library for lit-element
+
+## Installation
+
+```bash
+$ npm i lit-q
+# or
+$ yarn add lit-q
+# or
+$ pnpm add lit-q
+```
+
 ## Usage
+
+<table>
+<tr>
+<td> TypeScript </td>
+</tr>
+<tr>
+<td>
 
 ```ts
 import { html, LitElement } from "lit";
@@ -36,3 +55,7 @@ export class MyElement extends LitElement {
     `;
 }
 ```
+
+</td>
+</tr>
+</table>

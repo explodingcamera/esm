@@ -4,7 +4,24 @@
 
 Uses [html-minifier-terser](https://www.npmjs.com/package/html-minifier-terser) to minify HTML and [clean-css](https://www.npmjs.com/package/clean-css) to minify CSS.
 
+## Installation
+
+```bash
+$ npm i minify-literals
+# or
+$ yarn add minify-literals
+# or
+$ pnpm add minify-literals
+```
+
 ## Usage
+
+<table>
+<tr>
+<td> TypeScript </td>
+</tr>
+<tr>
+<td>
 
 ```ts
 import { minifyHTMLLiterals } from "minify-literals";
@@ -35,6 +52,10 @@ console.log(map);
 //   "version": 3,
 // },
 ```
+
+</td>
+</tr>
+</table>
 
 ## Options
 

@@ -8,7 +8,6 @@ import type {
 	CommandContext,
 	CommandFn,
 	CommandsLike,
-	LiteralString,
 	ucmdState,
 } from "./types";
 import { normalizeCommandArgs, NormalizedCommandArg, toParseArgOptions } from "./utils";
@@ -43,12 +42,13 @@ class UCMD<TCommands extends CommandsLike, TBaseCommand> {
 		TUpdatedCommands extends AddCommand<TCommands, TNewCommandArgs, TNewCommandName, TNewCommand>,
 	>(
 		command:
-			| LiteralString<TNewCommandName>
-			| Command<TNewCommandArgs, LiteralString<TNewCommandName>>
-			| Partial<Command<TNewCommandArgs, LiteralString<TNewCommandName>>>,
+			| TNewCommandName
+			| Command<TNewCommandArgs, TNewCommandName>
+			| Partial<Command<TNewCommandArgs, TNewCommandName>>,
 		run?: CommandFn<TNewCommandArgs extends infer T ? T : never>,
 	): UCMD<TUpdatedCommands, TBaseCommand> {
 		let newCMD = createCommand(command, run);
+
 		Object.assign(this.#state.commands, { [newCMD.name]: newCMD });
 		return this as unknown as UCMD<TUpdatedCommands, TBaseCommand>;
 	}
@@ -100,25 +100,25 @@ class UCMD<TCommands extends CommandsLike, TBaseCommand> {
 		let parsedArgs = this.parse(args);
 		if (parseArgs === undefined) return;
 		const { res, run } = parsedArgs!;
-		run({ args: res.values as Record<string, string> });
+		run({ args: res.values, positionals: res.positionals });
 	}
 }
 
-export const ucmd = <T extends string>(name: T) => {
-	return new UCMD().withName(name);
+export const ucmd = <T extends string>(name?: T) => {
+	if (name) return new UCMD().withName(name);
+	return new UCMD();
 };
 
 export const createCommand = <TCommandArgs extends CommandArgs, TCommandName extends string>(
-	command: LiteralString<TCommandName> | Partial<Command<TCommandArgs, LiteralString<TCommandName>>>,
+	command: TCommandName | Partial<Command<TCommandArgs, TCommandName>>,
 	run?: CommandFn<TCommandArgs extends infer T ? T : never>,
 ): Command<TCommandArgs, TCommandName> => {
 	let newCMD = typeof command === "string" ? <Command<TCommandArgs, TCommandName>>{ name: command as string } : command;
-	let runfn = typeof run === "undefined" ? run : newCMD?.run;
+	let runfn = typeof run === "undefined" ? newCMD?.run : run;
 
 	if (run && newCMD?.run) throw new Error("Only one run function is allowed");
 	if (!newCMD.name) throw new Error("Command name is required");
-	if (runfn) newCMD.run;
-
+	if (runfn) newCMD.run = runfn as typeof newCMD.run;
 	return newCMD as Command<TCommandArgs, TCommandName>;
 };
 

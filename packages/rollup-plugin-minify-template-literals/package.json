@@ -20,15 +20,21 @@
   "license": "MIT",
   "author": "Henry Gressmann <mail@henrygressmann.de> (https://henrygressmann.de)",
   "type": "module",
-  "main": "dist/rollup-plugin-minify-template-literals.cjs",
-  "module": "dist/rollup-plugin-minify-template-literals.js",
-  "types": "types/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
   "files": [
-    "dist",
-    "types"
+    "dist"
   ],
   "scripts": {
-    "build": "scripts build --name rollup-plugin-minify-template-literals --external @rollup/pluginutils --external minify-literals ./lib/index.ts",
+    "build": "scripts build --name index",
     "test": "scripts test run"
   },
   "dependencies": {
@@ -40,6 +46,6 @@
     "rollup": "^3.10.1",
     "scripts": "workspace:*",
     "sinon": "^15.0.1",
-    "vitest": "^0.28.1"
+    "vitest": "^0.28.2"
   }
 }

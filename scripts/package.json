@@ -4,32 +4,24 @@
   "private": true,
   "type": "module",
   "description": "",
-  "bin": "index.mjs",
+  "bin": "bin.mjs",
   "scripts": {
-    "test": "exit 0"
+    "build": "tsup lib/index.ts --target node19 --format esm --dts"
   },
   "peerDependencies": {
-    "vite": "^4.0.4",
     "vitest": "^0.26.3"
   },
   "peerDependenciesMeta": {
     "vitest": {
       "optional": false
-    },
-    "vite": {
-      "optional": false
     }
   },
   "dependencies": {
-    "cosmiconfig": "^8.0.0",
-    "rollup-plugin-visualizer": "^5.9.0",
-    "ts-node": "^10.9.1",
-    "typescript": "^4.9.4",
-    "vite-plugin-dts": "^1.7.1"
+    "tsup": "^6.5.0",
+    "ucmd": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^18.11.18",
-    "vite": "^4.0.4",
-    "vitest": "^0.28.1"
+    "vitest": "^0.28.2"
   }
 }
