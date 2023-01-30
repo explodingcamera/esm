@@ -1,5 +1,12 @@
 # scripts
 
+## 0.0.2
+
+### Patch Changes
+
+- Updated dependencies [[`1a2ed20`](https://github.com/explodingcamera/esm/commit/1a2ed204f99a631a5593a6c9baa1460d64aac8b8)]:
+  - ucmd@0.3.0
+
 ## 0.0.1
 
 ### Patch Changes

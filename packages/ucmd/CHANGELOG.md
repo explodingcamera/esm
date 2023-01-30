@@ -1,5 +1,11 @@
 # ucmd
 
+## 0.3.0
+
+### Minor Changes
+
+- [`1a2ed20`](https://github.com/explodingcamera/esm/commit/1a2ed204f99a631a5593a6c9baa1460d64aac8b8) Thanks [@explodingcamera](https://github.com/explodingcamera)! - finish parse function
+
 ## 0.2.1
 
 ### Patch Changes

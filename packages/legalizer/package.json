@@ -1,6 +1,6 @@
 {
   "name": "legalizer",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": true,
   "description": "",
   "bin": {
@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "@pnpm/lockfile-file": "^7.0.2",
-    "ucmd": "^0.2.0"
+    "ucmd": "^0.3.0"
   },
   "devDependencies": {
     "scripts": "workspace:*",
