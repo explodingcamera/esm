@@ -1,10 +1,13 @@
 {
-  "name": "template",
+  "name": "legalizer",
   "version": "0.1.1",
   "private": true,
   "description": "",
+  "bin": {
+    "legalizer": "bin.mjs"
+  },
   "keywords": [],
-  "homepage": "https://github.com/explodingcamera/esm/tree/main/packages/template",
+  "homepage": "https://github.com/explodingcamera/esm/tree/main/packages/legalizer",
   "repository": "https://github.com/explodingcamera/esm",
   "license": "ISC",
   "author": "Henry Gressmann <mail@henrygressmann.de> (https://henrygressmann.de)",
@@ -23,8 +26,12 @@
     "dist"
   ],
   "scripts": {
-    "build": "scripts build --name template",
+    "build": "scripts build --name legalizer",
     "test": "scripts test run"
+  },
+  "dependencies": {
+    "@pnpm/lockfile-file": "^7.0.2",
+    "ucmd": "^0.2.0"
   },
   "devDependencies": {
     "scripts": "workspace:*",

@@ -1,10 +1,10 @@
 {
-  "name": "template",
-  "version": "0.1.1",
+  "name": "expo-plugin-aboutlibraries",
+  "version": "0.1.0",
   "private": true,
   "description": "",
   "keywords": [],
-  "homepage": "https://github.com/explodingcamera/esm/tree/main/packages/template",
+  "homepage": "https://github.com/explodingcamera/esm/tree/main/packages/expo-plugin-aboutlibraries",
   "repository": "https://github.com/explodingcamera/esm",
   "license": "ISC",
   "author": "Henry Gressmann <mail@henrygressmann.de> (https://henrygressmann.de)",
@@ -23,11 +23,14 @@
     "dist"
   ],
   "scripts": {
-    "build": "scripts build --name template",
+    "build": "scripts build --name expo-plugin-aboutlibraries",
     "test": "scripts test run"
   },
   "devDependencies": {
     "scripts": "workspace:*",
     "vitest": "^0.28.3"
+  },
+  "dependencies": {
+    "@expo/config-plugins": "^5.0.4"
   }
 }

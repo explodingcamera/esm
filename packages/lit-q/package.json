@@ -39,7 +39,7 @@
     "lit": "^2.6.1",
     "scripts": "workspace:0.0.1",
     "vite": "^4.0.4",
-    "vitest": "^0.28.2"
+    "vitest": "^0.28.3"
   },
   "peerDependencies": {
     "lit": "^2.5.0"

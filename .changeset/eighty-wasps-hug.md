@@ -1,5 +1,5 @@
 ---
-"ucmd": patch
+"ucmd": minor
 ---
 
 finish parse function
