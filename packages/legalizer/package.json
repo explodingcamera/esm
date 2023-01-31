@@ -1,7 +1,7 @@
 {
   "name": "legalizer",
   "version": "0.1.4",
-  "description": "",
+  "description": "Generate License Information from all dependencies in a project",
   "bin": {
     "legalizer": "bin.mjs"
   },

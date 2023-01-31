@@ -11,23 +11,34 @@ export const buildCommandOptions = {
 			short: "e",
 			multiple: true,
 			type: "string",
+			description: "External dependencies to exclude from the bundle (dependencies are always external)",
 		},
 		target: {
 			type: "string",
 			multiple: true,
+			default: ["es2020"],
+			description: "The target environment",
 		},
 		format: {
 			type: "string",
 			multiple: true,
+			default: ["esm", "cjs"],
+			description: "The output format",
 		},
 		minify: {
 			type: "boolean",
+			default: true,
+			description: "Minify the output",
 		},
 		bundle: {
 			type: "boolean",
+			default: true,
+			description: "Bundle the output",
 		},
 		name: {
+			short: "n",
 			type: "string",
+			description: "The name of the package",
 		},
 	},
 } satisfies Command;

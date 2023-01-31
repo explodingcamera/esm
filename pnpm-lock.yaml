@@ -8,12 +8,14 @@ importers:
       '@changesets/cli': ^2.26.0
       '@types/node': ^18.11.18
       rome: 11.0.0
+      scripts: workspace:*
       turbo: ^1.7.0
     devDependencies:
       '@changesets/changelog-github': 0.4.8
       '@changesets/cli': 2.26.0
       '@types/node': 18.11.18
       rome: 11.0.0
+      scripts: link:scripts
       turbo: 1.7.0
 
   packages/expo-plugin-aboutlibraries:
@@ -143,6 +145,7 @@ importers:
 
   scripts:
     specifiers:
+      '@npm/types': ^1.0.2
       '@types/node': ^18.11.18
       tsup: ^6.5.0
       ucmd: workspace:*
@@ -151,6 +154,7 @@ importers:
       tsup: 6.5.0
       ucmd: link:../packages/ucmd
     devDependencies:
+      '@npm/types': 1.0.2
       '@types/node': 18.11.18
       vitest: 0.28.3
 

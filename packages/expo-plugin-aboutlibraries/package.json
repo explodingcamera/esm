@@ -1,8 +1,16 @@
 {
   "name": "expo-plugin-aboutlibraries",
   "version": "0.1.1",
-  "description": "",
-  "keywords": [],
+  "description": "A simple expo config plugin to add the aboutlibraries plugin to your app",
+  "keywords": [
+    "expo",
+    "expo-plugin",
+    "expo-config-plugin",
+    "expo-plugin-aboutlibraries",
+    "AboutLibraries",
+    "licenses",
+    "check licenses"
+  ],
   "homepage": "https://github.com/explodingcamera/esm/tree/main/packages/expo-plugin-aboutlibraries",
   "repository": "https://github.com/explodingcamera/esm",
   "license": "ISC",

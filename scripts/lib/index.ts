@@ -1,19 +1,13 @@
 import { ucmd } from "ucmd";
 import { buildCommand, buildCommandOptions } from "./build";
-
-const runVitest = () => {
-	process.argv = process.argv.slice(0, 2).concat(process.argv.slice(3));
-	// @ts-ignore - vitest's cli is not typed
-	import("vitest/vitest.mjs");
-};
+import { mdtableCommand, mdtableCommandOptions } from "./mdtable";
+import { testCommand } from "./test";
 
 let cmd = ucmd()
 	.withName("scripts")
-	.withCommand({
-		name: "test",
-		run: runVitest,
-	})
-	.withCommand({ ...buildCommandOptions, run: buildCommand });
+	.withCommand(testCommand)
+	.withCommand({ ...buildCommandOptions, run: buildCommand })
+	.withCommand({ ...mdtableCommandOptions, run: mdtableCommand });
 
 try {
 	cmd.run();

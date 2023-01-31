@@ -1,7 +1,8 @@
 {
   "name": "unlocked",
+  "support": "development",
   "version": "0.1.1",
-  "description": "",
+  "description": "Parse lockfiles from npm, yarn, and pnpm into a common format",
   "keywords": [],
   "homepage": "https://github.com/explodingcamera/esm/tree/main/packages/unlocked",
   "repository": "https://github.com/explodingcamera/esm",

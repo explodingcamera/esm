@@ -3,6 +3,8 @@
 > A Monorepo with some of some of my smaller (TypeScript/JavaScript) libraries. <br/>
 > As these grow, they will be split into their own repositories
 
+<br/>
+
 ## Principles
 
 - All packages are written in TypeScript
@@ -13,23 +15,14 @@
 
 ## Projects
 
-| Stable                                                                                                                                                                                  | Production ready with a stable API                                                                                                                                  |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [![](https://img.shields.io/npm/v/rollup-plugin-minify-template-literals?style=flat&colorA=000000&colorB=efefef)](https://www.npmjs.com/package/rollup-plugin-minify-template-literals) | [**`rollup-plugin-minify-template-literals`**](./packages/rollup-plugin-minify-template-literals) <br/> A rollup & vite plugin to minify html/css template literals |
-| [![](https://img.shields.io/npm/v/minify-literals?style=flat&colorA=000000&colorB=efefef)](https://www.npmjs.com/package/minify-literals)                                               | [**`minify-literals`**](./packages/minify-literals) <br/> A library to minify html/css template literals                                                            |
 
-| Unstable                                                                                                                                                        | Not recommended for production use                                                                                                                      |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [![](https://img.shields.io/npm/v/ucmd?style=flat&colorA=000000&colorB=efefef)](https://www.npmjs.com/package/ucmd)                                             | [**`ucmd`**](./packages/ucmd) <br/> minimal and strictly typed argument parsing for node.js 19+                                                         |
-| [![](https://img.shields.io/npm/v/lit-q?style=flat&colorA=000000&colorB=efefef)](https://www.npmjs.com/package/lit-q)                                           | [**`lit-q`**](./packages/lit-q) <br/> A simple async query/mutation library for Lit/LitElement inspired by react-query                                  |
-| [![](https://img.shields.io/npm/v/expo-plugin-aboutlibraries?style=flat&colorA=000000&colorB=efefef)](https://www.npmjs.com/package/expo-plugin-aboutlibraries) | [**`expo-plugin-aboutlibraries`**](./packages/expo-plugin-aboutlibraries) <br/> A simple expo config plugin to install the AboutLibraries gradle plugin |
-| [![](https://img.shields.io/npm/v/unlocked?style=flat&colorA=000000&colorB=efefef)](https://www.npmjs.com/package/unlocked)                                     | [**`unlocked`**](./packages/unlocked) <br/> Parse lockfiles from npm, yarn (v1 and v2), and pnpm into a common format for use in other tools            |
+<!-- START TABLE -->
+<table><thead><tr><th>NPM</th><th>Support</th><th>Description</th></tr></thead><tbody><tr><td><a href="https://npmjs.com/package/minify-literals"><img src="https://img.shields.io/npm/v/minify-literals.svg?style=flat-square" alt="minify-literals" /></a></td><td><strong>Stable</strong></td><td><a href="./packages/minify-literals"><strong><code>minify-literals</code></strong></a><br />Minify CSS and HTML literals</td></tr><tr><td><a href="https://npmjs.com/package/rollup-plugin-minify-template-literals"><img src="https://img.shields.io/npm/v/rollup-plugin-minify-template-literals.svg?style=flat-square" alt="rollup-plugin-minify-template-literals" /></a></td><td><strong>Stable</strong></td><td><a href="./packages/rollup-plugin-minify-template-literals"><strong><code>rollup-plugin-minify-template-literals</code></strong></a><br />A Vite/Rollup plugin that minifies template literals.</td></tr><tr><td><a href="https://npmjs.com/package/expo-plugin-aboutlibraries"><img src="https://img.shields.io/npm/v/expo-plugin-aboutlibraries.svg?style=flat-square" alt="expo-plugin-aboutlibraries" /></a></td><td><strong>Unstable</strong></td><td><a href="./packages/expo-plugin-aboutlibraries"><strong><code>expo-plugin-aboutlibraries</code></strong></a><br />A simple expo config plugin to add the aboutlibraries plugin to your app</td></tr><tr><td><a href="https://npmjs.com/package/legalizer"><img src="https://img.shields.io/npm/v/legalizer.svg?style=flat-square" alt="legalizer" /></a></td><td><strong>Unstable</strong></td><td><a href="./packages/legalizer"><strong><code>legalizer</code></strong></a><br />Generate License Information from all dependencies in a project</td></tr><tr><td><a href="https://npmjs.com/package/lit-q"><img src="https://img.shields.io/npm/v/lit-q.svg?style=flat-square" alt="lit-q" /></a></td><td><strong>Unstable</strong></td><td><a href="./packages/lit-q"><strong><code>lit-q</code></strong></a><br />A simple async query/mutation library for Lit/LitElement inspired by react-query</td></tr><tr><td><a href="https://npmjs.com/package/ucmd"><img src="https://img.shields.io/npm/v/ucmd.svg?style=flat-square" alt="ucmd" /></a></td><td><strong>Unstable</strong></td><td><a href="./packages/ucmd"><strong><code>ucmd</code></strong></a><br />µCMD is a minimal and strictly typed argument parsing library for node.js</td></tr><tr><td><a href="https://npmjs.com/package/unlocked"><img src="https://img.shields.io/npm/v/unlocked.svg?style=flat-square" alt="unlocked" /></a></td><td><strong>Preview</strong></td><td><a href="./packages/unlocked"><strong><code>unlocked</code></strong></a><br />Parse lockfiles from npm, yarn, and pnpm into a common format</td></tr></tbody></table>
+<!-- END TABLE -->
 
-| In Development                                                                                                                | Might be in a broken state                                                                                                 |
-| ----------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| [![](https://img.shields.io/npm/v/legalizer?style=flat&colorA=000000&colorB=efefef)](https://www.npmjs.com/package/legalizer) | [**`legalizer`**](./packages/legalizer) <br/> A library to generate license information from all dependencies in a project |
+<br/>
 
-# Packages contained in other repositories
+## Packages contained in other repositories
 
 Please open issues and pull requests for these packages in their respective repositories.
 

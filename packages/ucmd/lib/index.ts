@@ -14,9 +14,7 @@ import { normalizeCommandArgs, NormalizedCommandArg, toParseArgOptions } from ".
 
 const defaultState: ucmdState<{}> = {
 	name: "",
-	commands: {
-		help: true,
-	},
+	commands: {},
 };
 
 class UCMD<TCommands extends CommandsLike, TBaseCommand> {
@@ -60,6 +58,79 @@ class UCMD<TCommands extends CommandsLike, TBaseCommand> {
 		return this as unknown as UCMD<TCommands, TNewBaseCommand>;
 	}
 
+	#renderCommandOptions<T extends CommandArgs>(args: T) {
+		let helpString = "\n\nOPTIONS:\n";
+
+		let maxArgLength = Object.entries(args).reduce((max, [arg, argOptions]) => {
+			let opts = argOptions as NormalizedCommandArg;
+			if (opts.type === "boolean") return Math.max(max, arg.length);
+			return Math.max(max, `${arg} <${arg}>`.length) + (opts.multiple ? 3 : 0); // +3 for "..."
+		}, 2);
+
+		const commandArgs = normalizeCommandArgs(args);
+		for (let [arg, argOptions] of Object.entries(commandArgs)) {
+			let opts = argOptions as NormalizedCommandArg;
+			const argName = opts.name ?? arg;
+			const argDescription = opts.description ?? "";
+			const argRequired = opts.required ?? false;
+			const short = opts.short ? `-${opts.short}, ` : "    ";
+			helpString += `    ${short}--${(opts.type === "boolean"
+				? argName
+				: `${argName} <${argName}>${opts.multiple ? "..." : ""}`
+			).padEnd(maxArgLength)}${argDescription}${argRequired ? " [required]" : ""}${
+				opts.default ? ` [default: ${opts.default}]` : ""
+			}\n`;
+		}
+
+		return helpString;
+	}
+
+	help(command?: string) {
+		let selectedCommand: Command | undefined;
+
+		if (command) {
+			selectedCommand = this.#state.commands[command];
+			if (!selectedCommand) return console.log(`Command "${command}" not found.`);
+		}
+
+		const { name, commands, baseCommand } = this.#state;
+		let helpString = `USAGE:\n    ${name}`;
+		if (!(baseCommand || selectedCommand)) helpString += " [command]";
+		if (selectedCommand) helpString += ` ${selectedCommand.name}`;
+		helpString += " [options] [params...]";
+
+		if (baseCommand && !selectedCommand) {
+			helpString += this.#renderCommandOptions(baseCommand?.args || {});
+		}
+
+		if (selectedCommand) {
+			if (selectedCommand.description) {
+				helpString += `\n\nDESCRIPTION:\n    ${selectedCommand.description}`;
+			}
+
+			helpString += this.#renderCommandOptions(selectedCommand?.args || {});
+		}
+
+		if (!selectedCommand && Object.keys(commands).length > 0) {
+			helpString += "\n\nCOMMANDS:\n";
+
+			let maxCommandNameLength = Object.keys(commands).reduce(
+				(max, commandName) => Math.max(max, commandName.length),
+				0,
+			);
+
+			for (const commandName in commands) {
+				const command = commands[commandName];
+				if (!command) continue;
+				helpString += `    ${commandName.padEnd(maxCommandNameLength + 1, " ")} ${command.description ?? ""}\n`;
+			}
+
+			helpString += `\n    Use ${name} help [command] for more information about a specific command.`;
+		}
+
+		console.log(helpString);
+	}
+
 	parse(args?: string[]) {
 		const defaultCommand: CommandFn<{}> = () => console.log("Command not found. Try --help");
 
@@ -67,6 +138,11 @@ class UCMD<TCommands extends CommandsLike, TBaseCommand> {
 		let commandArgs = args || process.argv.slice(2);
 		let command: string | undefined = commandArgs[0];
 		let options: NormalizedCommandArg[] = [];
+
+		if (command === "help") {
+			this.help(commandArgs[1]);
+			return;
+		}
 
 		// Get the command
 		if (command && !command.startsWith("-") && this.#state.commands[command]) {
@@ -79,7 +155,8 @@ class UCMD<TCommands extends CommandsLike, TBaseCommand> {
 		// If no command is specified, run the baseCommand
 		else {
 			if (!this.#state.baseCommand) {
-				console.log("No command specified");
+				if (!command) console.log("No command specified\n");
+				this.help(command);
 				return;
 			}
 
@@ -98,7 +175,7 @@ class UCMD<TCommands extends CommandsLike, TBaseCommand> {
 
 	run(args?: string[]) {
 		let parsedArgs = this.parse(args);
-		if (parseArgs === undefined) return;
+		if (parseArgs === undefined || !parsedArgs?.res) return;
 		const { res, run } = parsedArgs!;
 		run({ args: res.values, positionals: res.positionals });
 	}
