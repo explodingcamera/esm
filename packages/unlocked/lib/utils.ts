@@ -1,12 +1,12 @@
 import type { PackageJson } from "@npm/types";
 import { resolve } from "import-meta-resolve";
-import { readdir, stat } from "node:fs/promises";
+import { readdir, readFile, stat } from "node:fs/promises";
 import { join } from "node:path";
 import { pathToFileURL } from "node:url";
 import type { QualifiedDependencyName } from "./types";
 
 export const read = async (directory: string, filename: string): Promise<string> => {
-	return await import(join(directory, filename));
+	return await readFile(join(directory, filename), "utf8");
 };
 
 export const fileExists = async (directory: string, filename: string): Promise<boolean> => {

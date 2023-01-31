@@ -1,5 +1,11 @@
 # legalizer
 
+## 0.1.4
+
+### Patch Changes
+
+- fix broken tests
+
 ## 0.1.3
 
 ### Patch Changes

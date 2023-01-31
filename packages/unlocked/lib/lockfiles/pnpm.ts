@@ -1,4 +1,4 @@
-import { load } from "js-yaml";
+import yaml from "js-yaml";
 import {
 	findQualifiedDependencyLicenseFile,
 	read,
@@ -8,7 +8,7 @@ import {
 
 import type { PackageJson } from "@npm/types";
 import type { Lockfile } from "@pnpm/lockfile-types";
-import type { CommonLock, LockDependency, QualifiedDependencyName } from "../types";
+import type { CommonLock, LockDependency, PackageSnapshots, QualifiedDependencyName } from "../types";
 
 type IParse = {
 	(directory: false, file: string): Promise<Lockfile>;
@@ -18,7 +18,7 @@ type IParse = {
 export const parse: IParse = async (directory, file): Promise<Lockfile> => {
 	if (directory === false && file === undefined) throw new Error("Either directory or file must be provided");
 	const lockfile = directory ? await read(directory, "pnpm-lock.yaml") : (file as string);
-	return load(lockfile) as Lockfile;
+	return yaml.load(lockfile) as Lockfile;
 };
 
 type ToCommonLockfileOptions = {
@@ -91,7 +91,7 @@ export const toCommonLockfile = async (lockfile: Lockfile, options?: ToCommonLoc
 		return [name as QualifiedDependencyName, dependency];
 	});
 
-	let packages = Object.fromEntries(await Promise.all(packagePromises));
+	let packages = Object.fromEntries(await Promise.all(packagePromises)) as PackageSnapshots;
 
 	return {
 		name: pkg?.name ?? "unknown",

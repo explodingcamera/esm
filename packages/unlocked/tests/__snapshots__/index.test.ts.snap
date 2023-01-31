@@ -28,11 +28,13 @@ exports[`resolve-dependencies 2`] = `
   "name": "generic",
   "packages": {
     "/tslib/2.5.0": {
+      "author": "Microsoft Corp.",
       "cpu": undefined,
       "dependencies": undefined,
       "dev": false,
       "engines": undefined,
       "hasBin": undefined,
+      "licenseFile": undefined,
       "optional": undefined,
       "optionalDependencies": undefined,
       "optionalPeerDependencies": [],
@@ -43,6 +45,7 @@ exports[`resolve-dependencies 2`] = `
       "resolution": {
         "integrity": "sha512-336iVw3rtn2BUK7ORdIAHTyxHGRIHVReokCR3XjbckJMK7ms8FysBfhLR8IXnAgy7T0PTPNBWKiH514FOW/WSg==",
       },
+      "spdxLicenseId": "0BSD",
       "version": undefined,
     },
   },
