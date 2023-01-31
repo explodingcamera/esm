@@ -1,6 +1,6 @@
 import type { PackageJson, PackageLock } from "@npm/types";
 import { join } from "node:path";
-import type { CommonLock } from ".";
+import type { CommonLock } from "../types";
 
 type IParse = {
 	(directory: false, file: string): Promise<PackageLock>;
@@ -18,7 +18,7 @@ export const toCommonLockfile = (lockfile: PackageLock, pkg?: PackageJson) => {
 		name: lockfile.name ?? pkg?.name ?? "unknown",
 		version: lockfile.version ?? pkg?.version ?? "0.0.0",
 		lockfileVersion: 1,
-		dependencies: lockfile.dependencies,
+		// dependencies: lockfile.dependencies,
 		lockfileType: "npm",
 	} satisfies CommonLock;
 };

@@ -1,9 +1,9 @@
 import type { PackageJson } from "@npm/types";
-import { parseSyml } from "@yarnpkg/parsers/lib/syml";
+import { parseSyml } from "@yarnpkg/parsers";
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 
-import type { CommonLock, LockDependency } from ".";
+import type { CommonLock, LockDependency } from "../types";
 import type { YarnLock } from "./yarn";
 
 type IParse = {
@@ -39,7 +39,7 @@ export const toCommonLockfile = (lockfile: YarnLock<"2">, pkg?: PackageJson) => 
 		name: pkg?.name ?? "unknown",
 		version: pkg?.version ?? "0.0.0",
 		lockfileVersion: 2,
-		dependencies,
+		// dependencies,
 		lockfileType: "yarn-v2",
 	} satisfies CommonLock;
 };

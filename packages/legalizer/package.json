@@ -1,7 +1,6 @@
 {
   "name": "legalizer",
   "version": "0.1.2",
-  "private": true,
   "description": "",
   "bin": {
     "legalizer": "bin.mjs"
@@ -30,6 +29,7 @@
     "test": "scripts test run"
   },
   "dependencies": {
+    "spdx-license-list": "^6.6.0",
     "ucmd": "^0.3.0"
   },
   "devDependencies": {

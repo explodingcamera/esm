@@ -30,9 +30,11 @@ importers:
   packages/legalizer:
     specifiers:
       scripts: workspace:*
+      spdx-license-list: ^6.6.0
       ucmd: ^0.3.0
       vitest: ^0.28.3
     dependencies:
+      spdx-license-list: 6.6.0
       ucmd: link:../ucmd
     devDependencies:
       scripts: link:../../scripts
@@ -122,12 +124,14 @@ importers:
       '@types/yarnpkg__lockfile': ^1.1.5
       '@yarnpkg/lockfile': ^1.1.0
       '@yarnpkg/parsers': 3.0.0-rc.37
+      import-meta-resolve: ^2.2.1
       js-yaml: ^4.1.0
       scripts: workspace:*
       vitest: ^0.28.3
     dependencies:
       '@yarnpkg/lockfile': 1.1.0
       '@yarnpkg/parsers': 3.0.0-rc.37
+      import-meta-resolve: 2.2.1
       js-yaml: 4.1.0
     devDependencies:
       '@npm/types': 1.0.2
@@ -136,6 +140,12 @@ importers:
       '@types/yarnpkg__lockfile': 1.1.5
       scripts: link:../../scripts
       vitest: 0.28.3
+
+  packages/unlocked/tests/fixtures/generic:
+    specifiers:
+      tslib: ^2.5.0
+    dependencies:
+      tslib: 2.5.0
 
   scripts:
     specifiers:
@@ -300,7 +310,7 @@ packages:
     resolution: {integrity: sha512-JppheLu7S114aEs157fOZDjFqUDpm7eHdq5E8SSR0gUBTEK0cNSHsrSR5a66xs0z3RWuo46QvA3vawp8BxDHvg==}
     dependencies:
       dataloader: 1.4.0
-      node-fetch: 2.6.8
+      node-fetch: 2.6.9
     transitivePeerDependencies:
       - encoding
     dev: true
@@ -2175,6 +2185,10 @@ packages:
     resolution: {integrity: sha512-MAb38BcSbH0eHNBxn7ql2NH/kX33OkB3lZ1BNdh7ENeRChHTYsTvWrMubiIAMNS2llXEEgZ1MUOBtXChP3kaFQ==}
     engines: {node: '>= 4'}
 
+  /import-meta-resolve/2.2.1:
+    resolution: {integrity: sha512-C6lLL7EJPY44kBvA80gq4uMsVFw5x3oSKfuMl1cuZ2RkI5+UJqQXgn+6hlUew0y4ig7Ypt4CObAAIzU53Nfpuw==}
+    dev: false
+
   /imurmurhash/0.1.4:
     resolution: {integrity: sha512-JmXMZ6wuvDmLiHEml9ykzqO6lwFbof0GG4IkcGaENdCRDDmMVnny7s5HsIgHCbaq0w2MyPhDqkhTUgS2LU2PHA==}
     engines: {node: '>=0.8.19'}
@@ -2709,8 +2723,8 @@ packages:
       tslib: 2.4.1
     dev: false
 
-  /node-fetch/2.6.8:
-    resolution: {integrity: sha512-RZ6dBYuj8dRSfxpUSu+NsdF1dpPpluJxwOp+6IoDp/sH2QNDSvurYsAa+F1WxY2RjA1iP93xhcsUoYbF2XBqVg==}
+  /node-fetch/2.6.9:
+    resolution: {integrity: sha512-DJm/CJkZkRjKKj4Zi4BsKVZh3ValV5IR5s7LVZnW+6YMh0W1BfNA8XSs6DLMGYlId5F3KnA70uu2qepcR08Qqg==}
     engines: {node: 4.x || >=6.0.0}
     peerDependencies:
       encoding: ^0.1.0
@@ -3329,6 +3343,11 @@ packages:
     resolution: {integrity: sha512-rr+VVSXtRhO4OHbXUiAF7xW3Bo9DuuF6C5jH+q/x15j2jniycgKbxU09Hr0WqlSLUs4i4ltHGXqTe7VHclYWyA==}
     dev: true
 
+  /spdx-license-list/6.6.0:
+    resolution: {integrity: sha512-vLwdf9AWgdJQmG8cai2HKfkInFsliKaCCOwXmdVonClIhdURTX61KdDOoXC1qcQ7gDaZj+CUTcrMJeAdnCtrKA==}
+    engines: {node: '>=8'}
+    dev: false
+
   /sprintf-js/1.0.3:
     resolution: {integrity: sha512-D9cPgkvLlV3t3IzL0D0YLvGA9Ahk4PcvVwUbN0dSGr1aP0Nrt4AEnTUbuGvquEC0mA64Gqt1fzirlRs5ibXx8g==}
 
@@ -3548,6 +3567,10 @@ packages:
 
   /tslib/2.4.1:
     resolution: {integrity: sha512-tGyy4dAjRIEwI7BzsB0lynWgOpfqjUdq91XXAlIWD2OwKBH7oCl/GZG/HT4BOHrTlPMOASlMQ7veyTqpmRcrNA==}
+    dev: false
+
+  /tslib/2.5.0:
+    resolution: {integrity: sha512-336iVw3rtn2BUK7ORdIAHTyxHGRIHVReokCR3XjbckJMK7ms8FysBfhLR8IXnAgy7T0PTPNBWKiH514FOW/WSg==}
     dev: false
 
   /tsup/6.5.0:

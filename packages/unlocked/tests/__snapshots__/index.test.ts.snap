@@ -1,0 +1,51 @@
+// Vitest Snapshot v1
+
+exports[`resolve-dependencies 1`] = `
+{
+  "dependencies": {
+    "tslib": "2.5.0",
+  },
+  "lockfileVersion": 5.4,
+  "packages": {
+    "/tslib/2.5.0": {
+      "dev": false,
+      "resolution": {
+        "integrity": "sha512-336iVw3rtn2BUK7ORdIAHTyxHGRIHVReokCR3XjbckJMK7ms8FysBfhLR8IXnAgy7T0PTPNBWKiH514FOW/WSg==",
+      },
+    },
+  },
+  "specifiers": {
+    "tslib": "^2.5.0",
+  },
+}
+`;
+
+exports[`resolve-dependencies 2`] = `
+{
+  "importers": undefined,
+  "lockfileType": "pnpm",
+  "lockfileVersion": 1,
+  "name": "generic",
+  "packages": {
+    "/tslib/2.5.0": {
+      "cpu": undefined,
+      "dependencies": undefined,
+      "dev": false,
+      "engines": undefined,
+      "hasBin": undefined,
+      "optional": undefined,
+      "optionalDependencies": undefined,
+      "optionalPeerDependencies": [],
+      "os": undefined,
+      "patched": undefined,
+      "peerDependencies": undefined,
+      "requiresBuild": undefined,
+      "resolution": {
+        "integrity": "sha512-336iVw3rtn2BUK7ORdIAHTyxHGRIHVReokCR3XjbckJMK7ms8FysBfhLR8IXnAgy7T0PTPNBWKiH514FOW/WSg==",
+      },
+      "version": undefined,
+    },
+  },
+  "version": "1.0.0",
+}
+`;
