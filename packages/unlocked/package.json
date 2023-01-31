@@ -1,13 +1,9 @@
 {
-  "name": "legalizer",
-  "version": "0.1.2",
-  "private": true,
+  "name": "unlocked",
+  "version": "0.0.1",
   "description": "",
-  "bin": {
-    "legalizer": "bin.mjs"
-  },
   "keywords": [],
-  "homepage": "https://github.com/explodingcamera/esm/tree/main/packages/legalizer",
+  "homepage": "https://github.com/explodingcamera/esm/tree/main/packages/unlocked",
   "repository": "https://github.com/explodingcamera/esm",
   "license": "ISC",
   "author": "Henry Gressmann <mail@henrygressmann.de> (https://henrygressmann.de)",
@@ -26,14 +22,20 @@
     "dist"
   ],
   "scripts": {
-    "build": "scripts build --name legalizer",
+    "build": "scripts build --name unlocked",
     "test": "scripts test run"
   },
-  "dependencies": {
-    "ucmd": "^0.3.0"
-  },
   "devDependencies": {
+    "@npm/types": "^1.0.2",
+    "@pnpm/lockfile-types": "^4.3.6",
+    "@types/js-yaml": "^4.0.5",
+    "@types/yarnpkg__lockfile": "^1.1.5",
     "scripts": "workspace:*",
     "vitest": "^0.28.3"
+  },
+  "dependencies": {
+    "@yarnpkg/lockfile": "^1.1.0",
+    "@yarnpkg/parsers": "3.0.0-rc.37",
+    "js-yaml": "^4.1.0"
   }
 }

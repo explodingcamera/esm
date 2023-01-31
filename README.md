@@ -1,6 +1,13 @@
 # Henry's Libraries &nbsp;![GitHub Workflow Status (with branch)](https://img.shields.io/github/actions/workflow/status/explodingcamera/esm/ci.yaml?branch=main&label=ALL%20BUILDS)
 
-> A collection my of (TypeScript/JavaScript) libraries
+> A Monorepo with some of some of my smaller (TypeScript/JavaScript) libraries. <br/>
+> As these grow, they will be split into their own repositories
+
+## Principles
+
+- All packages are written in TypeScript
+- 3rd party dependencies are kept to a minimum (if any)
+- Only the latest LTS version of Node.js is officially supported (currently 18)
 
 <br />
 

@@ -48,5 +48,6 @@ export const buildCommand = async ({ args, positionals }: CommandContext<typeof 
 		minify: args.minify ?? true,
 		bundle: args.bundle ?? true,
 		outDir: "dist",
+		treeshake: true,
 	});
 };
