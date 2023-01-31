@@ -1,5 +1,11 @@
 # template
 
+## 0.1.0
+
+### Minor Changes
+
+- [`eb2bd74`](https://github.com/explodingcamera/esm/commit/eb2bd74d7150d4bda09779d9e47bb230c34056fc) Thanks [@explodingcamera](https://github.com/explodingcamera)! - initial pnpm lockfile support
+
 ## 0.1.1
 
 ### Patch Changes

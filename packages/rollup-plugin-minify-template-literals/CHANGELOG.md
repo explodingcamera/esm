@@ -1,5 +1,16 @@
 # rollup-plugin-minify-template-literals
 
+## 1.0.0
+
+### Major Changes
+
+- [`eb2bd74`](https://github.com/explodingcamera/esm/commit/eb2bd74d7150d4bda09779d9e47bb230c34056fc) Thanks [@explodingcamera](https://github.com/explodingcamera)! - First major release of `minify-literals` and `rollup-plugin-minify-template-literals` to mark these as stable.
+
+### Patch Changes
+
+- Updated dependencies [[`eb2bd74`](https://github.com/explodingcamera/esm/commit/eb2bd74d7150d4bda09779d9e47bb230c34056fc)]:
+  - minify-literals@1.0.0
+
 ## 0.2.3
 
 ### Patch Changes

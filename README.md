@@ -13,11 +13,6 @@
 
 ## Projects
 
-| In other Repositories                                                                                                                                                   | Please open issues and pullrequests in the corresponding GitHub repositories                                                                      |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [![](https://img.shields.io/npm/v/@explodingcamera/eslint-config?style=flat&colorA=000000&colorB=efefef)](https://www.npmjs.com/package/@explodingcamera/eslint-config) | [**`@explodingcamera/eslint-config`**](https://github.com/explodingcamera/eslint-config) <br/> shareable eslint config (deprecated)               |
-| [![](https://img.shields.io/npm/v/subsonic-api?style=flat&colorA=000000&colorB=efefef)](https://www.npmjs.com/package/subsonic-api)                                     | [**`subsonic-api`**](https://github.com/explodingcamera/subsonic-api) <br/> A simple API library for interacting with Subsonic-compatible servers |
-
 | Stable                                                                                                                                                                                  |                                                                                                                                                                     |
 | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | [![](https://img.shields.io/npm/v/rollup-plugin-minify-template-literals?style=flat&colorA=000000&colorB=efefef)](https://www.npmjs.com/package/rollup-plugin-minify-template-literals) | [**`rollup-plugin-minify-template-literals`**](./packages/rollup-plugin-minify-template-literals) <br/> A rollup & vite plugin to minify html/css template literals |
@@ -33,3 +28,12 @@
 | In Development                                                                                                                |                                                                                                                            |
 | ----------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
 | [![](https://img.shields.io/npm/v/legalizer?style=flat&colorA=000000&colorB=efefef)](https://www.npmjs.com/package/legalizer) | [**`legalizer`**](./packages/legalizer) <br/> A library to generate license information from all dependencies in a project |
+
+# Packages contained in other repositories
+
+Please open issues and pull requests for these packages in their respective repositories.
+
+|                                                                                                                                                                         |                                                                                                                                                   |
+| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [![](https://img.shields.io/npm/v/@explodingcamera/eslint-config?style=flat&colorA=000000&colorB=efefef)](https://www.npmjs.com/package/@explodingcamera/eslint-config) | [**`@explodingcamera/eslint-config`**](https://github.com/explodingcamera/eslint-config) <br/> shareable eslint config (deprecated)               |
+| [![](https://img.shields.io/npm/v/subsonic-api?style=flat&colorA=000000&colorB=efefef)](https://www.npmjs.com/package/subsonic-api)                                     | [**`subsonic-api`**](https://github.com/explodingcamera/subsonic-api) <br/> A simple API library for interacting with Subsonic-compatible servers |
