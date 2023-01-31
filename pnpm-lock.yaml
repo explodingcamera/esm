@@ -141,12 +141,6 @@ importers:
       scripts: link:../../scripts
       vitest: 0.28.3
 
-  packages/unlocked/tests/fixtures/generic:
-    specifiers:
-      tslib: ^2.5.0
-    dependencies:
-      tslib: 2.5.0
-
   scripts:
     specifiers:
       '@types/node': ^18.11.18
@@ -3567,10 +3561,6 @@ packages:
 
   /tslib/2.4.1:
     resolution: {integrity: sha512-tGyy4dAjRIEwI7BzsB0lynWgOpfqjUdq91XXAlIWD2OwKBH7oCl/GZG/HT4BOHrTlPMOASlMQ7veyTqpmRcrNA==}
-    dev: false
-
-  /tslib/2.5.0:
-    resolution: {integrity: sha512-336iVw3rtn2BUK7ORdIAHTyxHGRIHVReokCR3XjbckJMK7ms8FysBfhLR8IXnAgy7T0PTPNBWKiH514FOW/WSg==}
     dev: false
 
   /tsup/6.5.0:
