@@ -47,7 +47,10 @@ type ToCommonLockfileOptions = {
 	packageJsonName?: string;
 };
 
-export const toCommonLockfile = async (lockfile: PnpmLockfile, options?: ToCommonLockfileOptions) => {
+export const toCommonLockfile = async (
+	lockfile: PnpmLockfile,
+	options?: ToCommonLockfileOptions,
+): Promise<CommonLock> => {
 	let pkg = await utils.readPackageJson(options?.projectDirectory, options?.packageJsonName);
 
 	if (lockfile.packages == null)

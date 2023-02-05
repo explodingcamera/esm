@@ -69,7 +69,7 @@ exports[`resolve-dependencies 2`] = `
       "version": undefined,
     },
   },
-  "path": "/home/henry/repos/esm/packages/unlocked/tests/fixtures/generic",
+  "path": undefined,
   "version": "1.0.0",
 }
 `;

@@ -12,6 +12,7 @@ test("resolve-dependencies", async () => {
 	const commonLockfile = await toCommonLockfile(lockfile, {
 		projectDirectory,
 	});
+	commonLockfile.path = undefined;
 
 	expect(commonLockfile).toMatchSnapshot();
 });

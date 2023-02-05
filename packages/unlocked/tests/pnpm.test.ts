@@ -21,12 +21,13 @@ describe("pnpm toCommonLockfile", () => {
 		const file = await readFile(join(__dirname, "fixtures", "pnpm", "pnpm-lock.yaml"), "utf8");
 		const lockfile = await parse(false, file);
 
-		expect(
-			await toCommonLockfile(lockfile, {
-				packageJsonName: "package.json",
-				projectDirectory: join(__dirname, "fixtures", "pnpm"),
-				skipResolve: true,
-			}),
-		).toMatchSnapshot();
+		const commonLock = await toCommonLockfile(lockfile, {
+			packageJsonName: "package.json",
+			projectDirectory: join(__dirname, "fixtures", "pnpm"),
+			skipResolve: true,
+		});
+
+		commonLock.path = undefined;
+		expect(commonLock).toMatchSnapshot();
 	});
 });
