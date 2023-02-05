@@ -44,6 +44,6 @@
     "@types/sinon": "^10.0.13",
     "scripts": "workspace:*",
     "sinon": "^15.0.1",
-    "vitest": "^0.28.3"
+    "vitest": "^0.28.4"
   }
 }

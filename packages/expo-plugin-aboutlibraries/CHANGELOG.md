@@ -1,4 +1,4 @@
-# template
+# expo-plugin-aboutlibraries
 
 ## 0.1.1
 

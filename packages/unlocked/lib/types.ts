@@ -1,8 +1,19 @@
-import type { Maintainer } from "@npm/types";
+import type { Maintainer, PackageLock } from "@npm/types";
 import type { LockfileResolution } from "@pnpm/lockfile-types";
+import type { YarnLock } from "./lockfiles/yarn";
+import type { PnpmLockfileFile } from "unlocked-pnpm";
+
 export type LockfileType = "yarn-v1" | "yarn-v2" | "pnpm" | "npm";
 
+export type NPMLockfile = PackageLock;
+export type YarnV1Lockfile = YarnLock<"1">;
+export type YarnV2Lockfile = YarnLock<"2">;
+export type PnpmLockfile = PnpmLockfileFile;
+
 export type DependencyName = string;
+
+// dependency version, can be any string, but always has a corresponding
+// package listed in `packages`
 export type DependencyVersion =
 	| `link:${string}` // Creates a link to the folder
 	| `portal:${string}` // Creates a link to the folder, but also installs its dependencies
@@ -16,7 +27,7 @@ export type DependencyVersion =
 	| `file:${string}` // Copies the target location into the cache
 	| `exec:${string}` // Executes a command and uses its output as the package
 	| `patch:${string}` // Creates a patched version of the package
-	| string; // semver or tag
+	| string; // semver or tag, might also be something like `7.20.2_@babel+core@7.20.12`
 
 export type Dependencies = Record<DependencyName, DependencyVersion>;
 export type QualifiedDependencyName = `/${DependencyName}/${DependencyVersion}`;
@@ -36,6 +47,8 @@ export type CommonLock = {
 
 	lockfileType: LockfileType;
 	lockfileVersion: number;
+
+	overrides?: Dependencies;
 
 	/**
 	 * all importers across all workspaces

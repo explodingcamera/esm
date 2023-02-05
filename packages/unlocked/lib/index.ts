@@ -32,7 +32,7 @@ export const parse = async (directory: string): Promise<CommonLock> => {
 };
 
 export { detectLockfileType } from "./lockfiles";
-export type { CommonLock } from "./types";
+export * from "./types";
 
 export {
 	parseYarnV1,

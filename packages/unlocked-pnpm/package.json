@@ -1,12 +1,12 @@
 {
-  "name": "unlocked",
+  "name": "unlocked-pnpm",
   "support": "preview",
-  "version": "0.1.1",
-  "description": "Parse lockfiles from npm, yarn, and pnpm into a common format",
+  "version": "0.0.1",
+  "description": "A fork of @pnpm/lockfile-file without all the dependencies and only the lockfile parsing",
   "keywords": [],
-  "homepage": "https://github.com/explodingcamera/esm/tree/main/packages/unlocked",
+  "homepage": "https://github.com/explodingcamera/esm/tree/main/packages/unlocked-pnpm",
   "repository": "https://github.com/explodingcamera/esm",
-  "license": "ISC",
+  "license": "MIT",
   "author": "Henry Gressmann <mail@henrygressmann.de> (https://henrygressmann.de)",
   "type": "module",
   "exports": {
@@ -23,23 +23,20 @@
     "dist"
   ],
   "scripts": {
-    "build": "scripts build --name unlocked",
-    "test": "npm run install-test && scripts test run",
-    "install-test": "cd tests/fixtures/generic && pnpm install --prefer-offline --frozen-lockfile --ignore-workspace && cd ../../.."
+    "build": "scripts build --name unlocked-pnpm",
+    "test": "scripts test run"
   },
   "devDependencies": {
-    "@npm/types": "^1.0.2",
+    "@pnpm/constants": "^6.2.0",
     "@pnpm/lockfile-types": "^4.3.6",
+    "@pnpm/types": "^8.10.0",
     "@types/js-yaml": "^4.0.5",
-    "@types/yarnpkg__lockfile": "^1.1.5",
+    "@types/semver": "^7.3.13",
     "scripts": "workspace:*",
     "vitest": "^0.28.4"
   },
   "dependencies": {
-    "@yarnpkg/lockfile": "^1.1.0",
-    "@yarnpkg/parsers": "3.0.0-rc.38",
-    "import-meta-resolve": "^2.2.1",
     "js-yaml": "^4.1.0",
-    "unlocked-pnpm": "workspace:0.0.1"
+    "semver": "^7.3.8"
   }
 }

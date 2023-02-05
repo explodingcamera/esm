@@ -20,7 +20,7 @@ type Row = {
 	description: string;
 	url: string;
 	npm: string;
-	support?: "stable" | "unstable" | "development" | "external";
+	support?: "stable" | "unstable" | "preview" | "external";
 };
 
 type Table = Row[];
@@ -61,7 +61,7 @@ const createTable = (table: Table) => {
 						<td>
 							${pkg.support === "stable" && html`<strong>Stable</strong>`}
 							${pkg.support === "unstable" && html`<strong>Unstable</strong>`}
-							${pkg.support === "development" && html`<strong>Preview</strong>`}
+							${pkg.support === "preview" && html`<strong>Preview</strong>`}
 							${pkg.support === "external" && html`<strong>External</strong>`}
 						</td>
             <td>
@@ -77,7 +77,8 @@ const createTable = (table: Table) => {
 </table>`;
 };
 
-const notEmpty = <TValue>(value: TValue | null | undefined): value is TValue => value !== null && value !== undefined;
+const notEmpty = <TValue>(value: TValue | null | undefined): value is TValue =>
+	value !== null && value !== undefined;
 
 export const mdtableCommand = async ({ args }: CommandContext<typeof mdtableCommandOptions>) => {
 	const packages = await readdir(join(process.cwd(), "packages"));
@@ -91,10 +92,14 @@ export const mdtableCommand = async ({ args }: CommandContext<typeof mdtableComm
 				if (pkgJson.private) return null;
 
 				let support: Row["support"] = "stable";
-				if ((pkgJson as any)["support"] === "stable" || !pkgJson.version.startsWith("0.")) {
+
+				let supportOverride = (pkgJson as any)["support"] as Row["support"];
+				if (supportOverride) {
+					support = supportOverride;
+				} else if (!pkgJson.version.startsWith("0.")) {
 					support = "stable";
-				} else if (pkgJson.version.startsWith("0.0") || (pkgJson as any)["support"] === "development") {
-					support = "development";
+				} else if (pkgJson.version.startsWith("0.0")) {
+					support = "preview";
 				} else {
 					support = "unstable";
 				}
@@ -122,9 +127,9 @@ export const mdtableCommand = async ({ args }: CommandContext<typeof mdtableComm
 				? -1
 				: b.support === "unstable"
 				? 1
-				: a.support === "development"
+				: a.support === "preview"
 				? -1
-				: b.support === "development"
+				: b.support === "preview"
 				? 1
 				: 0,
 		);

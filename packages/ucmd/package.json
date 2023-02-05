@@ -27,7 +27,7 @@
   },
   "devDependencies": {
     "tsup": "^6.5.0",
-    "vitest": "^0.28.3"
+    "vitest": "^0.28.4"
   },
   "engines": {
     "node": ">=19.0.0"

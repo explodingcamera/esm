@@ -1,5 +1,6 @@
 {
   "name": "legalizer",
+  "support": "preview",
   "version": "0.1.4",
   "description": "Generate License Information from all dependencies in a project",
   "bin": {
@@ -30,10 +31,10 @@
   },
   "dependencies": {
     "spdx-license-list": "^6.6.0",
-    "ucmd": "^0.3.0"
+    "ucmd": "workspace:^0.3.0"
   },
   "devDependencies": {
     "scripts": "workspace:*",
-    "vitest": "^0.28.3"
+    "vitest": "^0.28.4"
   }
 }

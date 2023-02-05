@@ -1,4 +1,4 @@
-# template
+# unlocked
 
 ## 0.1.1
 

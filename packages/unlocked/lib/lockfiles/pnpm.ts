@@ -8,7 +8,13 @@ import {
 
 import type { PackageJson } from "@npm/types";
 import type { Lockfile } from "@pnpm/lockfile-types";
-import type { CommonLock, LockDependency, PackageSnapshots, QualifiedDependencyName } from "../types";
+import type {
+	CommonLock,
+	LockDependency,
+	PackageSnapshots,
+	PnpmLockfile,
+	QualifiedDependencyName,
+} from "../types";
 
 type IParse = {
 	(directory: false, file: string): Promise<Lockfile>;
@@ -37,7 +43,7 @@ type ToCommonLockfileOptions = {
 	packageJsonName?: string;
 };
 
-export const toCommonLockfile = async (lockfile: Lockfile, options?: ToCommonLockfileOptions) => {
+export const toCommonLockfile = async (lockfile: PnpmLockfile, options?: ToCommonLockfileOptions) => {
 	let pkg = await readPackageJson(options?.projectDirectory, options?.packageJsonName);
 
 	if (lockfile.packages == null)
@@ -93,12 +99,28 @@ export const toCommonLockfile = async (lockfile: Lockfile, options?: ToCommonLoc
 
 	let packages = Object.fromEntries(await Promise.all(packagePromises)) as PackageSnapshots;
 
+	let importers = {
+		...lockfile.importers,
+	};
+
+	// if the lockfile doesn't have an importer for the root directory, add it, commonlockfile doesn't support lockfiles without an importer for the root directory
+	if (!importers["."] && lockfile.specifiers) {
+		importers["."] = {
+			specifiers: lockfile.specifiers,
+			dependencies: lockfile.dependencies,
+			devDependencies: lockfile.devDependencies,
+			optionalDependencies: lockfile.optionalDependencies,
+		};
+	}
+
 	return {
 		name: pkg?.name ?? "unknown",
 		version: pkg?.version ?? "0.0.0",
 		lockfileVersion: 1,
 		lockfileType: "pnpm",
 		packages,
-		importers: lockfile.importers,
+		importers,
+		overrides: lockfile.overrides,
+		path: options?.projectDirectory,
 	} satisfies CommonLock;
 };
