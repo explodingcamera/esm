@@ -3,8 +3,6 @@ import { fileExists } from "../utils";
 import { detectYarnVersion } from "./yarn";
 
 export const detectLockfileType = async (directory: string): Promise<LockfileType | undefined> => {
-	console.log(directory);
-
 	if (await fileExists(directory, "pnpm-lock.yaml")) {
 		return "pnpm";
 	} else if (await fileExists(directory, "yarn.lock")) {

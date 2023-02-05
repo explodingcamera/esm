@@ -1,30 +1,34 @@
-import yaml from "js-yaml";
-import {
-	findQualifiedDependencyLicenseFile,
-	read,
-	readPackageJson,
-	readQualifiedDependencyPackageJson,
-} from "../utils";
+import * as utils from "../utils";
+import { parseLockfileContents, readWantedLockfile } from "unlocked-pnpm";
 
-import type { PackageJson } from "@npm/types";
-import type { Lockfile } from "@pnpm/lockfile-types";
 import type {
 	CommonLock,
 	LockDependency,
+	PackageJson,
 	PackageSnapshots,
 	PnpmLockfile,
 	QualifiedDependencyName,
 } from "../types";
 
 type IParse = {
-	(directory: false, file: string): Promise<Lockfile>;
-	(directory: string, file?: undefined): Promise<Lockfile>;
+	(directory: false, file: string): Promise<PnpmLockfile>;
+	(directory: string, file?: undefined): Promise<PnpmLockfile>;
 };
 
-export const parse: IParse = async (directory, file): Promise<Lockfile> => {
+export const parse: IParse = async (directory, file): Promise<PnpmLockfile> => {
 	if (directory === false && file === undefined) throw new Error("Either directory or file must be provided");
-	const lockfile = directory ? await read(directory, "pnpm-lock.yaml") : (file as string);
-	return yaml.load(lockfile) as Lockfile;
+
+	if (file !== undefined)
+		return (await parseLockfileContents({
+			lockfileRawContent: file,
+			lockfilePath: file,
+			opts: { ignoreIncompatible: false },
+		})) as PnpmLockfile;
+
+	// pkgPath will always be a string
+	return (await readWantedLockfile(directory as string, {
+		ignoreIncompatible: false,
+	})) as PnpmLockfile;
 };
 
 type ToCommonLockfileOptions = {
@@ -44,7 +48,7 @@ type ToCommonLockfileOptions = {
 };
 
 export const toCommonLockfile = async (lockfile: PnpmLockfile, options?: ToCommonLockfileOptions) => {
-	let pkg = await readPackageJson(options?.projectDirectory, options?.packageJsonName);
+	let pkg = await utils.readPackageJson(options?.projectDirectory, options?.packageJsonName);
 
 	if (lockfile.packages == null)
 		return {
@@ -62,11 +66,11 @@ export const toCommonLockfile = async (lockfile: PnpmLockfile, options?: ToCommo
 		let dependencyLicensePath: string | undefined;
 		if (!options?.skipResolve && options?.projectDirectory) {
 			try {
-				dependencyPkg = await readQualifiedDependencyPackageJson(
+				dependencyPkg = await utils.readQualifiedDependencyPackageJson(
 					name as QualifiedDependencyName,
 					options.projectDirectory,
 				);
-				dependencyLicensePath = await findQualifiedDependencyLicenseFile(
+				dependencyLicensePath = await utils.findQualifiedDependencyLicenseFile(
 					name as QualifiedDependencyName,
 					options.projectDirectory,
 				);

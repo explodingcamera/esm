@@ -1,9 +1,12 @@
 import type { Maintainer, PackageLock } from "@npm/types";
+import type { PackageManifest } from "@pnpm/types";
 import type { LockfileResolution } from "@pnpm/lockfile-types";
 import type { YarnLock } from "./lockfiles/yarn";
 import type { PnpmLockfileFile } from "unlocked-pnpm";
+import type { PackageJson as PackageJsonNpm } from "@npm/types";
 
-export type LockfileType = "yarn-v1" | "yarn-v2" | "pnpm" | "npm";
+export type PackageJson = PackageJsonNpm & PackageManifest;
+export type LockfileType = "yarn-v1" | "yarn-v2" | "pnpm" | "npm" | "cargo";
 
 export type NPMLockfile = PackageLock;
 export type YarnV1Lockfile = YarnLock<"1">;

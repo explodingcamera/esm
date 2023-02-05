@@ -183,7 +183,9 @@ export const defaultStrategy: Strategy<HTMLOptions, CleanCSS.Options> = {
 		if (output.warnings?.length) console.log(css, output.styles);
 		if (output.warnings.length) {
 			console.warn(output.warnings.join("\n\n"));
-			console.warn("minify-html-literals: warnings during CSS minification, file was skipped. See above for details.");
+			console.warn(
+				"minify-html-literals: warnings during CSS minification, file was skipped. See above for details.",
+			);
 			return css.replace(/(\n)|(\r)/g, "");
 		}
 

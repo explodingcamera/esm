@@ -122,6 +122,7 @@ importers:
     specifiers:
       '@npm/types': ^1.0.2
       '@pnpm/lockfile-types': ^4.3.6
+      '@pnpm/types': ^8.10.0
       '@types/js-yaml': ^4.0.5
       '@types/yarnpkg__lockfile': ^1.1.5
       '@yarnpkg/lockfile': ^1.1.0
@@ -140,6 +141,7 @@ importers:
     devDependencies:
       '@npm/types': 1.0.2
       '@pnpm/lockfile-types': 4.3.6
+      '@pnpm/types': 8.10.0
       '@types/js-yaml': 4.0.5
       '@types/yarnpkg__lockfile': 1.1.5
       scripts: link:../../scripts

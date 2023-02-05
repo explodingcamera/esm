@@ -17,19 +17,18 @@ export type PnpmLockfileFile = Omit<Lockfile, "importers"> &
 	Partial<ProjectSnapshot> &
 	Partial<Pick<Lockfile, "importers">>;
 
-export async function readWantedLockfile(
-	pkgPath: string,
-	opts: {
-		overrideFileName?: string;
-		wantedVersions?: string[];
-		ignoreIncompatible: boolean;
-		useGitBranchLockfile?: boolean;
+export type ReadOpts = {
+	overrideFileName?: string;
+	wantedVersions?: string[];
+	ignoreIncompatible: boolean;
+	useGitBranchLockfile?: boolean;
 
-		// the following options have been removed (they are not used in unlocked)
-		// mergeGitBranchLockfiles?: never;
-		// autofixMergeConflicts?: never;
-	},
-): Promise<Lockfile | null> {
+	// the following options have been removed (they are not used in unlocked)
+	// mergeGitBranchLockfiles?: never;
+	// autofixMergeConflicts?: never;
+};
+
+export async function readWantedLockfile(pkgPath: string, opts: ReadOpts): Promise<Lockfile | null> {
 	const lockfileNames: string[] = [opts.overrideFileName ?? WANTED_LOCKFILE];
 	if (opts.useGitBranchLockfile) {
 		const gitBranchLockfileName: string = await getWantedLockfileName(pkgPath, opts);
@@ -42,17 +41,15 @@ export async function readWantedLockfile(
 		if (result) break;
 	}
 
+	if (!result) {
+		if (opts.ignoreIncompatible) return null;
+		throw new Error(`No lockfile found in ${pkgPath}`);
+	}
+
 	return result;
 }
 
-async function _read(
-	lockfilePath: string,
-	opts: {
-		// autofixMergeConflicts?: boolean; // removed
-		wantedVersions?: string[];
-		ignoreIncompatible: boolean;
-	},
-): Promise<Lockfile | null> {
+async function _read(lockfilePath: string, opts: ReadOpts): Promise<Lockfile | null> {
 	let lockfileRawContent;
 	try {
 		lockfileRawContent = stripBom(await readFile(lockfilePath, "utf8"));
@@ -62,6 +59,18 @@ async function _read(
 		return null;
 	}
 
+	return parseLockfileContents({ lockfileRawContent, lockfilePath, opts });
+}
+
+export const parseLockfileContents = async ({
+	lockfileRawContent,
+	lockfilePath = WANTED_LOCKFILE,
+	opts,
+}: {
+	lockfileRawContent: string;
+	lockfilePath?: string;
+	opts: ReadOpts;
+}) => {
 	let lockfileFile: PnpmLockfileFile;
 	try {
 		lockfileFile = yaml.load(lockfileRawContent) as Lockfile;
@@ -92,13 +101,14 @@ async function _read(
 			return lockfile;
 		}
 	}
+
 	if (opts.ignoreIncompatible) {
 		console.warn(`Ignoring not compatible lockfile at ${lockfilePath}`);
 		return null;
 	}
 
 	throw new Error(`Lockfile ${lockfilePath} is not compatible with the current pnpm version`);
-}
+};
 
 /**
  * Reverts changes from the "forceSharedFormat" write option if necessary.

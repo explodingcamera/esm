@@ -2,8 +2,7 @@ import { parse as parseYarn } from "@yarnpkg/lockfile";
 import { join } from "node:path";
 
 import type { YarnLock } from "./yarn";
-import type { CommonLock, LockDependency } from "../types";
-import type { PackageJson } from "@npm/types";
+import type { CommonLock, LockDependency, PackageJson } from "../types";
 import { readFile } from "node:fs/promises";
 
 // Notes

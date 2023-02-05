@@ -1,9 +1,8 @@
-import type { PackageJson } from "@npm/types";
 import { resolve } from "import-meta-resolve";
 import { readdir, readFile, stat } from "node:fs/promises";
 import { join } from "node:path";
 import { pathToFileURL } from "node:url";
-import type { QualifiedDependencyName } from "./types";
+import type { PackageJson, QualifiedDependencyName } from "./types";
 
 export const read = async (directory: string, filename: string): Promise<string> => {
 	return await readFile(join(directory, filename), "utf8");
@@ -59,7 +58,10 @@ export const readQualifiedDependencyPackageJson = async (
 	}
 };
 
-export const readPackageJson = async (directory?: string, name?: string): Promise<PackageJson | undefined> => {
+export const readPackageJson = async (
+	directory?: string,
+	name?: string,
+): Promise<PackageJson | undefined> => {
 	if (!directory) return undefined;
 	if (name && !name.endsWith(".json")) throw new Error("packageJsonName must end with .json");
 	try {

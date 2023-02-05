@@ -2,8 +2,18 @@
 
 exports[`resolve-dependencies 1`] = `
 {
-  "dependencies": {
-    "tslib": "2.5.0",
+  "dependencies": undefined,
+  "importers": {
+    ".": {
+      "dependencies": {
+        "tslib": "2.5.0",
+      },
+      "dependenciesMeta": undefined,
+      "publishDirectory": undefined,
+      "specifiers": {
+        "tslib": "^2.5.0",
+      },
+    },
   },
   "lockfileVersion": 5.4,
   "packages": {
@@ -14,9 +24,7 @@ exports[`resolve-dependencies 1`] = `
       },
     },
   },
-  "specifiers": {
-    "tslib": "^2.5.0",
-  },
+  "specifiers": undefined,
 }
 `;
 
@@ -27,8 +35,8 @@ exports[`resolve-dependencies 2`] = `
       "dependencies": {
         "tslib": "2.5.0",
       },
-      "devDependencies": undefined,
-      "optionalDependencies": undefined,
+      "dependenciesMeta": undefined,
+      "publishDirectory": undefined,
       "specifiers": {
         "tslib": "^2.5.0",
       },
