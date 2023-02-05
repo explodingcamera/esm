@@ -22,10 +22,22 @@ exports[`pnpm parse > should parse a pnpm lockfile 1`] = `
 
 exports[`pnpm toCommonLockfile > should convert a pnpm lockfile to a common lockfile 1`] = `
 {
-  "importers": undefined,
+  "importers": {
+    ".": {
+      "dependencies": {
+        "tslib": "2.5.0",
+      },
+      "devDependencies": undefined,
+      "optionalDependencies": undefined,
+      "specifiers": {
+        "tslib": "^2.5.0",
+      },
+    },
+  },
   "lockfileType": "pnpm",
   "lockfileVersion": 1,
   "name": "test",
+  "overrides": undefined,
   "packages": {
     "/tslib/2.5.0": {
       "author": undefined,
@@ -49,6 +61,7 @@ exports[`pnpm toCommonLockfile > should convert a pnpm lockfile to a common lock
       "version": undefined,
     },
   },
+  "path": "/home/henry/repos/esm/packages/unlocked/tests/fixtures/pnpm",
   "version": "1.0.0",
 }
 `;

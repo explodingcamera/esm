@@ -10,7 +10,6 @@ test("resolve-dependencies", async () => {
 	expect(lockfile).toMatchSnapshot();
 
 	const commonLockfile = await toCommonLockfile(lockfile, {
-		packageJsonName: "package.json",
 		projectDirectory,
 	});
 
