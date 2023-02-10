@@ -5,10 +5,60 @@ import type { YarnLock } from "./lockfiles/yarn";
 import type { PnpmLockfileFile } from "unlocked-pnpm";
 import type { PackageJson as PackageJsonNpm } from "@npm/types";
 
+export type ToCommonLockfileOptions = {
+	/**
+	 * Absolute path to the project root directory
+	 */
+	projectDirectory?: string;
+
+	/**
+	 * If true, dependencies will not be resolved to their package.json
+	 * This is useful if you only want to get the lockfile structure
+	 * and not the package.json metadata
+	 */
+	skipResolve?: true;
+
+	packageJsonName?: string;
+};
+
 export type PackageJson = PackageJsonNpm & PackageManifest;
 export type LockfileType = "yarn-v1" | "yarn-v2" | "pnpm" | "npm" | "cargo";
 
-export type NPMLockfile = PackageLock;
+// https://docs.npmjs.com/cli/v9/configuring-npm/package-lock-json?v=true
+export type NPMLockfile = {
+	name?: string;
+	version?: string;
+	lockfileVersion: "2" | "3";
+	requires?: boolean;
+	packages?: {
+		"": NPMLockfilePackage;
+		[packageName: string]: NPMLockfilePackage;
+	};
+};
+
+export type NPMLockfilePackage = {
+	version: string;
+	resolved?: string;
+	integrity?: string;
+	link?: boolean;
+	dev?: boolean;
+	optional?: boolean;
+	devOptional?: boolean;
+	inBundle?: boolean;
+	hasInstallScript?: boolean;
+	bin?: Record<string, string> | string;
+
+	// npm sadly only sets this for workspace packages/the root package
+	license?: string;
+
+	engines?: Record<string, string>;
+	dependencies?: Dependencies;
+	optionalDependencies?: Dependencies;
+
+	// npm doesn't actually document this, but it's in the lockfile
+	devDependencies?: Dependencies;
+};
+
 export type YarnV1Lockfile = YarnLock<"1">;
 export type YarnV2Lockfile = YarnLock<"2">;
 export type PnpmLockfile = PnpmLockfileFile;

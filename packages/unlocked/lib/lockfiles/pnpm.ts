@@ -8,6 +8,7 @@ import type {
 	PackageSnapshots,
 	PnpmLockfile,
 	QualifiedDependencyName,
+	ToCommonLockfileOptions,
 } from "../types";
 
 type IParse = {
@@ -29,22 +30,6 @@ export const parse: IParse = async (directory, file): Promise<PnpmLockfile> => {
 	return (await readWantedLockfile(directory as string, {
 		ignoreIncompatible: false,
 	})) as PnpmLockfile;
-};
-
-type ToCommonLockfileOptions = {
-	/**
-	 * Absolute path to the project root directory
-	 */
-	projectDirectory?: string;
-
-	/**
-	 * If true, dependencies will not be resolved to their package.json
-	 * This is useful if you only want to get the lockfile structure
-	 * and not the package.json metadata
-	 */
-	skipResolve?: true;
-
-	packageJsonName?: string;
 };
 
 export const toCommonLockfile = async (

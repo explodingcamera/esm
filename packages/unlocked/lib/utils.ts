@@ -77,3 +77,5 @@ export const resolveMetadata = async (moduleName: string): Promise<PackageJson> 
 	const packageJson: PackageJson = await import(join(moduleName, "package.json"));
 	return packageJson;
 };
+
+export const unique = <T>(arr: [string, T][]): [string, T][] => [...new Map(arr.map(([a, b]) => [a, b]))];

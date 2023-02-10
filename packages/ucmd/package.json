@@ -26,7 +26,7 @@
     "test": "vitest run"
   },
   "devDependencies": {
-    "tsup": "^6.5.0",
+    "tsup": "^6.6.0",
     "vitest": "^0.28.4"
   },
   "engines": {
