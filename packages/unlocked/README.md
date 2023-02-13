@@ -6,6 +6,7 @@
 - **Monorepo support** - CommonLock is build around the idea of `importers` which are the projects in your monorepo.
 - **More Metadata** - CommonLock includes additional metadata about the lockfile, such as license information and authors.
 - **Interoperability** - CommonLock can be converted into other formats, such as CycloneDX SBOMs.
+- CycloneDX & SPDX are just horrible to work with, CommonLock is a lot simpler and not so enterprisey
 
 My primary use case for this is building [legalizer](../legalizer) which is a tool for generating legal information about your dependencies.
 

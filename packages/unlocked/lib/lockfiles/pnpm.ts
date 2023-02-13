@@ -1,5 +1,5 @@
 import * as utils from "../utils";
-import { parseLockfileContents, readWantedLockfile } from "unlocked-pnpm";
+import { parseLockfileContents, readWantedLockfile } from "pnpm-lock";
 
 import type {
 	CommonLock,

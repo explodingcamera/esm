@@ -1,2 +1,2 @@
-# unlocked-pnpm
+# pnpm-lock
 

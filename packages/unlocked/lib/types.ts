@@ -2,7 +2,7 @@ import type { Maintainer } from "@npm/types";
 import type { PackageManifest } from "@pnpm/types";
 import type { LockfileResolution } from "@pnpm/lockfile-types";
 import type { YarnLock } from "./lockfiles/yarn";
-import type { PnpmLockfileFile } from "unlocked-pnpm";
+import type { PnpmLockfileFile } from "pnpm-lock";
 import type { PackageJson as PackageJsonNpm } from "@npm/types";
 
 export type UnlockedOptions = Partial<CommonLockOptions>;

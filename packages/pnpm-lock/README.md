@@ -5,7 +5,7 @@ Parses `pnpm-lock.yaml` files for use in other tools.
 ## Usage
 
 ```js
-import { parseWantedLockfile } from 'unlocked-pnpm';
+import { parseWantedLockfile } from 'pnpm-lock';
 
 const path = process.cwd();
 const opts = {

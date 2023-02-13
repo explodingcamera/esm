@@ -85,6 +85,29 @@ importers:
       sinon: 15.0.1
       vitest: 0.28.5
 
+  packages/pnpm-lock:
+    specifiers:
+      '@pnpm/constants': ^6.2.0
+      '@pnpm/lockfile-types': ^4.3.6
+      '@pnpm/types': ^8.10.0
+      '@types/js-yaml': ^4.0.5
+      '@types/semver': ^7.3.13
+      js-yaml: ^4.1.0
+      scripts: workspace:*
+      semver: ^7.3.8
+      vitest: ^0.28.5
+    dependencies:
+      js-yaml: 4.1.0
+      semver: 7.3.8
+    devDependencies:
+      '@pnpm/constants': 6.2.0
+      '@pnpm/lockfile-types': 4.3.6
+      '@pnpm/types': 8.10.0
+      '@types/js-yaml': 4.0.5
+      '@types/semver': 7.3.13
+      scripts: link:../../scripts
+      vitest: 0.28.5
+
   packages/rollup-plugin-minify-template-literals:
     specifiers:
       '@rollup/pluginutils': ^5.0.2
@@ -131,15 +154,15 @@ importers:
       '@yarnpkg/parsers': 3.0.0-rc.39
       import-meta-resolve: ^2.2.1
       js-yaml: ^4.1.0
+      pnpm-lock: workspace:0.0.1
       scripts: workspace:*
-      unlocked-pnpm: workspace:0.0.1
       vitest: ^0.28.5
     dependencies:
       '@yarnpkg/lockfile': 1.1.0
       '@yarnpkg/parsers': 3.0.0-rc.39
       import-meta-resolve: 2.2.1
       js-yaml: 4.1.0
-      unlocked-pnpm: link:../unlocked-pnpm
+      pnpm-lock: link:../pnpm-lock
     devDependencies:
       '@npm/types': 1.0.2
       '@pnpm/lockfile-types': 4.3.6
@@ -149,27 +172,17 @@ importers:
       scripts: link:../../scripts
       vitest: 0.28.5
 
-  packages/unlocked-pnpm:
+  packages/unlocked-cyclonedx:
     specifiers:
-      '@pnpm/constants': ^6.2.0
-      '@pnpm/lockfile-types': ^4.3.6
-      '@pnpm/types': ^8.10.0
-      '@types/js-yaml': ^4.0.5
-      '@types/semver': ^7.3.13
-      js-yaml: ^4.1.0
+      '@cyclonedx/cyclonedx-library': ^1.11.0
       scripts: workspace:*
-      semver: ^7.3.8
+      unlocked: workspace:*
       vitest: ^0.28.5
     dependencies:
-      js-yaml: 4.1.0
-      semver: 7.3.8
+      '@cyclonedx/cyclonedx-library': 1.11.0
     devDependencies:
-      '@pnpm/constants': 6.2.0
-      '@pnpm/lockfile-types': 4.3.6
-      '@pnpm/types': 8.10.0
-      '@types/js-yaml': 4.0.5
-      '@types/semver': 7.3.13
       scripts: link:../../scripts
+      unlocked: link:../unlocked
       vitest: 0.28.5
 
   scripts:
@@ -423,6 +436,15 @@ packages:
       human-id: 1.0.2
       prettier: 2.8.4
     dev: true
+
+  /@cyclonedx/cyclonedx-library/1.11.0:
+    resolution: {integrity: sha512-xFTWvl1bjHDWXX5ZkHaIiuvGbAt+ZV0bFhkr9A+bzt0NWwrIAVkYehSTHmQrVi1s/ehE7ebeYhsLVqLbPUn7IA==}
+    engines: {node: '>=14.0.0'}
+    dependencies:
+      packageurl-js: 1.0.0
+    optionalDependencies:
+      xmlbuilder2: 3.0.2
+    dev: false
 
   /@esbuild/android-arm/0.16.17:
     resolution: {integrity: sha512-N9x1CMXVhtWEAMS7pNNONyA14f71VPQN9Cnavj1XQh6T7bskqiLLrSca4O0Vr8Wdcga943eThxnVp3JLnBMYtw==}
@@ -933,6 +955,39 @@ packages:
     resolution: {integrity: sha512-KXZccTDEnWqNrrx6JjpJKU/wJvNeg9BDgjS0XhmlZab7br921HtyVbsYzJr4L+xIvjdJ20Wh9dgxgCI2a5CEQw==}
     dev: true
 
+  /@oozcitak/dom/1.15.10:
+    resolution: {integrity: sha512-0JT29/LaxVgRcGKvHmSrUTEvZ8BXvZhGl2LASRUgHqDTC1M5g1pLmVv56IYNyt3bG2CUjDkc67wnyZC14pbQrQ==}
+    engines: {node: '>=8.0'}
+    dependencies:
+      '@oozcitak/infra': 1.0.8
+      '@oozcitak/url': 1.0.4
+      '@oozcitak/util': 8.3.8
+    dev: false
+    optional: true
+
+  /@oozcitak/infra/1.0.8:
+    resolution: {integrity: sha512-JRAUc9VR6IGHOL7OGF+yrvs0LO8SlqGnPAMqyzOuFZPSZSXI7Xf2O9+awQPSMXgIWGtgUf/dA6Hs6X6ySEaWTg==}
+    engines: {node: '>=6.0'}
+    dependencies:
+      '@oozcitak/util': 8.3.8
+    dev: false
+    optional: true
+
+  /@oozcitak/url/1.0.4:
+    resolution: {integrity: sha512-kDcD8y+y3FCSOvnBI6HJgl00viO/nGbQoCINmQ0h98OhnGITrWR3bOGfwYCthgcrV8AnTJz8MzslTQbC3SOAmw==}
+    engines: {node: '>=8.0'}
+    dependencies:
+      '@oozcitak/infra': 1.0.8
+      '@oozcitak/util': 8.3.8
+    dev: false
+    optional: true
+
+  /@oozcitak/util/8.3.8:
+    resolution: {integrity: sha512-T8TbSnGsxo6TDBJx/Sgv/BlVJL3tshxZP7Aq5R1mSnM5OcHY2dQaxLMu2+E8u3gN0MLOzdjurqN4ZRVuzQycOQ==}
+    engines: {node: '>=8.0'}
+    dev: false
+    optional: true
+
   /@pnpm/constants/6.2.0:
     resolution: {integrity: sha512-GlDVUkeTR2WK0oZAM+wtDY6RBMLw6b0Z/5qKgBbDszx4e+R7CHyfG7JofyypogRCfeWXeAXp2C2FkFTh+sNgIg==}
     engines: {node: '>=14.6'}
@@ -1095,7 +1150,6 @@ packages:
 
   /@types/node/18.13.0:
     resolution: {integrity: sha512-gC3TazRzGoOnoKAhUx+Q0t8S9Tzs74z7m0ipwGpSqQrleP14hKxP4/JUeEQcD3W1/aIpnWl8pHowI7WokuZpXg==}
-    dev: true
 
   /@types/normalize-package-data/2.4.1:
     resolution: {integrity: sha512-Gj7cI7z+98M282Tqmp2K5EIsoouUEzbBJhQQzDE3jSIRk6r9gsz0oUokqIUR4u1R3dMHo0pDHM7sNOHyhulypw==}
@@ -2427,6 +2481,15 @@ packages:
   /js-tokens/4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
 
+  /js-yaml/3.14.0:
+    resolution: {integrity: sha512-/4IbIeHcD9VMHFqDR/gQ7EdZdLimOvW2DdcxFjdyyZ9NsbS+ccrXqVWDtab/lRl5AlUqmpBx8EhPaWR+OtY17A==}
+    hasBin: true
+    dependencies:
+      argparse: 1.0.10
+      esprima: 4.0.1
+    dev: false
+    optional: true
+
   /js-yaml/3.14.1:
     resolution: {integrity: sha512-okMH7OXXJ7YrN9Ok3/SXrnu4iX9yOk+25nqX4imS2npuvTYDmo/QEZoqwZkYaIDk3jVvBOTOIEgEhaLOynBS9g==}
     hasBin: true
@@ -2895,6 +2958,10 @@ packages:
     resolution: {integrity: sha512-R4nPAVTAU0B9D35/Gk3uJf/7XYbQcyohSKdvAxIRSNghFl4e71hVoGnBNQz9cWaXxO2I10KTC+3jMdvvoKw6dQ==}
     engines: {node: '>=6'}
     dev: true
+
+  /packageurl-js/1.0.0:
+    resolution: {integrity: sha512-06kNFU+yB2pjDf5JyXouQeKfwSScGP8hrZK6VgB+W4SlVy4y5yB4vl+AVmh3R0GBNd+fBt0dEiSx3HKmuchuJQ==}
+    dev: false
 
   /param-case/3.0.4:
     resolution: {integrity: sha512-RXlj7zCYokReqWpOPH9oYivUzLYZ5vAPIfEmCTNViosC78F8F0H9y7T7gG2M39ymgutxF5gcFEsyZQSph9Bp3A==}
@@ -4168,6 +4235,19 @@ packages:
     resolution: {integrity: sha512-yMqGBqtXyeN1e3TGYvgNgDVZ3j84W4cwkOXQswghol6APgZWaff9lnbvN7MHYJOiXsvGPXtjTYJEiC9J2wv9Eg==}
     engines: {node: '>=8.0'}
     dev: false
+
+  /xmlbuilder2/3.0.2:
+    resolution: {integrity: sha512-h4MUawGY21CTdhV4xm3DG9dgsqyhDkZvVJBx88beqX8wJs3VgyGQgAn5VreHuae6unTQxh115aMK5InCVmOIKw==}
+    engines: {node: '>=12.0'}
+    requiresBuild: true
+    dependencies:
+      '@oozcitak/dom': 1.15.10
+      '@oozcitak/infra': 1.0.8
+      '@oozcitak/util': 8.3.8
+      '@types/node': 18.13.0
+      js-yaml: 3.14.0
+    dev: false
+    optional: true
 
   /xmlchars/2.2.0:
     resolution: {integrity: sha512-JZnDKK8B0RCDw84FNdDAIpZK+JuJw+s7Lz8nksI7SIuU3UXJJslUthsi+uWBUYOwPFwW7W7PRLRfUKpxjtjFCw==}
