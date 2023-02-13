@@ -34,10 +34,12 @@ importers:
       scripts: workspace:*
       spdx-license-list: ^6.6.0
       ucmd: workspace:^0.3.0
+      unlocked: workspace:0.1.1
       vitest: ^0.28.5
     dependencies:
       spdx-license-list: 6.6.0
       ucmd: link:../ucmd
+      unlocked: link:../unlocked
     devDependencies:
       scripts: link:../../scripts
       vitest: 0.28.5

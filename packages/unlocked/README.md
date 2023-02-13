@@ -1,15 +1,29 @@
 # Unlocked [![API Docs](https://img.shields.io/badge/API%20Docs-blue.svg)](https://paka.dev/npm/unlocked)
 
-> Parse lockfiles from npm, yarn, and pnpm into a common format for use in other tools.
-> The common format includes additional information about the lockfile, such as the
-> license of the package, the version of the package manager, and the type of lockfile
+> Parse lockfiles from various package managers into a common format
+## Differences from other tools
 
-## Supported Lockfiles
+- **Monorepo support** - CommonLock is build around the idea of `importers` which are the projects in your monorepo.
+- **More Metadata** - CommonLock includes additional metadata about the lockfile, such as license information and authors.
+- **Interoperability** - CommonLock can be converted into other formats, such as CycloneDX SBOMs.
 
-- [x] pnpm-lock.yaml
-- [ ] package-lock.json
-- [ ] yarn.lock
-- [ ] cargo.lock
+My primary use case for this is building [legalizer](../legalizer) which is a tool for generating legal information about your dependencies.
+
+## Supported Lockfiles/Package Managers
+
+- [x] `pnpm-lock.yaml`
+- [x] `package-lock.json` (partial)
+- [ ] `yarn.lock` v1
+- [ ] `yarn.lock` v2
+
+## Unlocked Ecosystem
+
+- [unlocked](../unlocked) - Common lockfile format
+- [unlocked-cyclonedx](../unlocked-cyclonedx) - Generate CycloneDX SBOMs from the CommonLock format
+
+## Related Packages
+
+- [pnpm-lock](../pnpm-lock) - Parse pnpm-lock.yaml files
 
 ## Install
 
@@ -20,9 +34,9 @@ $ npm install unlocked
 ## Usage
 
 ```ts
-import { parse } from "unlocked";
+import { unlock } from "unlocked";
 import type { CommonLock } from "unlocked";
 
-// currently only supports pnpm-lock.yaml files
-const lockfile: CommonLock = await parse(process.cwd());
+const directory = process.cwd();
+const lockfile: CommonLock = await unlock(directory);
 ```

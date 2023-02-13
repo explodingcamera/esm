@@ -1,14 +1,13 @@
 import { join } from "node:path";
-import { cwd } from "node:process";
 import type {
 	CommonLock,
 	Importer,
 	ImporterSnapshots,
 	NPMLockfile,
-	PackageJson,
 	PackageSnapshots,
 	QualifiedDependencyName,
-	ToCommonLockfileOptions,
+	CommonLockOptions,
+	Dependencies,
 } from "../types";
 import * as utils from "../utils";
 
@@ -23,39 +22,32 @@ export const parse: IParse = async (directory, file): Promise<NPMLockfile> => {
 	return directory ? await import(join(directory, "package-lock.json")) : JSON.parse(file as string);
 };
 
-export const toCommonLockfile = async (lockfile: NPMLockfile, options?: ToCommonLockfileOptions) => {
-	let rootPkg = await utils.readPackageJson(options?.projectDirectory || cwd(), options?.packageJsonName);
+export const toCommonLockfile = async (lockfile: NPMLockfile, options: CommonLockOptions) => {
+	let rootPkg = await utils.readPackageJson(options.projectDirectory, options.packageJsonName);
 
 	if (lockfile.lockfileVersion !== 3 && lockfile.lockfileVersion !== 2)
 		throw new Error(`Unsupported package-lock.json version: ${lockfile.version}`);
 
 	let packagesToVersions: Record<string, string> = {};
-
 	let importers: ImporterSnapshots = {};
 	let packages: PackageSnapshots = {};
 
+	const resolveConcreteVersion = (deps?: Dependencies) =>
+		Object.fromEntries(
+			Object.entries(deps ?? {}).map(([specifier, version]) => [
+				specifier,
+				packagesToVersions[`node_modules/${specifier}`] ?? version,
+			]),
+		);
+
+	// process packages
 	for (let [name, dep] of Object.entries(lockfile.packages ?? {})) {
 		if (!name.startsWith("node_modules/")) continue;
 		if (dep.link && !dep.resolved?.endsWith(".tgz")) continue;
 		let actualName = name.slice("node_modules/".length);
 		let qualifiedName: QualifiedDependencyName = `/${actualName}/${dep.version}`;
 
-		let dependencyPkg: PackageJson | undefined;
-		let dependencyLicensePath: string | undefined;
-
-		if (!options?.skipResolve && options?.projectDirectory) {
-			try {
-				dependencyPkg = await utils.readQualifiedDependencyPackageJson(
-					qualifiedName,
-					options.projectDirectory,
-				);
-
-				dependencyLicensePath = await utils.findQualifiedDependencyLicenseFile(
-					qualifiedName,
-					options.projectDirectory,
-				);
-			} catch (_) {}
-		}
+		const meta = await utils.readPackageMetadata(qualifiedName, options.projectDirectory);
 
 		let dependencies = Object.fromEntries(
 			Object.entries(dep.dependencies ?? {}).map(([specifier, version]) => [specifier, version]),
@@ -68,7 +60,7 @@ export const toCommonLockfile = async (lockfile: NPMLockfile, options?: ToCommon
 		packagesToVersions[name] = dep.version;
 		packages[qualifiedName] = {
 			dependencies,
-			// TODO: npm handles peerDependencies differently
+			// TODO: npm handles peerDependencies differently, for now we'll just ignore them
 			// peerDependencies,
 			// optionalPeerDependencies: Object.keys(dep.peerDependenciesMeta ?? []),
 
@@ -80,14 +72,19 @@ export const toCommonLockfile = async (lockfile: NPMLockfile, options?: ToCommon
 			engines: dep.engines,
 			dev: dep.dev,
 
-			author: dependencyPkg?.author,
-			spdxLicenseId: dependencyPkg?.license,
-			licenseFile: dependencyLicensePath,
+			author: meta.packageJson?.author,
+			spdxLicenseId: meta.packageJson?.license,
+			packageJsonPath: meta.packageJsonPath,
+			licenseFile: meta.licensePath,
 		};
 	}
 
+	// process specifiers
 	for (let [name, data] of Object.entries(lockfile.packages ?? {})) {
 		if (!data) continue;
+
+		// these have already been handled by the previous loop
+		if (name.startsWith("node_modules/")) continue;
 
 		let uniquePackages = utils.unique([
 			...Object.entries(data.dependencies ?? {}),
@@ -95,29 +92,11 @@ export const toCommonLockfile = async (lockfile: NPMLockfile, options?: ToCommon
 			...Object.entries(data.optionalDependencies ?? {}),
 		]);
 
-		let newData: Importer = {
+		const newData: Importer = {
 			specifiers: Object.fromEntries(uniquePackages),
-
-			dependencies: Object.fromEntries(
-				Object.entries(data.dependencies ?? {}).map(([specifier, version]) => [
-					specifier,
-					packagesToVersions[`node_modules/${specifier}`] ?? version,
-				]),
-			),
-
-			devDependencies: Object.fromEntries(
-				Object.entries(data.devDependencies ?? {}).map(([specifier, version]) => [
-					specifier,
-					packagesToVersions[`node_modules/${specifier}`] ?? version,
-				]),
-			),
-
-			optionalDependencies: Object.fromEntries(
-				Object.entries(data.optionalDependencies ?? {}).map(([specifier, version]) => [
-					specifier,
-					packagesToVersions[`node_modules/${specifier}`] ?? version,
-				]),
-			),
+			dependencies: resolveConcreteVersion(data.dependencies),
+			devDependencies: resolveConcreteVersion(data.devDependencies),
+			optionalDependencies: resolveConcreteVersion(data.optionalDependencies),
 		};
 
 		if (name === "") {
@@ -125,27 +104,20 @@ export const toCommonLockfile = async (lockfile: NPMLockfile, options?: ToCommon
 			continue;
 		}
 
-		if (name.startsWith("node_modules/")) {
-			// TODO
-			continue;
-		}
-
 		// this is probably a workspace package / importer
 		if (name.includes("/")) {
 			importers[name] = newData;
-			// continue;
 		}
 	}
 
 	return {
 		name: lockfile.name ?? rootPkg?.name ?? "unknown",
 		version: lockfile.version ?? rootPkg?.version ?? "0.0.0",
-		lockfileVersion: lockfile.version === "3" ? 3 : 2,
+		commonLockVersion: 0,
+		lockfileVersion: lockfile.lockfileVersion,
 		lockfileType: "npm",
 		path: options?.projectDirectory,
 		importers,
-
-		// TODO: this needs to be filled in
 		packages,
 	} satisfies CommonLock;
 };

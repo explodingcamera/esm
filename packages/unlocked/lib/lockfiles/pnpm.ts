@@ -4,11 +4,10 @@ import { parseLockfileContents, readWantedLockfile } from "unlocked-pnpm";
 import type {
 	CommonLock,
 	LockDependency,
-	PackageJson,
 	PackageSnapshots,
 	PnpmLockfile,
 	QualifiedDependencyName,
-	ToCommonLockfileOptions,
+	CommonLockOptions,
 } from "../types";
 
 type IParse = {
@@ -34,36 +33,26 @@ export const parse: IParse = async (directory, file): Promise<PnpmLockfile> => {
 
 export const toCommonLockfile = async (
 	lockfile: PnpmLockfile,
-	options?: ToCommonLockfileOptions,
+	options: CommonLockOptions,
 ): Promise<CommonLock> => {
-	let pkg = await utils.readPackageJson(options?.projectDirectory, options?.packageJsonName);
+	let rootPkg = await utils.readPackageJson(options.projectDirectory, options.packageJsonName);
 
 	if (lockfile.packages == null)
 		return {
-			name: pkg?.name ?? "unknown",
-			version: pkg?.version ?? "0.0.0",
+			name: rootPkg?.name ?? "unknown",
+			version: rootPkg?.version ?? "0.0.0",
 			lockfileVersion: 1,
 			lockfileType: "pnpm",
+			commonLockVersion: 0,
 		} satisfies CommonLock;
 
-	let packagePromises = Object.entries(lockfile.packages).map(async ([name, dep]) => {
+	let packagePromises = Object.entries(lockfile.packages).map(async ([qualifiedName, dep]) => {
 		// resolve the qualified name to a name that can be used to resolve the package
 		// e.g. "/is-positive/3.1.0" -> "is-positive"
-
-		let dependencyPkg: PackageJson | undefined;
-		let dependencyLicensePath: string | undefined;
-		if (!options?.skipResolve && options?.projectDirectory) {
-			try {
-				dependencyPkg = await utils.readQualifiedDependencyPackageJson(
-					name as QualifiedDependencyName,
-					options.projectDirectory,
-				);
-				dependencyLicensePath = await utils.findQualifiedDependencyLicenseFile(
-					name as QualifiedDependencyName,
-					options.projectDirectory,
-				);
-			} catch (_) {}
-		}
+		const meta = await utils.readPackageMetadata(
+			qualifiedName as QualifiedDependencyName,
+			options.projectDirectory,
+		);
 
 		let dependency = {
 			version: dep.version,
@@ -81,12 +70,13 @@ export const toCommonLockfile = async (
 			requiresBuild: dep.requiresBuild,
 			resolution: dep.resolution,
 
-			author: dependencyPkg?.author,
-			spdxLicenseId: dependencyPkg?.license,
-			licenseFile: dependencyLicensePath,
+			author: meta.packageJson?.author,
+			spdxLicenseId: meta.packageJson?.license,
+			packageJsonPath: meta.packageJsonPath,
+			licenseFile: meta.licensePath,
 		} satisfies LockDependency;
 
-		return [name as QualifiedDependencyName, dependency];
+		return [qualifiedName, dependency];
 	});
 
 	let packages = Object.fromEntries(await Promise.all(packagePromises)) as PackageSnapshots;
@@ -106,13 +96,14 @@ export const toCommonLockfile = async (
 	}
 
 	return {
-		name: pkg?.name ?? "unknown",
-		version: pkg?.version ?? "0.0.0",
-		lockfileVersion: 1,
+		name: rootPkg?.name ?? "unknown",
+		version: rootPkg?.version ?? "0.0.0",
+		lockfileVersion: lockfile.lockfileVersion,
 		lockfileType: "pnpm",
 		packages,
 		importers,
 		overrides: lockfile.overrides,
 		path: options?.projectDirectory,
+		commonLockVersion: 0,
 	} satisfies CommonLock;
 };

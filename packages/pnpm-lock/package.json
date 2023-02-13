@@ -1,5 +1,5 @@
 {
-  "name": "unlocked-pnpm",
+  "name": "pnpm-lock",
   "support": "preview",
   "version": "0.0.1",
   "description": "A fork of @pnpm/lockfile-file without all the dependencies and only the lockfile parsing",
@@ -23,7 +23,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "scripts build --name unlocked-pnpm",
+    "build": "scripts build --name pnpm-lock",
     "test": "scripts test run"
   },
   "devDependencies": {

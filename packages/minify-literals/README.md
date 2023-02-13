@@ -78,6 +78,10 @@ export interface Options {
 }
 ```
 
+## Related Packages
+
+- [rollup-plugin-minify-template-literals](../rollup-plugin-minify-template-literals/README.md) - Rollup plugin for minifying HTML & CSS markup inside JavaScript/TypeScript template literal strings.
+
 ## Credits
 
 This package is based on [minify-html-literals](https://github.com/asyncLiz/minify-html-literals) by [Elizabeth Mitchell](https://github.com/asyncLiz)

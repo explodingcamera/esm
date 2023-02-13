@@ -41,5 +41,6 @@ export const toCommonLockfile = (lockfile: YarnLock<"2">, pkg?: PackageJson) => 
 		lockfileVersion: 2,
 		// dependencies,
 		lockfileType: "yarn-v2",
+		commonLockVersion: 0,
 	} satisfies CommonLock;
 };

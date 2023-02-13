@@ -1,25 +1,31 @@
-import type { Maintainer, PackageLock } from "@npm/types";
+import type { Maintainer } from "@npm/types";
 import type { PackageManifest } from "@pnpm/types";
 import type { LockfileResolution } from "@pnpm/lockfile-types";
 import type { YarnLock } from "./lockfiles/yarn";
 import type { PnpmLockfileFile } from "unlocked-pnpm";
 import type { PackageJson as PackageJsonNpm } from "@npm/types";
 
-export type ToCommonLockfileOptions = {
+export type UnlockedOptions = Partial<CommonLockOptions>;
+export type CommonLockOptions = {
 	/**
 	 * Absolute path to the project root directory
 	 */
-	projectDirectory?: string;
+	projectDirectory: string;
 
 	/**
 	 * If true, dependencies will not be resolved to their package.json
 	 * This is useful if you only want to get the lockfile structure
 	 * and not the package.json metadata
 	 */
-	skipResolve?: true;
-
-	packageJsonName?: string;
+	skipResolve: boolean;
+	packageJsonName: string;
 };
+
+export const defaultCommonLockOptions = (opts?: Partial<CommonLockOptions>): CommonLockOptions => ({
+	projectDirectory: opts?.projectDirectory ?? process.cwd(),
+	skipResolve: opts?.skipResolve ?? false,
+	packageJsonName: opts?.packageJsonName ?? "package.json",
+});
 
 export type PackageJson = PackageJsonNpm & PackageManifest;
 export type LockfileType = "yarn-v1" | "yarn-v2" | "pnpm" | "npm" | "cargo";
@@ -101,6 +107,7 @@ export type CommonLock = {
 
 	lockfileType: LockfileType;
 	lockfileVersion: number;
+	commonLockVersion: 0;
 
 	overrides?: Dependencies;
 
@@ -189,6 +196,8 @@ export type LockDependency = {
 	 */
 	optionalPeerDependencies?: DependencyName[];
 
+	// extra fields provided by us for convenience
+	packageJsonPath?: string;
 	author?: Maintainer;
 	licenseFile?: string;
 	spdxLicenseId?: string;

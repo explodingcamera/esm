@@ -9,25 +9,25 @@ import { toCommonLockfile as yarnV1ToCommonLockfile } from "./lockfiles/yarn-v1"
 import { toCommonLockfile as yarnV2ToCommonLockfile } from "./lockfiles/yarn-berry";
 import { toCommonLockfile as pnpmToCommonLockfile } from "./lockfiles/pnpm";
 import { toCommonLockfile as npmToCommonLockfile } from "./lockfiles/npm";
-import type { CommonLock } from "./types";
+import { CommonLock, defaultCommonLockOptions, UnlockedOptions } from "./types";
 
-export const parse = async (directory: string): Promise<CommonLock> => {
-	const lockfileType = await detectLockfileType(directory);
-
+export const unlock = async (directory?: string, _options?: UnlockedOptions): Promise<CommonLock> => {
+	const dir = directory ?? process.cwd();
+	const lockfileType = await detectLockfileType(dir);
 	if (lockfileType === undefined) throw new Error("No lockfile found");
-	if (lockfileType !== "pnpm") throw new Error("Currently, only pnpm lockfiles are supported");
+	const options = defaultCommonLockOptions(_options);
 
 	switch (lockfileType) {
 		case "pnpm":
-			return await pnpmToCommonLockfile(await parsePnpm(directory));
+			return await pnpmToCommonLockfile(await parsePnpm(dir), options);
+		case "npm":
+			return await npmToCommonLockfile(await parseNpm(dir), options);
 		// case "yarn-v1":
 		// 	return await yarnV1ToCommonLockfile(await parseYarnV1(directory));
 		// case "yarn-v2":
 		// 	return await yarnV2ToCommonLockfile(await parseYarnV2(directory));
-		// case "npm":
-		// 	return await npmToCommonLockfile(await parseNpm(directory));
 		default:
-			throw new Error(`Unknown lockfile type: ${lockfileType}`);
+			throw new Error("Currently, only npm & pnpm lockfiles are supported");
 	}
 };
 

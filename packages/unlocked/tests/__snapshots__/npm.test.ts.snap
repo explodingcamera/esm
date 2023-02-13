@@ -38,7 +38,7 @@ exports[`npm toCommonLockfile > should convert a npm lockfile to a common lockfi
     },
   },
   "lockfileType": "npm",
-  "lockfileVersion": 2,
+  "lockfileVersion": 3,
   "name": "test",
   "packages": {
     "/tslib/2.5.0": {
@@ -50,6 +50,7 @@ exports[`npm toCommonLockfile > should convert a npm lockfile to a common lockfi
       "licenseFile": undefined,
       "optional": undefined,
       "optionalDependencies": {},
+      "packageJsonPath": "./../../..",
       "spdxLicenseId": undefined,
       "version": "2.5.0",
     },
@@ -101,7 +102,7 @@ exports[`npm toCommonLockfile > should convert a npm lockfile to a common lockfi
     },
   },
   "lockfileType": "npm",
-  "lockfileVersion": 2,
+  "lockfileVersion": 3,
   "name": "npm-workspaces-demo",
   "packages": {
     "/@types/node/12.20.55": {
@@ -113,6 +114,7 @@ exports[`npm toCommonLockfile > should convert a npm lockfile to a common lockfi
       "licenseFile": "./node_modules/@types/node/LICENSE",
       "optional": undefined,
       "optionalDependencies": {},
+      "packageJsonPath": "./node_modules/@types/node",
       "spdxLicenseId": "MIT",
       "version": "12.20.55",
     },

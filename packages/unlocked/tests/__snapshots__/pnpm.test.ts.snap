@@ -43,7 +43,7 @@ exports[`pnpm toCommonLockfile > should convert a pnpm lockfile to a common lock
     },
   },
   "lockfileType": "pnpm",
-  "lockfileVersion": 1,
+  "lockfileVersion": 5.4,
   "name": "test",
   "overrides": undefined,
   "packages": {
@@ -59,6 +59,7 @@ exports[`pnpm toCommonLockfile > should convert a pnpm lockfile to a common lock
       "optionalDependencies": undefined,
       "optionalPeerDependencies": [],
       "os": undefined,
+      "packageJsonPath": "./node_modules/.pnpm/tslib@2.5.0/node_modules/tslib",
       "patched": undefined,
       "peerDependencies": undefined,
       "requiresBuild": undefined,

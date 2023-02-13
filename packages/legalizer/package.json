@@ -31,6 +31,7 @@
   },
   "dependencies": {
     "spdx-license-list": "^6.6.0",
+    "unlocked": "workspace:0.1.1",
     "ucmd": "workspace:^0.3.0"
   },
   "devDependencies": {
