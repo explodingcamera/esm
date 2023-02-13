@@ -26,8 +26,8 @@
     "test": "vitest run"
   },
   "devDependencies": {
-    "tsup": "^6.6.0",
-    "vitest": "^0.28.4"
+    "tsup": "^6.6.2",
+    "vitest": "^0.28.5"
   },
   "engines": {
     "node": ">=19.0.0"

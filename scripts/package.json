@@ -17,12 +17,12 @@
     }
   },
   "dependencies": {
-    "tsup": "^6.6.0",
+    "tsup": "^6.6.2",
     "ucmd": "workspace:*"
   },
   "devDependencies": {
     "@npm/types": "^1.0.2",
     "@types/node": "^18.13.0",
-    "vitest": "^0.28.4"
+    "vitest": "^0.28.5"
   }
 }
