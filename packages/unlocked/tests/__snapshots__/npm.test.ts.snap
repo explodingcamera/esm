@@ -1,0 +1,123 @@
+// Vitest Snapshot v1
+
+exports[`npm parse > should parse a npm lockfile 1`] = `
+{
+  "lockfileVersion": 3,
+  "name": "test",
+  "packages": {
+    "": {
+      "dependencies": {
+        "tslib": "^2.5.0",
+      },
+      "name": "test",
+      "version": "1.0.0",
+    },
+    "node_modules/tslib": {
+      "integrity": "sha512-336iVw3rtn2BUK7ORdIAHTyxHGRIHVReokCR3XjbckJMK7ms8FysBfhLR8IXnAgy7T0PTPNBWKiH514FOW/WSg==",
+      "resolved": "https://registry.npmjs.org/tslib/-/tslib-2.5.0.tgz",
+      "version": "2.5.0",
+    },
+  },
+  "requires": true,
+  "version": "1.0.0",
+}
+`;
+
+exports[`npm toCommonLockfile > should convert a npm lockfile to a common lockfile 1`] = `
+{
+  "importers": {
+    ".": {
+      "dependencies": {
+        "tslib": "2.5.0",
+      },
+      "devDependencies": {},
+      "optionalDependencies": {},
+      "specifiers": {
+        "tslib": "^2.5.0",
+      },
+    },
+  },
+  "lockfileType": "npm",
+  "lockfileVersion": 2,
+  "name": "test",
+  "packages": {
+    "/tslib/2.5.0": {
+      "author": undefined,
+      "dependencies": {},
+      "dev": undefined,
+      "engines": undefined,
+      "hasBin": undefined,
+      "licenseFile": undefined,
+      "optional": undefined,
+      "optionalDependencies": {},
+      "spdxLicenseId": undefined,
+      "version": "2.5.0",
+    },
+  },
+  "path": undefined,
+  "version": "1.0.0",
+}
+`;
+
+exports[`npm toCommonLockfile > should convert a npm lockfile to a common lockfile with npm modules 1`] = `
+{
+  "importers": {
+    ".": {
+      "dependencies": {},
+      "devDependencies": {},
+      "optionalDependencies": {},
+      "specifiers": {},
+    },
+    "long/nested/package-c": {
+      "dependencies": {
+        "@test/package-a": "1.0.0",
+      },
+      "devDependencies": {},
+      "optionalDependencies": {},
+      "specifiers": {
+        "@test/package-a": "1.0.0",
+      },
+    },
+    "packages/package-a": {
+      "dependencies": {},
+      "devDependencies": {},
+      "optionalDependencies": {},
+      "specifiers": {},
+    },
+    "packages/package-b": {
+      "dependencies": {
+        "@test/package-a": "1.0.0",
+        "package-c": "1.0.0",
+      },
+      "devDependencies": {
+        "@types/node": "12.20.55",
+      },
+      "optionalDependencies": {},
+      "specifiers": {
+        "@test/package-a": "1.0.0",
+        "@types/node": "^12.12.12",
+        "package-c": "1.0.0",
+      },
+    },
+  },
+  "lockfileType": "npm",
+  "lockfileVersion": 2,
+  "name": "npm-workspaces-demo",
+  "packages": {
+    "/@types/node/12.20.55": {
+      "author": undefined,
+      "dependencies": {},
+      "dev": true,
+      "engines": undefined,
+      "hasBin": undefined,
+      "licenseFile": "./node_modules/@types/node/LICENSE",
+      "optional": undefined,
+      "optionalDependencies": {},
+      "spdxLicenseId": "MIT",
+      "version": "12.20.55",
+    },
+  },
+  "path": undefined,
+  "version": "1.0.0",
+}
+`;

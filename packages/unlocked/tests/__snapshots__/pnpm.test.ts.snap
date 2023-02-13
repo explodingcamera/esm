@@ -48,13 +48,13 @@ exports[`pnpm toCommonLockfile > should convert a pnpm lockfile to a common lock
   "overrides": undefined,
   "packages": {
     "/tslib/2.5.0": {
-      "author": undefined,
+      "author": "Microsoft Corp.",
       "cpu": undefined,
       "dependencies": undefined,
       "dev": false,
       "engines": undefined,
       "hasBin": undefined,
-      "licenseFile": undefined,
+      "licenseFile": "./node_modules/.pnpm/tslib@2.5.0/node_modules/tslib/LICENSE.txt",
       "optional": undefined,
       "optionalDependencies": undefined,
       "optionalPeerDependencies": [],
@@ -65,7 +65,7 @@ exports[`pnpm toCommonLockfile > should convert a pnpm lockfile to a common lock
       "resolution": {
         "integrity": "sha512-336iVw3rtn2BUK7ORdIAHTyxHGRIHVReokCR3XjbckJMK7ms8FysBfhLR8IXnAgy7T0PTPNBWKiH514FOW/WSg==",
       },
-      "spdxLicenseId": undefined,
+      "spdxLicenseId": "0BSD",
       "version": undefined,
     },
   },

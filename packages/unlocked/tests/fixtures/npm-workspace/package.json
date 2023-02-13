@@ -1,0 +1,10 @@
+{
+  "name": "npm-workspaces-demo",
+  "version": "1.0.0",
+  "author": "Ruan Martinelli",
+  "license": "MIT",
+  "workspaces": [
+    "./packages/*",
+    "./long/nested/*"
+  ]
+}

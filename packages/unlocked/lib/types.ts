@@ -28,7 +28,7 @@ export type LockfileType = "yarn-v1" | "yarn-v2" | "pnpm" | "npm" | "cargo";
 export type NPMLockfile = {
 	name?: string;
 	version?: string;
-	lockfileVersion: "2" | "3";
+	lockfileVersion: 2 | 3;
 	requires?: boolean;
 	packages?: {
 		"": NPMLockfilePackage;
@@ -55,8 +55,9 @@ export type NPMLockfilePackage = {
 	dependencies?: Dependencies;
 	optionalDependencies?: Dependencies;
 
-	// npm doesn't actually document this, but it's in the lockfile
+	// npm doesn't actually document these, but they're in the lockfile
 	devDependencies?: Dependencies;
+	workspaces?: string;
 };
 
 export type YarnV1Lockfile = YarnLock<"1">;

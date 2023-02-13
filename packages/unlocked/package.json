@@ -25,7 +25,10 @@
   "scripts": {
     "build": "scripts build --name unlocked",
     "test": "npm run install-test && scripts test run",
-    "install-test": "cd tests/fixtures/generic && pnpm install --prefer-offline --frozen-lockfile --ignore-workspace && cd ../../.."
+    "install-test": "npm run install-test:pnpm && npm run install-test:generic && npm run install-test:npm",
+    "install-test:npm": "cd tests/fixtures/npm-workspace && npm install --prefer-offline --no-audit --no-fund && cd ../../..",
+    "install-test:generic": "cd tests/fixtures/generic && pnpm install --prefer-offline --frozen-lockfile --ignore-workspace && cd ../../..",
+    "install-test:pnpm": "cd tests/fixtures/pnpm && pnpm install --prefer-offline --frozen-lockfile --ignore-workspace && cd ../../.."
   },
   "devDependencies": {
     "@npm/types": "^1.0.2",
