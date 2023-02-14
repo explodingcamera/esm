@@ -30,6 +30,7 @@ exports[`pnpm parse > should parse a pnpm lockfile 1`] = `
 
 exports[`pnpm toCommonLockfile > should convert a pnpm lockfile to a common lockfile 1`] = `
 {
+  "commonLockVersion": 0,
   "importers": {
     ".": {
       "dependencies": {

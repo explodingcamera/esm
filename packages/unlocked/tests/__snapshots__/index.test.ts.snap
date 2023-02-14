@@ -30,6 +30,7 @@ exports[`resolve-dependencies 1`] = `
 
 exports[`resolve-dependencies 2`] = `
 {
+  "commonLockVersion": 0,
   "importers": {
     ".": {
       "dependencies": {

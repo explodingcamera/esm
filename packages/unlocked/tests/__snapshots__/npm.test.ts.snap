@@ -25,6 +25,7 @@ exports[`npm parse > should parse a npm lockfile 1`] = `
 
 exports[`npm toCommonLockfile > should convert a npm lockfile to a common lockfile 1`] = `
 {
+  "commonLockVersion": 0,
   "importers": {
     ".": {
       "dependencies": {
@@ -62,6 +63,7 @@ exports[`npm toCommonLockfile > should convert a npm lockfile to a common lockfi
 
 exports[`npm toCommonLockfile > should convert a npm lockfile to a common lockfile with npm modules 1`] = `
 {
+  "commonLockVersion": 0,
   "importers": {
     ".": {
       "dependencies": {},
