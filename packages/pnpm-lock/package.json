@@ -1,10 +1,10 @@
 {
   "name": "pnpm-lock",
   "support": "preview",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "A fork of @pnpm/lockfile-file without all the dependencies and only the lockfile parsing",
   "keywords": [],
-  "homepage": "https://github.com/explodingcamera/esm/tree/main/packages/unlocked-pnpm",
+  "homepage": "https://github.com/explodingcamera/esm/tree/main/packages/pnpm-lock",
   "repository": "https://github.com/explodingcamera/esm",
   "license": "MIT",
   "author": "Henry Gressmann <mail@henrygressmann.de> (https://henrygressmann.de)",

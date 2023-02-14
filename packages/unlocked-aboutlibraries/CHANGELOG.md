@@ -1,4 +1,4 @@
-# unlocked-cyclonedx
+# unlocked-aboutlibraries
 
 ## 0.1.0
 

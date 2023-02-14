@@ -1,7 +1,7 @@
 {
   "name": "unlocked-cyclconedx",
   "support": "preview",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Create CycloneDX SBOMs from CommonLock files",
   "keywords": [],
   "homepage": "https://github.com/explodingcamera/esm/tree/main/packages/unlocked-cyclonedx",
@@ -26,7 +26,7 @@
     "build": "scripts build --name unlocked-cyclonedx",
     "test": "scripts test run"
   },
-  "dependencies":{
+  "dependencies": {
     "@cyclonedx/cyclonedx-library": "^1.11.0"
   },
   "devDependencies": {
