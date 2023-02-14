@@ -1,4 +1,9 @@
-import { ConfigPlugin, createRunOncePlugin, withAppBuildGradle, withProjectBuildGradle } from "@expo/config-plugins";
+import {
+	ConfigPlugin,
+	createRunOncePlugin,
+	withAppBuildGradle,
+	withProjectBuildGradle,
+} from "@expo/config-plugins";
 import pkg from "../package.json";
 
 const DEFAULT_VERSION = "10.5.2";
@@ -42,7 +47,10 @@ const withAboutLibrariesProject: ConfigPlugin<{ aboutLibrariesVersion: string }>
 			`plugins {\n  id 'com.mikepenz.aboutlibraries.plugin' version "${aboutLibrariesVersion}" apply false\n}`,
 		);
 
-		config.modResults.contents = config.modResults.contents.replace("allprojects {", `\n${plugin}\n\nallprojects {`);
+		config.modResults.contents = config.modResults.contents.replace(
+			"def REACT_NATIVE_VERSION = ",
+			`\n${plugin}\n\ndef REACT_NATIVE_VERSION = `,
+		);
 
 		return config;
 	});

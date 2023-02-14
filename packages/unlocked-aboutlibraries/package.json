@@ -1,10 +1,11 @@
 {
-  "name": "unlocked-cyclconedx",
+  "name": "unlocked-aboutlibraries",
   "support": "preview",
   "version": "0.0.1",
-  "description": "Create CycloneDX SBOMs from CommonLock files",
+  "private": true,
+  "description": "",
   "keywords": [],
-  "homepage": "https://github.com/explodingcamera/esm/tree/main/packages/unlocked-cyclonedx",
+  "homepage": "https://github.com/explodingcamera/esm/tree/main/packages/unlocked-aboutlibraries",
   "repository": "https://github.com/explodingcamera/esm",
   "license": "ISC",
   "author": "Henry Gressmann <mail@henrygressmann.de> (https://henrygressmann.de)",
@@ -23,14 +24,10 @@
     "dist"
   ],
   "scripts": {
-    "build": "scripts build --name unlocked-cyclonedx",
+    "build": "scripts build --name unlocked-aboutlibraries",
     "test": "scripts test run"
   },
-  "dependencies":{
-    "@cyclonedx/cyclonedx-library": "^1.11.0"
-  },
   "devDependencies": {
-    "unlocked": "workspace:*",
     "scripts": "workspace:*",
     "vitest": "^0.28.5"
   }
