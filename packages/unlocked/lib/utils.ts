@@ -1,8 +1,9 @@
+import type { Maintainer } from "@npm/types";
 import { resolve } from "import-meta-resolve";
 import { readdir, readFile, stat } from "node:fs/promises";
 import { join, relative } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
-import type { DependencyName, PackageJson, QualifiedDependencyName } from "./types";
+import type { DependencyName, Funding, PackageJson, QualifiedDependencyName } from "./types";
 
 export const read = async (directory: string, filename: string): Promise<string> => {
 	return await readFile(join(directory, filename), "utf8");
@@ -35,16 +36,17 @@ export const resolveDependency = async (name: QualifiedDependencyName, path: str
 // find a license file for a qualified dependency
 // path should be the path to the project root
 // if it exists, return the path relative to provided path
-export const findRelativeLicenseFile = async (
+export const findRelativeLicenseFiles = async (
 	name: QualifiedDependencyName,
 	path: string,
-): Promise<string | undefined> => {
+): Promise<string[] | undefined> => {
 	try {
 		const packageBasePath = await resolveDependency(name, path);
 
 		const files = await readdir(packageBasePath);
 		const licenseFiles = files.filter((file) => file.match(/license/i));
-		if (licenseFiles.length > 0) return relativeTo(path, join(packageBasePath, licenseFiles[0] as string));
+		if (licenseFiles.length > 0) return;
+		licenseFiles.map((file) => relativeTo(path, join(packageBasePath, file)));
 		return undefined;
 	} catch (_) {
 		return undefined;
@@ -84,22 +86,27 @@ export const readPackageMetadata = async (
 ): Promise<{
 	packageJson: PackageJson | undefined;
 	packageJsonPath: string | undefined;
-	licensePath: string | undefined;
+	licensePaths: string[] | undefined;
+	authors?: Maintainer[] | undefined;
 }> => {
 	let packageJson: PackageJson | undefined;
 	let packageJsonPath: string | undefined;
-	let licensePath: string | undefined;
+	let licensePaths: string[] | undefined;
 
 	try {
 		packageJsonPath = await resolveDependency(qualifiedName, projectDir);
 		packageJson = await readPackageJson(packageJsonPath);
-		licensePath = await findRelativeLicenseFile(qualifiedName, projectDir);
+		licensePaths = await findRelativeLicenseFiles(qualifiedName, projectDir);
 	} catch (_) {}
 
 	return {
 		packageJson,
 		packageJsonPath: relativeTo(projectDir, packageJsonPath ?? ""),
-		licensePath,
+		licensePaths,
+		authors: [
+			...(packageJson?.author ? [packageJson.author] : []),
+			...(packageJson?.contributors ? packageJson.contributors : []),
+		],
 	};
 };
 

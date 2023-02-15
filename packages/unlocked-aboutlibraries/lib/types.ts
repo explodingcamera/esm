@@ -1,4 +1,4 @@
-export interface Root {
+export interface AboutLibraries {
 	metadata: Metadata;
 	libraries: Library[];
 	licenses: Licenses;

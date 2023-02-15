@@ -24,6 +24,7 @@ describe("pnpm toCommonLockfile", () => {
 		const commonLock = await toCommonLockfile(lockfile, {
 			packageJsonName: "package.json",
 			projectDirectory: join(__dirname, "fixtures", "pnpm"),
+			skipResolve: false,
 		});
 
 		commonLock.path = undefined;

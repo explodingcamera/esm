@@ -175,9 +175,11 @@ importers:
   packages/unlocked-aboutlibraries:
     specifiers:
       scripts: workspace:*
+      unlocked: workspace:*
       vitest: ^0.28.5
     devDependencies:
       scripts: link:../../scripts
+      unlocked: link:../unlocked
       vitest: 0.28.5
 
   packages/unlocked-cyclonedx:

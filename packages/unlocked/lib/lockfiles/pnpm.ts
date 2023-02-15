@@ -70,10 +70,13 @@ export const toCommonLockfile = async (
 			requiresBuild: dep.requiresBuild,
 			resolution: dep.resolution,
 
-			author: meta.packageJson?.author,
+			funding: meta.packageJson?.funding,
+			authors: meta.authors,
 			spdxLicenseId: meta.packageJson?.license,
 			packageJsonPath: meta.packageJsonPath,
-			licenseFile: meta.licensePath,
+			licenseFiles: meta.licensePaths,
+			homepage: meta.packageJson?.homepage,
+			repository: meta.packageJson?.repository,
 		} satisfies LockDependency;
 
 		return [qualifiedName, dependency];

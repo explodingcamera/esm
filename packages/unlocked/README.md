@@ -21,7 +21,7 @@ My primary use case for this is building [legalizer](../legalizer) which is a to
 
 - [unlocked](../unlocked) - Common lockfile format
 - [unlocked-cyclonedx](../unlocked-cyclonedx) - Generate CycloneDX SBOMs from the CommonLock format
-- [unlocked-cyclonedx](../unlocked-aboutlibraries) - Convert AboutLibraries JSON to CommonLock format (for analyzing Android projects)
+- [unlocked-aboutlibraries](../unlocked-aboutlibraries) - Convert AboutLibraries JSON to CommonLock format (for analyzing Android projects)
 ## Related Packages
 
 - [pnpm-lock](../pnpm-lock) - Parse pnpm-lock.yaml files

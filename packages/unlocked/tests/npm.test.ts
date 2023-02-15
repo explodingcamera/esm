@@ -24,6 +24,7 @@ describe("npm toCommonLockfile", () => {
 		const commonLock = await toCommonLockfile(lockfile, {
 			packageJsonName: "package.json",
 			projectDirectory: join(__dirname, "fixtures", "npm"),
+			skipResolve: false,
 		});
 
 		commonLock.path = undefined;
@@ -37,9 +38,8 @@ describe("npm toCommonLockfile", () => {
 		const commonLock = await toCommonLockfile(lockfile, {
 			packageJsonName: "package.json",
 			projectDirectory: join(__dirname, "fixtures", "npm-workspace"),
+			skipResolve: false,
 		});
-
-		console.log(commonLock);
 
 		commonLock.path = undefined;
 		expect(commonLock).toMatchSnapshot();

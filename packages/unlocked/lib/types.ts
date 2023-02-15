@@ -1,4 +1,4 @@
-import type { Maintainer } from "@npm/types";
+import type { Maintainer, Repository } from "@npm/types";
 import type { PackageManifest } from "@pnpm/types";
 import type { LockfileResolution } from "@pnpm/lockfile-types";
 import type { YarnLock } from "./lockfiles/yarn";
@@ -27,8 +27,22 @@ export const defaultCommonLockOptions = (opts?: Partial<CommonLockOptions>): Com
 	packageJsonName: opts?.packageJsonName ?? "package.json",
 });
 
-export type PackageJson = PackageJsonNpm & PackageManifest;
-export type LockfileType = "yarn-v1" | "yarn-v2" | "pnpm" | "npm" | "cargo";
+export type Funding = (string | { url: string; type: string })[] | string | { url: string; type: string };
+export type PackageJson = PackageJsonNpm &
+	PackageManifest & {
+		funding?: Funding;
+	};
+
+export type LockfileType =
+	| "yarn-v1"
+	| "yarn-v2"
+	| "pnpm"
+	| "npm"
+	| "cargo"
+	| "poetry"
+	| "pip"
+	| "pipenv"
+	| "ruby";
 
 // https://docs.npmjs.com/cli/v9/configuring-npm/package-lock-json?v=true
 export type NPMLockfile = {
@@ -55,7 +69,7 @@ export type NPMLockfilePackage = {
 	bin?: Record<string, string> | string;
 
 	// npm sadly only sets this for workspace packages/the root package
-	license?: string;
+	licenses?: string[];
 
 	engines?: Record<string, string>;
 	dependencies?: Dependencies;
@@ -105,7 +119,7 @@ export type CommonLock = {
 	version: string;
 	path?: string;
 
-	lockfileType: LockfileType;
+	lockfileType: LockfileType | string;
 	lockfileVersion: number;
 	commonLockVersion: 0;
 
@@ -148,8 +162,9 @@ export type Resolution = LockfileResolution;
 
 export type LockDependency = {
 	/**
-	 * version of the package specified in its package.json
+	 * A name of the package - does NOT have to be the same as the key in the lockfile
 	 */
+	name?: string;
 	version?: string;
 
 	/**
@@ -196,9 +211,12 @@ export type LockDependency = {
 	 */
 	optionalPeerDependencies?: DependencyName[];
 
-	// extra fields provided by us for convenience
 	packageJsonPath?: string;
-	author?: Maintainer;
-	licenseFile?: string;
+	// extra fields for more convenient access
+	authors?: Maintainer[];
+	licenseFiles?: string[];
 	spdxLicenseId?: string;
+	homepage?: string;
+	repository?: Repository;
+	funding?: Funding;
 };

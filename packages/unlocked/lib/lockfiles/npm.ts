@@ -72,10 +72,11 @@ export const toCommonLockfile = async (lockfile: NPMLockfile, options: CommonLoc
 			engines: dep.engines,
 			dev: dep.dev,
 
-			author: meta.packageJson?.author,
+			funding: meta.packageJson?.funding,
+			authors: meta.authors,
 			spdxLicenseId: meta.packageJson?.license,
 			packageJsonPath: meta.packageJsonPath,
-			licenseFile: meta.licensePath,
+			licenseFiles: meta.licensePaths,
 		};
 	}
 
@@ -110,14 +111,14 @@ export const toCommonLockfile = async (lockfile: NPMLockfile, options: CommonLoc
 		}
 	}
 
-	return {
+	return <CommonLock>{
 		name: lockfile.name ?? rootPkg?.name ?? "unknown",
 		version: lockfile.version ?? rootPkg?.version ?? "0.0.0",
 		commonLockVersion: 0,
 		lockfileVersion: lockfile.lockfileVersion,
 		lockfileType: "npm",
-		path: options?.projectDirectory,
+		path: options?.projectDirectory ?? undefined,
 		importers,
 		packages,
-	} satisfies CommonLock;
+	};
 };

@@ -34,7 +34,9 @@ describe.skip("yarn-v1 parse", () => {
 
 	it("should panic if the yarn.lock file is not a yarn v1 lockfile", async () => {
 		await expect(parse(false, "not a yarn v1 lockfile")).rejects.toThrow();
-		await expect(parse(false, "not a yarn v1 lockfile")).rejects.toThrowError(/Lockfile is not a yarn v1 lockfile/);
+		await expect(parse(false, "not a yarn v1 lockfile")).rejects.toThrowError(
+			/Lockfile is not a yarn v1 lockfile/,
+		);
 	});
 
 	it("should panic if the yarn.lock file is not provided", async () => {
