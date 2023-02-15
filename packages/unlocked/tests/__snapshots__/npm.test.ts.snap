@@ -291,7 +291,9 @@ exports[`npm toCommonLockfile > should convert a npm lockfile to a common lockfi
       "engines": undefined,
       "funding": undefined,
       "hasBin": undefined,
-      "licenseFiles": undefined,
+      "licenseFiles": [
+        "./node_modules/@types/node/LICENSE",
+      ],
       "optional": undefined,
       "optionalDependencies": {},
       "packageJsonPath": "./node_modules/@types/node",

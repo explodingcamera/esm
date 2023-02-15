@@ -59,7 +59,9 @@ exports[`resolve-dependencies 2`] = `
       "funding": undefined,
       "hasBin": undefined,
       "homepage": "https://www.typescriptlang.org/",
-      "licenseFiles": undefined,
+      "licenseFiles": [
+        "./node_modules/.pnpm/tslib@2.5.0/node_modules/tslib/LICENSE.txt",
+      ],
       "optional": undefined,
       "optionalDependencies": undefined,
       "optionalPeerDependencies": [],

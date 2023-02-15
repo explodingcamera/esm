@@ -45,8 +45,8 @@ export const findRelativeLicenseFiles = async (
 
 		const files = await readdir(packageBasePath);
 		const licenseFiles = files.filter((file) => file.match(/license/i));
-		if (licenseFiles.length > 0) return;
-		licenseFiles.map((file) => relativeTo(path, join(packageBasePath, file)));
+		if (licenseFiles.length > 0)
+			return licenseFiles.map((file) => relativeTo(path, join(packageBasePath, file)));
 		return undefined;
 	} catch (_) {
 		return undefined;
