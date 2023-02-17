@@ -42,7 +42,9 @@ export type LockfileType =
 	| "poetry"
 	| "pip"
 	| "pipenv"
-	| "ruby";
+	| "ruby"
+	| "cocoapods"
+	| "unknown";
 
 // https://docs.npmjs.com/cli/v9/configuring-npm/package-lock-json?v=true
 export type NPMLockfile = {

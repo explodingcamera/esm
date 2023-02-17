@@ -3,7 +3,22 @@ import { resolve } from "import-meta-resolve";
 import { readdir, readFile, stat } from "node:fs/promises";
 import { join, relative } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
-import type { DependencyName, Funding, PackageJson, QualifiedDependencyName } from "./types";
+import type { CommonLock, DependencyName, Funding, PackageJson, QualifiedDependencyName } from "./types";
+
+export const mergeCommonLockFiles = (...lockFiles: CommonLock[]): CommonLock => {
+	const lockfile: CommonLock = {
+		commonLockVersion: 0,
+		lockfileType: "unknown",
+		lockfileVersion: 0,
+		name: "unknown",
+		version: "0.0.0",
+		importers: lockFiles.reduce((acc, lock) => ({ ...acc, ...lock.importers }), {}),
+		packages: lockFiles.reduce((acc, lock) => ({ ...acc, ...lock.packages }), {}),
+		overrides: lockFiles.reduce((acc, lock) => ({ ...acc, ...lock.overrides }), {}),
+	};
+
+	return lockfile;
+};
 
 export const read = async (directory: string, filename: string): Promise<string> => {
 	return await readFile(join(directory, filename), "utf8");
@@ -44,7 +59,15 @@ export const findRelativeLicenseFiles = async (
 		const packageBasePath = await resolveDependency(name, path);
 
 		const files = await readdir(packageBasePath);
-		const licenseFiles = files.filter((file) => file.match(/license/i));
+		const licenseFiles = files.filter(
+			(file) =>
+				file.match(/license/i) ||
+				file.match(/copying/i) ||
+				file.match(/unlicense/i) ||
+				file.match(/notice/i) ||
+				file.match(/patents/i),
+		);
+
 		if (licenseFiles.length > 0)
 			return licenseFiles.map((file) => relativeTo(path, join(packageBasePath, file)));
 		return undefined;
