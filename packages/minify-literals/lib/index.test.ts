@@ -108,11 +108,9 @@ test("example", async () => {
 		    "mappings": "AAAA;AACA,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,+BAAuC,CAAC,CAAC;AAC3D,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,eAAuB,CAAC,CAAC;AAC3C",
 		    "names": [],
 		    "sources": [
-		      null,
+		      ".map",
 		    ],
-		    "sourcesContent": [
-		      null,
-		    ],
+		    "sourcesContent": undefined,
 		    "version": 3,
 		  },
 		}

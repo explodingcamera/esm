@@ -35,7 +35,9 @@ export interface Options {
 	filter?: (id: string) => boolean;
 }
 
-export const RollupPluginMinifyHTMLLiterals = function RollupPluginMinifyHTMLLiterals(options: Options = {}): Plugin {
+export const RollupPluginMinifyHTMLLiterals = function RollupPluginMinifyHTMLLiterals(
+	options: Options = {},
+): Plugin {
 	options.minifyHTMLLiterals = options.minifyHTMLLiterals || minify.minifyHTMLLiterals;
 	options.filter = options.filter || createFilter(options.include, options.exclude);
 	const minifyOptions = options.options || {};

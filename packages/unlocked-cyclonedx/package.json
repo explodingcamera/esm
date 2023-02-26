@@ -30,8 +30,8 @@
     "@cyclonedx/cyclonedx-library": "^1.11.0"
   },
   "devDependencies": {
-    "unlocked": "workspace:*",
     "scripts": "workspace:*",
-    "vitest": "^0.28.5"
+    "unlocked": "workspace:*",
+    "vitest": "^0.29.1"
   }
 }
