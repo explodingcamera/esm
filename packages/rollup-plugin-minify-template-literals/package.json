@@ -46,6 +46,6 @@
     "rollup": "^3.17.3",
     "scripts": "workspace:*",
     "sinon": "^15.0.1",
-    "vitest": "^0.29.1"
+    "vitest": "^0.29.2"
   }
 }
