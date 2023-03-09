@@ -34,7 +34,7 @@
     "test": "scripts test run"
   },
   "devDependencies": {
-    "@types/node": "^18.14.2",
+    "@types/node": "^18.15.0",
     "jsdom": "^21.1.0",
     "lit": "^2.6.1",
     "scripts": "workspace:0.0.3",

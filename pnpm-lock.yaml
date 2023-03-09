@@ -6,14 +6,14 @@ importers:
     specifiers:
       '@changesets/changelog-github': ^0.4.8
       '@changesets/cli': ^2.26.0
-      '@types/node': ^18.14.2
+      '@types/node': ^18.15.0
       rome: 11.0.0
       scripts: workspace:*
       turbo: ^1.8.3
     devDependencies:
       '@changesets/changelog-github': 0.4.8
       '@changesets/cli': 2.26.0
-      '@types/node': 18.14.2
+      '@types/node': 18.15.0
       rome: 11.0.0
       scripts: link:scripts
       turbo: 1.8.3
@@ -46,18 +46,18 @@ importers:
 
   packages/lit-q:
     specifiers:
-      '@types/node': ^18.14.2
+      '@types/node': ^18.15.0
       jsdom: ^21.1.0
       lit: ^2.6.1
       scripts: workspace:0.0.3
       vite: ^4.1.4
       vitest: ^0.29.2
     devDependencies:
-      '@types/node': 18.14.2
+      '@types/node': 18.15.0
       jsdom: 21.1.0
       lit: 2.6.1
       scripts: link:../../scripts
-      vite: 4.1.4_@types+node@18.14.2
+      vite: 4.1.4_@types+node@18.15.0
       vitest: 0.29.2_jsdom@21.1.0
 
   packages/minify-literals:
@@ -113,16 +113,16 @@ importers:
       '@rollup/pluginutils': ^5.0.2
       '@types/sinon': ^10.0.13
       minify-literals: workspace:*
-      rollup: ^3.17.3
+      rollup: ^3.19.0
       scripts: workspace:*
       sinon: ^15.0.1
       vitest: ^0.29.2
     dependencies:
-      '@rollup/pluginutils': 5.0.2_rollup@3.17.3
+      '@rollup/pluginutils': 5.0.2_rollup@3.19.0
       minify-literals: link:../minify-literals
     devDependencies:
       '@types/sinon': 10.0.13
-      rollup: 3.17.3
+      rollup: 3.19.0
       scripts: link:../../scripts
       sinon: 15.0.1
       vitest: 0.29.2
@@ -151,7 +151,7 @@ importers:
       '@types/js-yaml': ^4.0.5
       '@types/yarnpkg__lockfile': ^1.1.5
       '@yarnpkg/lockfile': ^1.1.0
-      '@yarnpkg/parsers': 3.0.0-rc.39
+      '@yarnpkg/parsers': 3.0.0-rc.40
       import-meta-resolve: ^2.2.1
       js-yaml: ^4.1.0
       pnpm-lock: workspace:0.1.0
@@ -159,7 +159,7 @@ importers:
       vitest: ^0.29.2
     dependencies:
       '@yarnpkg/lockfile': 1.1.0
-      '@yarnpkg/parsers': 3.0.0-rc.39
+      '@yarnpkg/parsers': 3.0.0-rc.40
       import-meta-resolve: 2.2.1
       js-yaml: 4.1.0
       pnpm-lock: link:../pnpm-lock
@@ -194,12 +194,12 @@ importers:
 
   packages/unlocked-cyclonedx:
     specifiers:
-      '@cyclonedx/cyclonedx-library': ^1.11.0
+      '@cyclonedx/cyclonedx-library': ^1.12.0
       scripts: workspace:*
       unlocked: workspace:*
       vitest: ^0.29.2
     dependencies:
-      '@cyclonedx/cyclonedx-library': 1.11.0
+      '@cyclonedx/cyclonedx-library': 1.12.0
     devDependencies:
       scripts: link:../../scripts
       unlocked: link:../unlocked
@@ -208,7 +208,7 @@ importers:
   scripts:
     specifiers:
       '@npm/types': ^1.0.2
-      '@types/node': ^18.14.2
+      '@types/node': ^18.15.0
       tsup: ^6.6.3
       ucmd: workspace:*
       vitest: ^0.29.2
@@ -217,7 +217,7 @@ importers:
       ucmd: link:../packages/ucmd
     devDependencies:
       '@npm/types': 1.0.2
-      '@types/node': 18.14.2
+      '@types/node': 18.15.0
       vitest: 0.29.2
 
 packages:
@@ -457,11 +457,11 @@ packages:
       prettier: 2.8.4
     dev: true
 
-  /@cyclonedx/cyclonedx-library/1.11.0:
-    resolution: {integrity: sha512-xFTWvl1bjHDWXX5ZkHaIiuvGbAt+ZV0bFhkr9A+bzt0NWwrIAVkYehSTHmQrVi1s/ehE7ebeYhsLVqLbPUn7IA==}
+  /@cyclonedx/cyclonedx-library/1.12.0:
+    resolution: {integrity: sha512-fKuy5CCcfiWCwLmbahzq9NYaSgZuI9u0yabG0Bp7RzlvQDgRh3X+J2xwnkqrsCpYlTvldxWy+jVYwKAspfSe6w==}
     engines: {node: '>=14.0.0'}
     dependencies:
-      packageurl-js: 1.0.0
+      packageurl-js: 1.0.1
     optionalDependencies:
       xmlbuilder2: 3.0.2
     dev: false
@@ -1029,7 +1029,7 @@ packages:
     resolution: {integrity: sha512-Z1jQI2NpdFJCVgpY+8Dq/Bt3d+YUi1928Q+/CZm/oh66fzM0RUl54vvuXlPJKybH4pdCZey1eDTPaLHkMPNgWA==}
     dev: false
 
-  /@rollup/pluginutils/5.0.2_rollup@3.17.3:
+  /@rollup/pluginutils/5.0.2_rollup@3.19.0:
     resolution: {integrity: sha512-pTd9rIsP92h+B6wWwFbW8RkZv4hiR/xKsqre4SIuAOaOEQRxi0lqLke9k2/7WegC85GgUs9pjmOjCUi3In4vwA==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
@@ -1041,7 +1041,7 @@ packages:
       '@types/estree': 1.0.0
       estree-walker: 2.0.2
       picomatch: 2.3.1
-      rollup: 3.17.3
+      rollup: 3.19.0
     dev: false
 
   /@rometools/cli-darwin-arm64/11.0.0:
@@ -1166,6 +1166,10 @@ packages:
 
   /@types/node/18.14.2:
     resolution: {integrity: sha512-1uEQxww3DaghA0RxqHx0O0ppVlo43pJhepY51OxuQIKHpjbnYLA7vcdwioNPzIqmC2u3I/dmylcqjlh0e7AyUA==}
+    dev: true
+
+  /@types/node/18.15.0:
+    resolution: {integrity: sha512-z6nr0TTEOBGkzLGmbypWOGnpSpSIBorEhC4L+4HeQ2iezKCi4f77kyslRwvHeNitymGQ+oFyIWGP96l/DPSV9w==}
 
   /@types/normalize-package-data/2.4.1:
     resolution: {integrity: sha512-Gj7cI7z+98M282Tqmp2K5EIsoouUEzbBJhQQzDE3jSIRk6r9gsz0oUokqIUR4u1R3dMHo0pDHM7sNOHyhulypw==}
@@ -1238,8 +1242,8 @@ packages:
     resolution: {integrity: sha512-GpSwvyXOcOOlV70vbnzjj4fW5xW/FdUF6nQEt1ENy7m4ZCczi1+/buVUPAqmGfqznsORNFzUMjctTIp8a9tuCQ==}
     dev: false
 
-  /@yarnpkg/parsers/3.0.0-rc.39:
-    resolution: {integrity: sha512-BsD4zq3EVmaHqlynXTceNuEFAtrfToV4fI9GA54moKlWZL4Eb2eXrhgf1jV2nMYx18SZxYO4Jc5Kf1sCDNRjOg==}
+  /@yarnpkg/parsers/3.0.0-rc.40:
+    resolution: {integrity: sha512-sKbi5XhHKXCjzb5m0ftGuQuODM2iUXEsrCSl8MkKexNWHepCmU3IPaGTPC5gHZy4sOvsb9JqTLaZEez+kDzG+Q==}
     engines: {node: '>=14.15.0'}
     dependencies:
       js-yaml: 3.14.1
@@ -2971,8 +2975,8 @@ packages:
     engines: {node: '>=6'}
     dev: true
 
-  /packageurl-js/1.0.0:
-    resolution: {integrity: sha512-06kNFU+yB2pjDf5JyXouQeKfwSScGP8hrZK6VgB+W4SlVy4y5yB4vl+AVmh3R0GBNd+fBt0dEiSx3HKmuchuJQ==}
+  /packageurl-js/1.0.1:
+    resolution: {integrity: sha512-EtXC0kgLjy/C7S4SN3Kk1SDRWLzIn/LUK0gXlz3gsxDdpI0k7q8C3SASpV0pc+v0yADBTt5rWewq/flGdGxtoQ==}
     dev: false
 
   /param-case/3.0.4:
@@ -3260,6 +3264,14 @@ packages:
 
   /rollup/3.17.3:
     resolution: {integrity: sha512-p5LaCXiiOL/wrOkj8djsIDFmyU9ysUxcyW+EKRLHb6TKldJzXpImjcRSR+vgo09DBdofGcOoLOsRyxxG2n5/qQ==}
+    engines: {node: '>=14.18.0', npm: '>=8.0.0'}
+    hasBin: true
+    optionalDependencies:
+      fsevents: 2.3.2
+    dev: true
+
+  /rollup/3.19.0:
+    resolution: {integrity: sha512-xZzJZlH9Ca6cosfdNGPwl2z7Pby8dTi9TrYLPeg6/j7aUoDOhBd706tCUFvbiBj45h/cS7z/a4gS8xd5Yg0jBw==}
     engines: {node: '>=14.18.0', npm: '>=8.0.0'}
     hasBin: true
     optionalDependencies:
@@ -3708,7 +3720,7 @@ packages:
       joycon: 3.1.1
       postcss-load-config: 3.1.4
       resolve-from: 5.0.0
-      rollup: 3.17.3
+      rollup: 3.19.0
       source-map: 0.8.0-beta.0
       sucrase: 3.29.0
       tree-kill: 1.2.2
@@ -3874,7 +3886,7 @@ packages:
       spdx-expression-parse: 3.0.1
     dev: true
 
-  /vite-node/0.29.2_@types+node@18.14.2:
+  /vite-node/0.29.2_@types+node@18.15.0:
     resolution: {integrity: sha512-5oe1z6wzI3gkvc4yOBbDBbgpiWiApvuN4P55E8OI131JGrSuo4X3SOZrNmZYo4R8Zkze/dhi572blX0zc+6SdA==}
     engines: {node: '>=v14.16.0'}
     hasBin: true
@@ -3884,7 +3896,7 @@ packages:
       mlly: 1.1.1
       pathe: 1.1.0
       picocolors: 1.0.0
-      vite: 4.1.4_@types+node@18.14.2
+      vite: 4.1.4_@types+node@18.15.0
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -3895,7 +3907,7 @@ packages:
       - terser
     dev: true
 
-  /vite/4.1.4_@types+node@18.14.2:
+  /vite/4.1.4_@types+node@18.15.0:
     resolution: {integrity: sha512-3knk/HsbSTKEin43zHu7jTwYWv81f8kgAL99G5NWBcA1LKvtvcVAC4JjBH1arBunO9kQka+1oGbrMKOjk4ZrBg==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
@@ -3920,7 +3932,7 @@ packages:
       terser:
         optional: true
     dependencies:
-      '@types/node': 18.14.2
+      '@types/node': 18.15.0
       esbuild: 0.16.17
       postcss: 8.4.21
       resolve: 1.22.1
@@ -3953,7 +3965,7 @@ packages:
     dependencies:
       '@types/chai': 4.3.4
       '@types/chai-subset': 1.3.3
-      '@types/node': 18.14.2
+      '@types/node': 18.15.0
       '@vitest/expect': 0.29.2
       '@vitest/runner': 0.29.2
       '@vitest/spy': 0.29.2
@@ -3972,8 +3984,8 @@ packages:
       tinybench: 2.3.1
       tinypool: 0.3.1
       tinyspy: 1.1.1
-      vite: 4.1.4_@types+node@18.14.2
-      vite-node: 0.29.2_@types+node@18.14.2
+      vite: 4.1.4_@types+node@18.15.0
+      vite-node: 0.29.2_@types+node@18.15.0
       why-is-node-running: 2.2.2
     transitivePeerDependencies:
       - less
@@ -4008,7 +4020,7 @@ packages:
     dependencies:
       '@types/chai': 4.3.4
       '@types/chai-subset': 1.3.3
-      '@types/node': 18.14.2
+      '@types/node': 18.15.0
       '@vitest/expect': 0.29.2
       '@vitest/runner': 0.29.2
       '@vitest/spy': 0.29.2
@@ -4028,8 +4040,8 @@ packages:
       tinybench: 2.3.1
       tinypool: 0.3.1
       tinyspy: 1.1.1
-      vite: 4.1.4_@types+node@18.14.2
-      vite-node: 0.29.2_@types+node@18.14.2
+      vite: 4.1.4_@types+node@18.15.0
+      vite-node: 0.29.2_@types+node@18.15.0
       why-is-node-running: 2.2.2
     transitivePeerDependencies:
       - less
@@ -4247,7 +4259,7 @@ packages:
       '@oozcitak/dom': 1.15.10
       '@oozcitak/infra': 1.0.8
       '@oozcitak/util': 8.3.8
-      '@types/node': 18.14.2
+      '@types/node': 18.15.0
       js-yaml: 3.14.0
     dev: false
     optional: true
