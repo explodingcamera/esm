@@ -42,7 +42,7 @@
   "dependencies": {
     "@yarnpkg/lockfile": "^1.1.0",
     "@yarnpkg/parsers": "3.0.0-rc.40",
-    "import-meta-resolve": "^2.2.1",
+    "import-meta-resolve": "^2.2.2",
     "js-yaml": "^4.1.0",
     "pnpm-lock": "workspace:0.1.0"
   }
