@@ -1,5 +1,16 @@
 # rollup-plugin-minify-template-literals
 
+## 1.0.2
+
+### Patch Changes
+
+- chore: update dependencies
+
+- [`575efe3`](https://github.com/explodingcamera/esm/commit/575efe385756abd44408d83535c27c99ff7efea2) Thanks [@explodingcamera](https://github.com/explodingcamera)! - chore: update dependencies
+
+- Updated dependencies [[`575efe3`](https://github.com/explodingcamera/esm/commit/575efe385756abd44408d83535c27c99ff7efea2)]:
+  - minify-literals@1.0.2
+
 ## 1.0.1
 
 ### Patch Changes

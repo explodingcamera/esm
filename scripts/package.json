@@ -1,6 +1,6 @@
 {
   "name": "scripts",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "private": true,
   "type": "module",
   "description": "",
@@ -22,7 +22,7 @@
   },
   "devDependencies": {
     "@npm/types": "^1.0.2",
-    "@types/node": "^18.15.0",
-    "vitest": "^0.29.2"
+    "@types/node": "^18.15.3",
+    "vitest": "^0.29.3"
   }
 }

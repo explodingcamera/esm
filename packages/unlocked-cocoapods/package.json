@@ -1,7 +1,7 @@
 {
   "name": "unlocked-cocoapods",
   "support": "preview",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "",
   "keywords": [],
   "homepage": "https://github.com/explodingcamera/esm/tree/main/packages/unlocked-cocoapods",
@@ -29,6 +29,6 @@
   "devDependencies": {
     "scripts": "workspace:*",
     "unlocked": "workspace:*",
-    "vitest": "^0.29.2"
+    "vitest": "^0.29.3"
   }
 }
