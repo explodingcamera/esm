@@ -37,7 +37,7 @@
     "@types/js-yaml": "^4.0.5",
     "@types/yarnpkg__lockfile": "^1.1.5",
     "scripts": "workspace:*",
-    "vitest": "^0.29.3"
+    "vitest": "^0.29.7"
   },
   "dependencies": {
     "@yarnpkg/lockfile": "^1.1.0",

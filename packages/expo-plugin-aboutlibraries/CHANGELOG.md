@@ -1,5 +1,11 @@
 # expo-plugin-aboutlibraries
 
+## 0.2.2
+
+### Patch Changes
+
+- fix: fix for latest react native version
+
 ## 0.2.1
 
 ### Patch Changes

@@ -6,7 +6,7 @@ import {
 } from "@expo/config-plugins";
 import pkg from "../package.json";
 
-const DEFAULT_VERSION = "10.5.2";
+const DEFAULT_VERSION = "10.6.1";
 
 const newString = (text: string) =>
 	`// --- start of expo-plugin-aboutlibraries\n${text}\n// --- end of expo-plugin-aboutlibraries`;
@@ -48,8 +48,8 @@ const withAboutLibrariesProject: ConfigPlugin<{ aboutLibrariesVersion: string }>
 		);
 
 		config.modResults.contents = config.modResults.contents.replace(
-			"def REACT_NATIVE_VERSION = ",
-			`\n${plugin}\n\ndef REACT_NATIVE_VERSION = `,
+			"allprojects {",
+			`\n${plugin}\n\nallprojects {`,
 		);
 
 		return config;
