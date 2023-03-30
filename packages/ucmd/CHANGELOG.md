@@ -1,5 +1,11 @@
 # ucmd
 
+## 0.4.2
+
+### Patch Changes
+
+- chore: update dependencies
+
 ## 0.4.1
 
 ### Patch Changes

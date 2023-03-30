@@ -1,5 +1,14 @@
 # scripts
 
+## 0.0.5
+
+### Patch Changes
+
+- chore: update dependencies
+
+- Updated dependencies []:
+  - ucmd@0.4.2
+
 ## 0.0.4
 
 ### Patch Changes

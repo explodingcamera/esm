@@ -124,8 +124,8 @@ function convertFromLockfileFileMutable(lockfileFile: PnpmLockfileFile): Lockfil
 		};
 		lockfileFile.specifiers = undefined;
 		for (const depType of DEPENDENCIES_FIELDS) {
-			if (lockfileFile[depType] != null) {
-				lockfileFile.importers["."]![depType] = lockfileFile[depType];
+			if (lockfileFile[depType] !== null && lockfileFile.importers["."]) {
+				lockfileFile.importers["."][depType] = lockfileFile[depType];
 				lockfileFile[depType] = undefined;
 			}
 		}

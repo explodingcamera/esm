@@ -45,7 +45,7 @@ class UCMD<TCommands extends CommandsLike, TBaseCommand> {
 			| Partial<Command<TNewCommandArgs, TNewCommandName>>,
 		run?: CommandFn<TNewCommandArgs extends infer T ? T : never>,
 	): UCMD<TUpdatedCommands, TBaseCommand> {
-		let newCMD = createCommand(command, run);
+		const newCMD = createCommand(command, run);
 
 		Object.assign(this.#state.commands, { [newCMD.name]: newCMD });
 		return this as unknown as UCMD<TUpdatedCommands, TBaseCommand>;
@@ -61,15 +61,15 @@ class UCMD<TCommands extends CommandsLike, TBaseCommand> {
 	#renderCommandOptions<T extends CommandArgs>(args: T) {
 		let helpString = "\n\nOPTIONS:\n";
 
-		let maxArgLength = Object.entries(args).reduce((max, [arg, argOptions]) => {
-			let opts = argOptions as NormalizedCommandArg;
+		const maxArgLength = Object.entries(args).reduce((max, [arg, argOptions]) => {
+			const opts = argOptions as NormalizedCommandArg;
 			if (opts.type === "boolean") return Math.max(max, arg.length);
 			return Math.max(max, `${arg} <${arg}>`.length) + (opts.multiple ? 3 : 0); // +3 for "..."
 		}, 2);
 
 		const commandArgs = normalizeCommandArgs(args);
-		for (let [arg, argOptions] of Object.entries(commandArgs)) {
-			let opts = argOptions as NormalizedCommandArg;
+		for (const [arg, argOptions] of Object.entries(commandArgs)) {
+			const opts = argOptions as NormalizedCommandArg;
 			const argName = opts.name ?? arg;
 			const argDescription = opts.description ?? "";
 			const argRequired = opts.required ?? false;
@@ -114,7 +114,7 @@ class UCMD<TCommands extends CommandsLike, TBaseCommand> {
 		if (!selectedCommand && Object.keys(commands).length > 0) {
 			helpString += "\n\nCOMMANDS:\n";
 
-			let maxCommandNameLength = Object.keys(commands).reduce(
+			const maxCommandNameLength = Object.keys(commands).reduce(
 				(max, commandName) => Math.max(max, commandName.length),
 				0,
 			);
@@ -122,7 +122,9 @@ class UCMD<TCommands extends CommandsLike, TBaseCommand> {
 			for (const commandName in commands) {
 				const command = commands[commandName];
 				if (!command) continue;
-				helpString += `    ${commandName.padEnd(maxCommandNameLength + 1, " ")} ${command.description ?? ""}\n`;
+				helpString += `    ${commandName.padEnd(maxCommandNameLength + 1, " ")} ${
+					command.description ?? ""
+				}\n`;
 			}
 
 			helpString += `\n    Use ${name} help [command] for more information about a specific command.`;
@@ -136,7 +138,7 @@ class UCMD<TCommands extends CommandsLike, TBaseCommand> {
 
 		let run: CommandFn<{}> = defaultCommand;
 		let commandArgs = args || process.argv.slice(2);
-		let command: string | undefined = commandArgs[0];
+		const command: string | undefined = commandArgs[0];
 		let options: NormalizedCommandArg[] = [];
 
 		if (command === "help") {
@@ -164,7 +166,7 @@ class UCMD<TCommands extends CommandsLike, TBaseCommand> {
 			options = normalizeCommandArgs(this.#state.baseCommand.args || []);
 		}
 
-		let res = parseArgs({
+		const res = parseArgs({
 			args: commandArgs,
 			allowPositionals: true,
 			options: toParseArgOptions(options),
@@ -174,9 +176,9 @@ class UCMD<TCommands extends CommandsLike, TBaseCommand> {
 	}
 
 	run(args?: string[]) {
-		let parsedArgs = this.parse(args);
+		const parsedArgs = this.parse(args);
 		if (parseArgs === undefined || !parsedArgs?.res) return;
-		const { res, run } = parsedArgs!;
+		const { res, run } = parsedArgs;
 		run({ args: res.values, positionals: res.positionals });
 	}
 }
@@ -190,8 +192,9 @@ export const createCommand = <TCommandArgs extends CommandArgs, TCommandName ext
 	command: TCommandName | Partial<Command<TCommandArgs, TCommandName>>,
 	run?: CommandFn<TCommandArgs extends infer T ? T : never>,
 ): Command<TCommandArgs, TCommandName> => {
-	let newCMD = typeof command === "string" ? <Command<TCommandArgs, TCommandName>>{ name: command as string } : command;
-	let runfn = typeof run === "undefined" ? newCMD?.run : run;
+	const newCMD =
+		typeof command === "string" ? <Command<TCommandArgs, TCommandName>>{ name: command as string } : command;
+	const runfn = typeof run === "undefined" ? newCMD?.run : run;
 
 	if (run && newCMD?.run) throw new Error("Only one run function is allowed");
 	if (!newCMD.name) throw new Error("Command name is required");

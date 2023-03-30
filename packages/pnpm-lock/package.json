@@ -1,7 +1,7 @@
 {
   "name": "pnpm-lock",
   "support": "preview",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A fork of @pnpm/lockfile-file without all the dependencies and only the lockfile parsing",
   "keywords": [],
   "homepage": "https://github.com/explodingcamera/esm/tree/main/packages/pnpm-lock",
@@ -27,13 +27,13 @@
     "test": "scripts test run"
   },
   "devDependencies": {
-    "@pnpm/constants": "^6.2.0",
-    "@pnpm/lockfile-types": "^4.3.6",
-    "@pnpm/types": "^8.10.0",
+    "@pnpm/constants": "^7.0.0",
+    "@pnpm/lockfile-types": "^5.0.0",
+    "@pnpm/types": "^9.0.0",
     "@types/js-yaml": "^4.0.5",
     "@types/semver": "^7.3.13",
     "scripts": "workspace:*",
-    "vitest": "^0.29.7"
+    "vitest": "^0.29.8"
   },
   "dependencies": {
     "js-yaml": "^4.1.0",

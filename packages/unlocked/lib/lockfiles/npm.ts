@@ -23,14 +23,14 @@ export const parse: IParse = async (directory, file): Promise<NPMLockfile> => {
 };
 
 export const toCommonLockfile = async (lockfile: NPMLockfile, options: CommonLockOptions) => {
-	let rootPkg = await utils.readPackageJson(options.projectDirectory, options.packageJsonName);
+	const rootPkg = await utils.readPackageJson(options.projectDirectory, options.packageJsonName);
 
 	if (lockfile.lockfileVersion !== 3 && lockfile.lockfileVersion !== 2)
 		throw new Error(`Unsupported package-lock.json version: ${lockfile.version}`);
 
-	let packagesToVersions: Record<string, string> = {};
-	let importers: ImporterSnapshots = {};
-	let packages: PackageSnapshots = {};
+	const packagesToVersions: Record<string, string> = {};
+	const importers: ImporterSnapshots = {};
+	const packages: PackageSnapshots = {};
 
 	const resolveConcreteVersion = (deps?: Dependencies) =>
 		Object.fromEntries(
@@ -41,19 +41,19 @@ export const toCommonLockfile = async (lockfile: NPMLockfile, options: CommonLoc
 		);
 
 	// process packages
-	for (let [name, dep] of Object.entries(lockfile.packages ?? {})) {
+	for (const [name, dep] of Object.entries(lockfile.packages ?? {})) {
 		if (!name.startsWith("node_modules/")) continue;
 		if (dep.link && !dep.resolved?.endsWith(".tgz")) continue;
-		let actualName = name.slice("node_modules/".length);
-		let qualifiedName: QualifiedDependencyName = `/${actualName}/${dep.version}`;
+		const actualName = name.slice("node_modules/".length);
+		const qualifiedName: QualifiedDependencyName = `/${actualName}/${dep.version}`;
 
 		const meta = await utils.readPackageMetadata(qualifiedName, options.projectDirectory);
 
-		let dependencies = Object.fromEntries(
+		const dependencies = Object.fromEntries(
 			Object.entries(dep.dependencies ?? {}).map(([specifier, version]) => [specifier, version]),
 		);
 
-		let optionalDependencies = Object.fromEntries(
+		const optionalDependencies = Object.fromEntries(
 			Object.entries(dep.optionalDependencies ?? {}).map(([specifier, version]) => [specifier, version]),
 		);
 
@@ -81,13 +81,13 @@ export const toCommonLockfile = async (lockfile: NPMLockfile, options: CommonLoc
 	}
 
 	// process specifiers
-	for (let [name, data] of Object.entries(lockfile.packages ?? {})) {
+	for (const [name, data] of Object.entries(lockfile.packages ?? {})) {
 		if (!data) continue;
 
 		// these have already been handled by the previous loop
 		if (name.startsWith("node_modules/")) continue;
 
-		let uniquePackages = utils.unique([
+		const uniquePackages = utils.unique([
 			...Object.entries(data.dependencies ?? {}),
 			...Object.entries(data.devDependencies ?? {}),
 			...Object.entries(data.optionalDependencies ?? {}),

@@ -18,7 +18,7 @@ const _ = {
 export const toCycloneDX = (lockfile: CommonLock, options: Partial<Options>) => {
 	const opts = defaultOptions(options);
 
-	let bom = new Models.Bom();
+	const bom = new Models.Bom();
 	bom.metadata.component = _.createComponent("application", "MyProject");
 
 	const componentA = _.createComponent("library", "MyComponentA");

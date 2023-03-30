@@ -1,5 +1,11 @@
 # expo-plugin-aboutlibraries
 
+## 0.2.3
+
+### Patch Changes
+
+- chore: update dependencies
+
 ## 0.2.2
 
 ### Patch Changes

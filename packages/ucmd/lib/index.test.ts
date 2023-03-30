@@ -4,7 +4,7 @@ import type { CommandContext, Command } from ".";
 
 describe("parse commands", () => {
 	test("ucmd", () => {
-		let x = ucmd("example")
+		const x = ucmd("example")
 			.withBaseCommand({
 				args: {
 					foo: true,
@@ -59,18 +59,18 @@ describe("parse commands", () => {
 
 describe("basic api", () => {
 	test("ucmd", () => {
-		let x = ucmd("example");
+		const x = ucmd("example");
 		expect(x).toBeDefined();
 		expect(x.state.name).toBe("example");
 	});
 
 	test("withName", () => {
-		let x = ucmd("example").withName("overwritten");
+		const x = ucmd("example").withName("overwritten");
 		expect(x.state.name).toBe("overwritten");
 	});
 
 	test("withCommand", () => {
-		let res = ucmd("example").withCommand({
+		const res = ucmd("example").withCommand({
 			name: "build",
 			args: {
 				foo: true,
@@ -82,7 +82,7 @@ describe("basic api", () => {
 	});
 
 	test("withImportedCommand", () => {
-		let one = ucmd("example").withCommand({
+		const one = ucmd("example").withCommand({
 			name: "build",
 			args: {
 				foo: true,
@@ -90,7 +90,7 @@ describe("basic api", () => {
 			},
 		});
 
-		let twoCmd = createCommand({
+		const twoCmd = createCommand({
 			name: "build",
 			args: {
 				foo: true,
@@ -99,7 +99,7 @@ describe("basic api", () => {
 			},
 		});
 
-		let twoCmdDirect = {
+		const twoCmdDirect = {
 			name: "build",
 			args: {
 				foo: true,
@@ -110,11 +110,11 @@ describe("basic api", () => {
 
 		expect(twoCmd).toEqual(twoCmdDirect);
 
-		let twoFn = (ctx: CommandContext<typeof twoCmd>) => {
+		const twoFn = (ctx: CommandContext<typeof twoCmd>) => {
 			ctx.args.foo;
 		};
 
-		let two = ucmd("example").withCommand(twoCmd, twoFn);
+		const two = ucmd("example").withCommand(twoCmd, twoFn);
 
 		expect(one).toEqual(two);
 	});

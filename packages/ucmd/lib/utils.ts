@@ -9,8 +9,9 @@ export const normalizeCommandArgs = (args: CommandArgs | NormalizedCommandArg[])
 		.map(([name, options]) => {
 			if (options === false) return undefined;
 			if (options === undefined || options === true) return { name };
-			if (options === null || typeof options !== "object") throw new Error(`Invalid command arg options for ${name}`);
-			let opts: CommandArgOptions = options;
+			if (options === null || typeof options !== "object")
+				throw new Error(`Invalid command arg options for ${name}`);
+			const opts: CommandArgOptions = options;
 			return <NormalizedCommandArg>{
 				name,
 				...opts,
@@ -28,7 +29,7 @@ export const toParseArgOptions = (options: NormalizedCommandArg[]): Record<strin
 	);
 
 const toParseArgOption = (options: CommandArgOptions): ParseArgsOptionConfig => {
-	let opt = <ParseArgsOptionConfig>{
+	const opt = <ParseArgsOptionConfig>{
 		type: "boolean",
 	};
 

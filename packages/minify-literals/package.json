@@ -1,6 +1,6 @@
 {
   "name": "minify-literals",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Minify CSS and HTML literals",
   "keywords": [
     "literals",
@@ -43,7 +43,7 @@
     "@types/html-minifier-terser": "^7.0.0",
     "@types/sinon": "^10.0.13",
     "scripts": "workspace:*",
-    "sinon": "^15.0.2",
-    "vitest": "^0.29.7"
+    "sinon": "^15.0.3",
+    "vitest": "^0.29.8"
   }
 }

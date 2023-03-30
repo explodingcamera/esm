@@ -45,11 +45,11 @@ export const RollupPluginMinifyHTMLLiterals = function RollupPluginMinifyHTMLLit
 	return {
 		name: "minify-literals",
 		async transform(code, id) {
-			if (!options.filter!(id)) return;
+			if (!options.filter?.(id)) return;
 
 			try {
 				// <SourceDescription>
-				let res = await options.minifyHTMLLiterals!(code, {
+				const res = await options.minifyHTMLLiterals!(code, {
 					...minifyOptions,
 					fileName: id,
 				});

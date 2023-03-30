@@ -93,7 +93,7 @@ export const mdtableCommand = async ({ args }: CommandContext<typeof mdtableComm
 
 				let support: Row["support"] = "stable";
 
-				let supportOverride = (pkgJson as any)["support"] as Row["support"];
+				const supportOverride = (pkgJson as any)["support"] as Row["support"];
 				if (supportOverride) {
 					support = supportOverride;
 				} else if (!pkgJson.version.startsWith("0.")) {

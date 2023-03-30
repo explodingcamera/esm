@@ -3,7 +3,7 @@ import { buildCommand, buildCommandOptions } from "./build";
 import { mdtableCommand, mdtableCommandOptions } from "./mdtable";
 import { testCommand } from "./test";
 
-let cmd = ucmd()
+const cmd = ucmd()
 	.withName("scripts")
 	.withCommand(testCommand)
 	.withCommand({ ...buildCommandOptions, run: buildCommand })

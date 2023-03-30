@@ -1,5 +1,11 @@
 # minify-literals
 
+## 1.0.3
+
+### Patch Changes
+
+- chore: update dependencies
+
 ## 1.0.2
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "rollup-plugin-minify-template-literals",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A Vite/Rollup plugin that minifies template literals.",
   "keywords": [
     "rollup",
@@ -43,9 +43,9 @@
   },
   "devDependencies": {
     "@types/sinon": "^10.0.13",
-    "rollup": "^3.20.0",
+    "rollup": "^3.20.2",
     "scripts": "workspace:*",
-    "sinon": "^15.0.2",
-    "vitest": "^0.29.7"
+    "sinon": "^15.0.3",
+    "vitest": "^0.29.8"
   }
 }

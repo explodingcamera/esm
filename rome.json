@@ -5,7 +5,7 @@
     "lineWidth": 110
   },
   "files": {
-    "ignore": ["node_modules/", "dist/"]
+    "ignore": ["**/node_modules/*", "**/dist/*", "**/.turbo/*"]
   },
   "linter": {
     "enabled": true,
@@ -13,7 +13,8 @@
       "style": {
         "useBlockStatements": "off",
         "useSingleVarDeclarator": "off",
-        "noUnusedTemplateLiteral": "off"
+        "noUnusedTemplateLiteral": "off",
+        "noNonNullAssertion": "off"
       },
       "suspicious": {
         "noExplicitAny": "warn"

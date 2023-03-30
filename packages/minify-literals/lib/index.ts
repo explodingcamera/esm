@@ -253,7 +253,7 @@ export async function minifyHTMLLiterals(source: string, options: Options = {}):
 	};
 
 	options.parseLiteralsOptions = {
-		fileName: options.fileName!,
+		fileName: options.fileName,
 		...options.parseLiteralsOptions,
 	};
 
@@ -284,7 +284,7 @@ export async function minifyHTMLLiterals(source: string, options: Options = {}):
 
 	const ms = new options.MagicString(source);
 
-	let promises = templates.map(async (template) => {
+	const promises = templates.map(async (template) => {
 		const minifyHTML = !skipHTML && shouldMinify(template);
 		const minifyCSS = !skipCSS && strategy.minifyCSS && shouldMinifyCSS(template);
 
@@ -306,7 +306,7 @@ export async function minifyHTMLLiterals(source: string, options: Options = {}):
 				min = combined;
 			} else {
 				const cssOptions = typeof minifyCSSOptions === "object" ? minifyCSSOptions : undefined;
-				min = await strategy.minifyCSS!(combined, cssOptions);
+				min = (await strategy.minifyCSS?.(combined, cssOptions)) ?? combined;
 			}
 		} else {
 			min = await strategy.minifyHTML(combined, options.minifyOptions);
@@ -315,10 +315,10 @@ export async function minifyHTMLLiterals(source: string, options: Options = {}):
 		const minParts = strategy.splitHTMLByPlaceholder(min, placeholder);
 		if (validate) validate.ensureHTMLPartsValid(template.parts, minParts);
 
-		for (let [index, part] of template.parts.entries()) {
+		for (const [index, part] of template.parts.entries()) {
 			if (part.start < part.end)
 				// Only overwrite if the literal part has text content
-				ms.overwrite(part.start, part.end, minParts[index]!);
+				ms.overwrite(part.start, part.end, minParts[index] ?? "");
 		}
 	});
 

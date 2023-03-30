@@ -1,7 +1,7 @@
 {
   "name": "legalizer",
   "support": "preview",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Generate License Information from all dependencies in a project",
   "bin": {
     "legalizer": "bin.mjs"
@@ -31,11 +31,11 @@
   },
   "dependencies": {
     "spdx-license-list": "^6.6.0",
-    "ucmd": "workspace:^0.4.1",
-    "unlocked": "workspace:0.2.1"
+    "ucmd": "workspace:^0.4.2",
+    "unlocked": "workspace:0.2.2"
   },
   "devDependencies": {
     "scripts": "workspace:*",
-    "vitest": "^0.29.7"
+    "vitest": "^0.29.8"
   }
 }

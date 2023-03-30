@@ -149,7 +149,7 @@ export const defaultStrategy: Strategy<HTMLOptions, CleanCSS.Options> = {
 			// supported areas (such as within <pre> and <textarea> tags).
 			const matches = Array.from(result.matchAll(/<svg/g)).reverse();
 			for (const match of matches) {
-				const startTagIndex = match.index!;
+				const startTagIndex = match.index ?? 0;
 				const closeTagIndex = result.indexOf("</svg", startTagIndex);
 				if (closeTagIndex < 0) {
 					// Malformed SVG without a closing tag
@@ -199,7 +199,7 @@ export const defaultStrategy: Strategy<HTMLOptions, CleanCSS.Options> = {
 		if (placeholder.endsWith(";")) {
 			const withoutSemicolon = placeholder.substring(0, placeholder.length - 1);
 			for (let i = parts.length - 1; i >= 0; i--) {
-				parts.splice(i, 1, ...parts[i]!.split(withoutSemicolon));
+				parts.splice(i, 1, ...(parts[i]?.split(withoutSemicolon) ?? []));
 			}
 		}
 

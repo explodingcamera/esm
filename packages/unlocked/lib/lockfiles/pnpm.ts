@@ -35,7 +35,7 @@ export const toCommonLockfile = async (
 	lockfile: PnpmLockfile,
 	options: CommonLockOptions,
 ): Promise<CommonLock> => {
-	let rootPkg = await utils.readPackageJson(options.projectDirectory, options.packageJsonName);
+	const rootPkg = await utils.readPackageJson(options.projectDirectory, options.packageJsonName);
 
 	if (lockfile.packages == null)
 		return {
@@ -46,7 +46,7 @@ export const toCommonLockfile = async (
 			commonLockVersion: 0,
 		} satisfies CommonLock;
 
-	let packagePromises = Object.entries(lockfile.packages).map(async ([qualifiedName, dep]) => {
+	const packagePromises = Object.entries(lockfile.packages).map(async ([qualifiedName, dep]) => {
 		// resolve the qualified name to a name that can be used to resolve the package
 		// e.g. "/is-positive/3.1.0" -> "is-positive"
 		const meta = await utils.readPackageMetadata(
@@ -54,7 +54,7 @@ export const toCommonLockfile = async (
 			options.projectDirectory,
 		);
 
-		let dependency = {
+		const dependency = {
 			version: dep.version,
 			dependencies: dep.dependencies,
 			peerDependencies: dep.peerDependencies,
@@ -82,9 +82,9 @@ export const toCommonLockfile = async (
 		return [qualifiedName, dependency];
 	});
 
-	let packages = Object.fromEntries(await Promise.all(packagePromises)) as PackageSnapshots;
+	const packages = Object.fromEntries(await Promise.all(packagePromises)) as PackageSnapshots;
 
-	let importers = {
+	const importers = {
 		...lockfile.importers,
 	};
 

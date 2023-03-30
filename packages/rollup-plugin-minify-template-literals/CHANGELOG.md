@@ -1,5 +1,14 @@
 # rollup-plugin-minify-template-literals
 
+## 1.0.3
+
+### Patch Changes
+
+- chore: update dependencies
+
+- Updated dependencies []:
+  - minify-literals@1.0.3
+
 ## 1.0.2
 
 ### Patch Changes

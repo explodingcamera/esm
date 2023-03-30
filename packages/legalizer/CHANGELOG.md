@@ -1,5 +1,15 @@
 # legalizer
 
+## 0.1.7
+
+### Patch Changes
+
+- chore: update dependencies
+
+- Updated dependencies []:
+  - unlocked@0.2.2
+  - ucmd@0.4.2
+
 ## 0.1.6
 
 ### Patch Changes

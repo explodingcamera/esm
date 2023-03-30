@@ -122,7 +122,7 @@ export type CommonLock = {
 	path?: string;
 
 	lockfileType: LockfileType | string;
-	lockfileVersion: number;
+	lockfileVersion: number | string;
 	commonLockVersion: 0;
 
 	overrides?: Dependencies;

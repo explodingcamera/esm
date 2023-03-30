@@ -73,7 +73,9 @@ export type CommandArgValues<TCommandArguments extends CommandArgs> = {
 		: never;
 };
 
-export type CommandFn<TCommandArguments extends CommandArgs> = (ctx: CommandContextBody<TCommandArguments>) => void;
+export type CommandFn<TCommandArguments extends CommandArgs> = (
+	ctx: CommandContextBody<TCommandArguments>,
+) => void;
 export type CommandContext<T> = T extends Command<infer TArgs, string> ? CommandContextBody<TArgs> : never;
 
 export type ValueOf<T> = T[keyof T];

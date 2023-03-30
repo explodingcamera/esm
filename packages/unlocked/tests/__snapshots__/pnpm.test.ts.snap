@@ -3,12 +3,15 @@
 exports[`pnpm parse > should parse a pnpm lockfile 1`] = `
 {
   "dependencies": undefined,
+  "devDependencies": undefined,
   "importers": {
     ".": {
       "dependencies": {
         "tslib": "2.5.0",
       },
       "dependenciesMeta": undefined,
+      "devDependencies": undefined,
+      "optionalDependencies": undefined,
       "publishDirectory": undefined,
       "specifiers": {
         "tslib": "^2.5.0",
@@ -16,6 +19,7 @@ exports[`pnpm parse > should parse a pnpm lockfile 1`] = `
     },
   },
   "lockfileVersion": 5.4,
+  "optionalDependencies": undefined,
   "packages": {
     "/tslib/2.5.0": {
       "dev": false,
@@ -37,6 +41,8 @@ exports[`pnpm toCommonLockfile > should convert a pnpm lockfile to a common lock
         "tslib": "2.5.0",
       },
       "dependenciesMeta": undefined,
+      "devDependencies": undefined,
+      "optionalDependencies": undefined,
       "publishDirectory": undefined,
       "specifiers": {
         "tslib": "^2.5.0",
