@@ -2,8 +2,8 @@ import path from "node:path";
 import { expect, describe, beforeEach, it } from "vitest";
 import * as minify from "minify-literals";
 import type { TransformPluginContext } from "rollup";
-import { match, SinonSpy, spy } from "sinon";
-import minifyHTML, { Options } from "./index.js";
+import { match, type SinonSpy, spy } from "sinon";
+import minifyHTML, { type Options } from "./index.js";
 
 describe("minify-literals", () => {
 	const fileName = path.resolve("test.js");

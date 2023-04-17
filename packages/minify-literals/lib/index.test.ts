@@ -1,10 +1,10 @@
 import { afterEach, beforeEach, describe, expect, it, test, vi } from "vitest";
 
-import MagicString, { SourceMapOptions } from "magic-string";
-import { ParseLiteralsOptions, Template, TemplatePart, parseLiterals } from "parse-literals";
-import { SinonSpy, spy } from "sinon";
+import MagicString, { type SourceMapOptions } from "magic-string";
+import { type ParseLiteralsOptions, type Template, type TemplatePart, parseLiterals } from "parse-literals";
+import { type SinonSpy, spy } from "sinon";
 import {
-	SourceMap,
+	type SourceMap,
 	defaultGenerateSourceMap,
 	defaultShouldMinify,
 	defaultShouldMinifyCSS,

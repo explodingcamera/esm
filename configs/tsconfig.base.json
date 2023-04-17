@@ -19,7 +19,7 @@
     "noUncheckedIndexedAccess": true,
     "noUnusedLocals": false,
     "noUnusedParameters": false,
-    "importsNotUsedAsValues": "error",
+    "verbatimModuleSyntax": true,
     "outDir": "dist"
   },
   "exclude": ["dist/*"],

@@ -10,7 +10,7 @@ import type {
 	CommandsLike,
 	ucmdState,
 } from "./types";
-import { normalizeCommandArgs, NormalizedCommandArg, toParseArgOptions } from "./utils";
+import { normalizeCommandArgs, type NormalizedCommandArg, toParseArgOptions } from "./utils";
 
 const defaultState: ucmdState<{}> = {
 	name: "",

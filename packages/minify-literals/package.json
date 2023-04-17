@@ -34,16 +34,16 @@
   },
   "dependencies": {
     "clean-css": "^5.3.2",
-    "html-minifier-terser": "^7.1.0",
+    "html-minifier-terser": "^7.2.0",
     "magic-string": "^0.30.0",
     "parse-literals": "^1.2.1"
   },
   "devDependencies": {
     "@types/clean-css": "^4.2.6",
     "@types/html-minifier-terser": "^7.0.0",
-    "@types/sinon": "^10.0.13",
+    "@types/sinon": "^10.0.14",
     "scripts": "workspace:*",
     "sinon": "^15.0.3",
-    "vitest": "^0.29.8"
+    "vitest": "^0.30.1"
   }
 }

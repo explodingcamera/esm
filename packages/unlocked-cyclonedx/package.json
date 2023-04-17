@@ -27,11 +27,11 @@
     "test": "scripts test run"
   },
   "dependencies": {
-    "@cyclonedx/cyclonedx-library": "^1.13.2"
+    "@cyclonedx/cyclonedx-library": "^1.13.3"
   },
   "devDependencies": {
     "scripts": "workspace:*",
     "unlocked": "workspace:*",
-    "vitest": "^0.29.8"
+    "vitest": "^0.30.1"
   }
 }

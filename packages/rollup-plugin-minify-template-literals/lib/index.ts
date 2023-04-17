@@ -35,9 +35,7 @@ export interface Options {
 	filter?: (id: string) => boolean;
 }
 
-export const RollupPluginMinifyHTMLLiterals = function RollupPluginMinifyHTMLLiterals(
-	options: Options = {},
-): Plugin {
+export const minifyTemplateLiterals = function RollupPluginMinifyHTMLLiterals(options: Options = {}): Plugin {
 	options.minifyHTMLLiterals = options.minifyHTMLLiterals || minify.minifyHTMLLiterals;
 	options.filter = options.filter || createFilter(options.include, options.exclude);
 	const minifyOptions = options.options || {};
@@ -70,5 +68,13 @@ export const RollupPluginMinifyHTMLLiterals = function RollupPluginMinifyHTMLLit
 	};
 };
 
-export default RollupPluginMinifyHTMLLiterals;
-export const minifyHTMLLiterals = RollupPluginMinifyHTMLLiterals;
+export default minifyTemplateLiterals;
+export const RollupPluginMinifyHTMLLiterals = minifyTemplateLiterals;
+
+/**
+ * @deprecated Use `minifyTemplateLiterals` instead.
+ * @see {@link minifyTemplateLiterals}
+ * @see {@link Options}
+ * Remove in v2.0.0.
+ */
+export const minifyHTMLLiterals = minifyTemplateLiterals;

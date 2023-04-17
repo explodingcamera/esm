@@ -1,6 +1,6 @@
 import { join } from "node:path";
 
-import { build as tsbuild, Format } from "tsup";
+import { build as tsbuild, type Format } from "tsup";
 import type { Command, CommandContext } from "ucmd";
 
 export const buildCommandOptions = {

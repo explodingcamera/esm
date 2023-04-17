@@ -9,7 +9,7 @@ import { toCommonLockfile as yarnV1ToCommonLockfile } from "./lockfiles/yarn-v1"
 import { toCommonLockfile as yarnV2ToCommonLockfile } from "./lockfiles/yarn-berry";
 import { toCommonLockfile as pnpmToCommonLockfile } from "./lockfiles/pnpm";
 import { toCommonLockfile as npmToCommonLockfile } from "./lockfiles/npm";
-import { CommonLock, defaultCommonLockOptions, UnlockedOptions } from "./types";
+import { type CommonLock, defaultCommonLockOptions, type UnlockedOptions } from "./types";
 
 export const unlock = async (directory?: string, _options?: UnlockedOptions): Promise<CommonLock> => {
 	const dir = directory ?? process.cwd();

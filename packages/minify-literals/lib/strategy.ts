@@ -1,5 +1,5 @@
 import CleanCSS from "clean-css";
-import { Options as HTMLOptions, minify } from "html-minifier-terser";
+import { type Options as HTMLOptions, minify } from "html-minifier-terser";
 import type { TemplatePart } from "parse-literals";
 
 /**

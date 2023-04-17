@@ -14,7 +14,6 @@ const fetchMock = vi.fn((_url: string, _options?: RequestInit) => {
 
 describe("Mutation", () => {
 	it("works with a basic query/mutation", async () => {
-		@customElement("example-element")
 		class ExampleElement extends LitElement {
 			myQuery = new Query(this, "my-query", () => fetchMock("https://example.com/"));
 			myMutation = new Mutation(this, "my-mutation", (ctx, x: number) => {
@@ -25,7 +24,13 @@ describe("Mutation", () => {
 				return html`
 				<h1>My Query</h1>
 				<p>
-					${this.myQuery.loading ? "Loading..." : this.myQuery.error ? "Error!" : JSON.stringify(this.myQuery.data)}
+					${
+						this.myQuery.loading
+							? "Loading..."
+							: this.myQuery.error
+							? "Error!"
+							: JSON.stringify(this.myQuery.data)
+					}
 				</p>
 				<h1>My Mutation</h1>
 				<button @click=${this.handleClick}>Mutate</button>
@@ -45,6 +50,7 @@ describe("Mutation", () => {
 				this.myMutation.run(10);
 			}
 		}
+		customElements.define("example-element", ExampleElement);
 
 		const el = new ExampleElement();
 		document.body.appendChild(el);

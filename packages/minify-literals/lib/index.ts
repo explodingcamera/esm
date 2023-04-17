@@ -1,6 +1,6 @@
-import MagicString, { SourceMapOptions } from "magic-string";
-import { Template, TemplatePart, ParseLiteralsOptions, parseLiterals } from "parse-literals";
-import { Strategy, defaultMinifyOptions, defaultStrategy } from "./strategy.js";
+import MagicString, { type SourceMapOptions } from "magic-string";
+import { type Template, type TemplatePart, type ParseLiteralsOptions, parseLiterals } from "parse-literals";
+import { type Strategy, defaultMinifyOptions, defaultStrategy } from "./strategy.js";
 
 /**
  * Options for <code>minifyHTMLLiterals()</code>.
