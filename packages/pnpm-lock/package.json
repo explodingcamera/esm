@@ -1,7 +1,7 @@
 {
   "name": "pnpm-lock",
   "support": "preview",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "A fork of @pnpm/lockfile-file without all the dependencies and only the lockfile parsing",
   "keywords": [],
   "homepage": "https://github.com/explodingcamera/esm/tree/main/packages/pnpm-lock",
