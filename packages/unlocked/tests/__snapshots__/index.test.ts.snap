@@ -7,21 +7,22 @@ exports[`resolve-dependencies 1`] = `
   "importers": {
     ".": {
       "dependencies": {
-        "tslib": "2.5.0",
+        "tslib": {
+          "specifier": "^2.5.0",
+          "version": "2.5.0",
+        },
       },
       "dependenciesMeta": undefined,
       "devDependencies": undefined,
       "optionalDependencies": undefined,
       "publishDirectory": undefined,
-      "specifiers": {
-        "tslib": "^2.5.0",
-      },
+      "specifiers": {},
     },
   },
-  "lockfileVersion": 5.4,
+  "lockfileVersion": "6.0",
   "optionalDependencies": undefined,
   "packages": {
-    "/tslib/2.5.0": {
+    "/tslib@2.5.0": {
       "dev": false,
       "resolution": {
         "integrity": "sha512-336iVw3rtn2BUK7ORdIAHTyxHGRIHVReokCR3XjbckJMK7ms8FysBfhLR8IXnAgy7T0PTPNBWKiH514FOW/WSg==",
@@ -38,53 +39,46 @@ exports[`resolve-dependencies 2`] = `
   "importers": {
     ".": {
       "dependencies": {
-        "tslib": "2.5.0",
+        "tslib": {
+          "specifier": "^2.5.0",
+          "version": "2.5.0",
+        },
       },
       "dependenciesMeta": undefined,
       "devDependencies": undefined,
       "optionalDependencies": undefined,
       "publishDirectory": undefined,
-      "specifiers": {
-        "tslib": "^2.5.0",
-      },
+      "specifiers": {},
     },
   },
   "lockfileType": "pnpm",
-  "lockfileVersion": 5.4,
+  "lockfileVersion": "6.0",
   "name": "generic",
   "overrides": undefined,
   "packages": {
-    "/tslib/2.5.0": {
-      "authors": [
-        "Microsoft Corp.",
-      ],
+    "/tslib@2.5.0": {
+      "authors": [],
       "cpu": undefined,
       "dependencies": undefined,
       "dev": false,
       "engines": undefined,
       "funding": undefined,
       "hasBin": undefined,
-      "homepage": "https://www.typescriptlang.org/",
-      "licenseFiles": [
-        "./node_modules/.pnpm/tslib@2.5.0/node_modules/tslib/CopyrightNotice.txt",
-        "./node_modules/.pnpm/tslib@2.5.0/node_modules/tslib/LICENSE.txt",
-      ],
+      "homepage": undefined,
+      "licenseFiles": undefined,
       "optional": undefined,
       "optionalDependencies": undefined,
       "optionalPeerDependencies": [],
       "os": undefined,
-      "packageJsonPath": "./node_modules/.pnpm/tslib@2.5.0/node_modules/tslib",
+      "packageJsonPath": "./../../..",
       "patched": undefined,
       "peerDependencies": undefined,
-      "repository": {
-        "type": "git",
-        "url": "https://github.com/Microsoft/tslib.git",
-      },
+      "repository": undefined,
       "requiresBuild": undefined,
       "resolution": {
         "integrity": "sha512-336iVw3rtn2BUK7ORdIAHTyxHGRIHVReokCR3XjbckJMK7ms8FysBfhLR8IXnAgy7T0PTPNBWKiH514FOW/WSg==",
       },
-      "spdxLicenseId": "0BSD",
+      "spdxLicenseId": undefined,
       "version": undefined,
     },
   },
