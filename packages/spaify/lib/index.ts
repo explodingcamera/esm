@@ -3,8 +3,7 @@ import { getDoc } from "./doc";
 export type Options = {
 	selectors: {
 		/**
-		 * 	The selector for the scripts that should only be run on the first page load. (and not when navigating between pages)
-		 * 	Note: this behavior is the default for all scripts in the head and directly inside the body.
+		 * 	The selector for the scripts that should only run on the initial page load.
 		 */
 		once: string;
 
@@ -31,12 +30,15 @@ export type Options = {
 };
 
 const init = (opts: Partial<Options> = {}) => {
+	if ((window as any)["__spaify"]) throw new Error("Spaify is already initialized");
+	(window as any)["__spaify"] = true;
+
 	const a = opts.attribute || "data-spaify";
 	const options = {
 		attribute: a,
 		selectors: {
-			once: `script[${a}-run=once]`,
-			always: `script[${a}-run=always]`,
+			once: `[${a}-run=once]`,
+			always: `[${a}-run=always]`,
 			ignore: `a[${a}-ignore]`,
 			main: `body *[${a}-main]`,
 			...opts.selectors,
@@ -53,8 +55,8 @@ const init = (opts: Partial<Options> = {}) => {
 			return;
 
 		e.preventDefault();
-		history.pushState({ url: target.href }, "", target.href);
 		handlePageTransition(target.href);
+		history.pushState({ url: target.href }, "", target.href);
 	};
 
 	let abort = new AbortController();
@@ -63,39 +65,37 @@ const init = (opts: Partial<Options> = {}) => {
 		abort = new AbortController();
 
 		let doc: Document;
+		let firstLoad = false;
 		try {
 			abort = new AbortController();
-			doc = await getDoc(to, abort.signal);
+			const res = await getDoc(to, abort.signal);
+			doc = res.doc.cloneNode(true) as Document;
+			firstLoad = res.firstLoad;
 		} catch (e: unknown) {
 			if (e === "abort") {
 				// the request was aborted, so we don't need to do anything
 				return;
 			}
 
-			// something went wrong, so we just redirect to the page instead of trying to handle it with Spaify
+			console.log(e);
 			window.location.assign(to);
 			return;
 		}
 
-		// remove scripts that should only be run for the first page load
-		doc
-			.querySelectorAll(`${options.selectors.main} ${options.selectors.once}`)
-			.forEach((el) => el.tagName === "SCRIPT" && el.remove());
-
 		// collect all scripts that should be run for this pageload
-		const alwaysScripts = doc.querySelectorAll(
-			`header ${options.selectors.always}, body > ${options.selectors.always}`,
+		const runScripts = doc.querySelectorAll(
+			`head script${options.selectors.always}, body > script${options.selectors.always}, ${options.selectors.main} script:not(${options.selectors.once})`,
 		);
 
 		const newMain = doc.querySelector(options.selectors.main);
-
 		// replace the main element
 		const main = document.querySelector(options.selectors.main);
 		if (!main || !newMain) throw new Error(`No main element`);
-		main.replaceWith(newMain.cloneNode(true));
+		main.replaceWith(newMain);
 
 		// append the new scripts to the document
-		alwaysScripts.forEach((el) => el.tagName === "SCRIPT" && document.body.appendChild(el));
+		runScripts.forEach((el) => insertScript(el));
+		if (firstLoad) doc.querySelectorAll(options.selectors.once).forEach((el) => insertScript(el));
 
 		// update the title
 		if (doc.title) document.title = doc.title;
@@ -114,6 +114,23 @@ const init = (opts: Partial<Options> = {}) => {
 			window.removeEventListener("popstate", onPopState);
 		},
 	};
+};
+
+const insertScript = (el: Element) => {
+	if (!(el instanceof HTMLScriptElement)) return;
+	const newScript = document.createElement("script");
+	newScript.innerHTML = el.innerHTML;
+	if (el.innerHTML !== "") newScript.innerHTML = el.innerHTML;
+	if (el.integrity !== "") newScript.integrity = el.integrity;
+	if (el.referrerPolicy !== "") newScript.referrerPolicy = el.referrerPolicy;
+	if (el.crossOrigin !== "") newScript.crossOrigin = el.crossOrigin;
+	if (el.noModule !== false) newScript.noModule = el.noModule;
+	// if (el.async !== false) newScript.async = el.async;
+	// if (el.defer !== false) newScript.defer = el.defer;
+	if (el.type !== "") newScript.type = el.type;
+	if (el.src !== "") newScript.src = el.src;
+	newScript.setAttribute("data-spaify", "true");
+	document.head.appendChild(newScript);
 };
 
 export { init, init as default };

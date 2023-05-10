@@ -1,10 +1,16 @@
 const cache = new Map<string, Document>();
+cache.set(window.location.href, document.cloneNode(true) as Document);
 
-export async function getDoc(url: string, signal: AbortSignal): Promise<Document> {
-	if (cache.has(url)) return Promise.resolve(cache.get(url)!);
-	const doc = new DOMParser().parseFromString(await (await fetch(url, { signal })).text(), "text/html");
+export async function getDoc(
+	url: string,
+	signal: AbortSignal,
+): Promise<{ doc: Document; firstLoad: boolean }> {
+	if (cache.has(url)) return { doc: cache.get(url)!, firstLoad: false };
+	const resp = await fetch(url, { signal });
+	if (!resp.ok) throw resp.statusText;
+	const doc = new DOMParser().parseFromString(await resp.text(), "text/html");
 	cache.set(url, doc);
-	return doc;
+	return { doc, firstLoad: true };
 }
 
 // XMLHttpRequest might be faster due to a streaming decoder, benchmark this (for now, fetch is used because it's less code)

@@ -14,6 +14,11 @@
       "require": "./dist/index.cjs",
       "import": "./dist/index.js",
       "types": "./types/index.d.ts"
+    },
+    "./default": {
+      "require": "./dist/default.cjs",
+      "import": "./dist/default.js",
+      "types": "./types/default.d.ts"
     }
   },
   "main": "dist/index.cjs",
@@ -23,9 +28,9 @@
     "dist"
   ],
   "scripts": {
-    "build": "scripts build --name spaify",
+    "build": "scripts build --name spaify ./lib/index.ts && scripts build --name spaify ./lib/default.ts",
     "test": "scripts test run"
-  },
+  }, 
   "devDependencies": {
     "scripts": "workspace:*",
     "vitest": "^0.31.0"
