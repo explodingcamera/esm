@@ -6,14 +6,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <script type="module">
-    import { SPAify } from './dist/index.js';
-    new SPAify({});
+    import spaify from './dist/index.js';
+    spaify({});
   </script>
 </head>
 <body>
   <main data-spaify-main>
     <h1>pog</h1>
     <a href="./test.html">test</a>
+    <a data-spaify-ignore href="./test.html">test</a>
   </main>
 </body>
 </html>
