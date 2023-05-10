@@ -1,5 +1,11 @@
 # unlocked-aboutlibraries
 
+## 0.1.4
+
+### Patch Changes
+
+- [`28b2765`](https://github.com/explodingcamera/esm/commit/28b276523ad007ab9ae0402a7d5d5b7360f1d7ed) Thanks [@explodingcamera](https://github.com/explodingcamera)! - chore: update dependencies
+
 ## 0.1.3
 
 ### Patch Changes

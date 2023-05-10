@@ -1,5 +1,0 @@
----
-"spaify": patch
----
-
-initial release
