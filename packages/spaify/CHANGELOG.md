@@ -1,5 +1,11 @@
 # spaify
 
+## 0.0.3
+
+### Patch Changes
+
+- feat: nested a tags
+
 ## 0.0.2
 
 ### Patch Changes

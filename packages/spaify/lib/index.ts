@@ -46,8 +46,10 @@ const init = (opts: Partial<Options> = {}) => {
 	};
 
 	const onLinkClick = (e: MouseEvent) => {
-		const target = e.target as HTMLAnchorElement;
+		const target = (e.target as Element).closest("a")!;
+
 		if (
+			!target ||
 			target.tagName !== "A" ||
 			window.location.origin !== target.origin ||
 			target.matches(options.selectors.ignore)

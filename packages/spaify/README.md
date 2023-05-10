@@ -19,8 +19,12 @@ spaify()
 ```html
 <head>
   <script type="module">
-    import spaify from "https://unpkg.com/spaify";
-    spaify({});
+    // with defaults
+    import "https://esm.sh/spaify/default";
+
+    // or with options
+    import spaify from "https://esm.sh/spaify";
+    spaify();
   </script>
 
   <script>
