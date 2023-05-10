@@ -17,7 +17,6 @@ spaify()
 ```
 
 ```html
-
 <head>
   <script type="module">
     import spaify from "https://unpkg.com/spaify";

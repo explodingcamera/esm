@@ -1,6 +1,6 @@
 import { test, expect } from "vitest";
-import { Spaify } from ".";
+import { init } from ".";
 
 test("test", async () => {
-	expect(Spaify).toMatchInlineSnapshot("[Function]");
+	expect(init).toMatchInlineSnapshot('[Function]');
 });
