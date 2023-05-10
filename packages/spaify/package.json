@@ -1,6 +1,6 @@
 {
   "name": "spaify",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "support": "unstable",
   "description": "",
   "keywords": [],
@@ -30,7 +30,7 @@
   "scripts": {
     "build": "scripts build --name spaify ./lib/index.ts && scripts build --name spaify ./lib/default.ts",
     "test": "scripts test run"
-  }, 
+  },
   "devDependencies": {
     "scripts": "workspace:*",
     "vitest": "^0.31.0"

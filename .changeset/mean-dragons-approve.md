@@ -1,5 +1,0 @@
----
-"spaify": patch
----
-
-feat: scripts

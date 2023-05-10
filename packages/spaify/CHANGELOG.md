@@ -1,5 +1,11 @@
 # spaify
 
+## 0.0.2
+
+### Patch Changes
+
+- [`67ec722`](https://github.com/explodingcamera/esm/commit/67ec722d0193008b3ff5487b5685a71d4b2e7999) Thanks [@explodingcamera](https://github.com/explodingcamera)! - feat: scripts
+
 ## 0.0.1
 
 ### Patch Changes
