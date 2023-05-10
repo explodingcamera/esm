@@ -1,10 +1,10 @@
 {
-  "name": "unlocked-cyclconedx",
-  "support": "preview",
-  "version": "0.1.3",
-  "description": "Create CycloneDX SBOMs from CommonLock files",
+  "name": "spaify",
+  "version": "0.0.1",
+  "support": "unstable",
+  "description": "",
   "keywords": [],
-  "homepage": "https://github.com/explodingcamera/esm/tree/main/packages/unlocked-cyclonedx",
+  "homepage": "https://github.com/explodingcamera/esm/tree/main/packages/spaify",
   "repository": "https://github.com/explodingcamera/esm",
   "license": "ISC",
   "author": "Henry Gressmann <mail@henrygressmann.de> (https://henrygressmann.de)",
@@ -23,15 +23,11 @@
     "dist"
   ],
   "scripts": {
-    "build": "scripts build --name unlocked-cyclonedx",
+    "build": "scripts build --name spaify",
     "test": "scripts test run"
-  },
-  "dependencies": {
-    "@cyclonedx/cyclonedx-library": "^1.14.0"
   },
   "devDependencies": {
     "scripts": "workspace:*",
-    "unlocked": "workspace:*",
     "vitest": "^0.31.0"
   }
 }

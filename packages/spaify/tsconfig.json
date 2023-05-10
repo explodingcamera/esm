@@ -1,0 +1,7 @@
+{
+  "compilerOptions": {
+    "lib": ["DOM", "ESNext"],
+  },
+  "exclude": ["dist/", "node_modules/"],
+  "extends": "../../configs/tsconfig.base.json"
+}
