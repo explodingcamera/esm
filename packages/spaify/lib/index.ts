@@ -30,7 +30,7 @@ export type Options = {
 };
 
 const init = (opts: Partial<Options> = {}) => {
-	if ((window as any)["__spaify"]) throw new Error("Spaify is already initialized");
+	if ((window as any)["__spaify"]) throw new Error("Spaify's already initialized");
 	(window as any)["__spaify"] = true;
 
 	const a = opts.attribute || "data-spaify";
@@ -61,41 +61,32 @@ const init = (opts: Partial<Options> = {}) => {
 
 	let abort = new AbortController();
 	const handlePageTransition = async (to: string) => {
+		const reload = () => window.location.assign(to);
 		if (abort.signal) abort.abort();
 		abort = new AbortController();
 
-		let doc: Document;
-		let firstLoad = false;
+		let res;
 		try {
-			abort = new AbortController();
-			const res = await getDoc(to, abort.signal);
-			doc = res.doc.cloneNode(true) as Document;
-			firstLoad = res.firstLoad;
+			res = await getDoc(to, abort.signal);
 		} catch (e: unknown) {
-			if (e === "abort") {
-				// the request was aborted, so we don't need to do anything
-				return;
-			}
-
-			console.log(e);
-			window.location.assign(to);
-			return;
+			return e === "abort" && reload();
 		}
+		const doc = res.doc.cloneNode(true) as Document;
 
 		// collect all scripts that should be run for this pageload
 		const runScripts = doc.querySelectorAll(
-			`head script${options.selectors.always}, body > script${options.selectors.always}, ${options.selectors.main} script:not(${options.selectors.once})`,
+			`head script${options.selectors.always},body>script${options.selectors.always},${options.selectors.main} script:not(${options.selectors.once})`,
 		);
 
 		const newMain = doc.querySelector(options.selectors.main);
 		// replace the main element
 		const main = document.querySelector(options.selectors.main);
-		if (!main || !newMain) throw new Error(`No main element`);
+		if (!main || !newMain) return reload();
 		main.replaceWith(newMain);
 
 		// append the new scripts to the document
 		runScripts.forEach((el) => insertScript(el));
-		if (firstLoad) doc.querySelectorAll(options.selectors.once).forEach((el) => insertScript(el));
+		if (res.firstLoad) doc.querySelectorAll(options.selectors.once).forEach((el) => insertScript(el));
 
 		// update the title
 		if (doc.title) document.title = doc.title;
