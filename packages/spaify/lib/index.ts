@@ -97,7 +97,7 @@ const init = (opts: Partial<Options> = {}) => {
 		window.scrollTo(0, 0);
 	};
 
-	const onPopState = (e: PopStateEvent) => handlePageTransition(window.location.href);
+	const onPopState = () => handlePageTransition(window.location.href);
 	document.addEventListener("click", onLinkClick);
 	window.addEventListener("popstate", onPopState);
 
@@ -118,8 +118,6 @@ const insertScript = (el: Element) => {
 	if (el.referrerPolicy !== "") newScript.referrerPolicy = el.referrerPolicy;
 	if (el.crossOrigin !== "") newScript.crossOrigin = el.crossOrigin;
 	if (el.noModule !== false) newScript.noModule = el.noModule;
-	// if (el.async !== false) newScript.async = el.async;
-	// if (el.defer !== false) newScript.defer = el.defer;
 	if (el.type !== "") newScript.type = el.type;
 	if (el.src !== "") newScript.src = el.src;
 	newScript.setAttribute("data-spaify", "true");

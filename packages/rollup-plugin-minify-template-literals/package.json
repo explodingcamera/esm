@@ -43,7 +43,7 @@
   },
   "devDependencies": {
     "@types/sinon": "^10.0.14",
-    "rollup": "^3.21.6",
+    "rollup": "^3.21.7",
     "scripts": "workspace:*",
     "sinon": "^15.0.4",
     "vitest": "^0.31.0"

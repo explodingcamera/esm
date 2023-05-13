@@ -37,6 +37,6 @@
   },
   "dependencies": {
     "js-yaml": "^4.1.0",
-    "semver": "^7.5.0"
+    "semver": "^7.5.1"
   }
 }

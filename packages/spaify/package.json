@@ -3,7 +3,10 @@
   "version": "0.0.3",
   "support": "unstable",
   "description": "Seamless page transitions for your static site in less than 2kb of JavaScript",
-  "keywords": ["ssg", "turbolinks"],
+  "keywords": [
+    "ssg",
+    "turbolinks"
+  ],
   "homepage": "https://github.com/explodingcamera/esm/tree/main/packages/spaify",
   "repository": "https://github.com/explodingcamera/esm",
   "license": "ISC",
@@ -32,9 +35,9 @@
     "test": "scripts test run"
   },
   "devDependencies": {
-    "scripts": "workspace:*",
-    "@types/node": "^20.1.2",
+    "@types/node": "^20.1.4",
     "jsdom": "^22.0.0",
+    "scripts": "workspace:*",
     "vite": "^4.3.5",
     "vitest": "^0.31.0"
   }
