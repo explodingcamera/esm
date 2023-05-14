@@ -30,7 +30,7 @@
   ],
   "scripts": {
     "build": "scripts build --name minify-literals",
-    "test": "scripts test run"
+    "test": "vitest run"
   },
   "dependencies": {
     "clean-css": "^5.3.2",

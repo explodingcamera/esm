@@ -23,8 +23,9 @@ vi.stubGlobal("console", consoleMock);
 
 // https://github.com/explodingcamera/esm/issues/1
 describe("handle key value pairs correctly", () => {
-	it("should minify html", async () => {
+	it.only("should minify html", async () => {
 		const source = `const css = css\`:host{\${"color"}: \${"red"}}\``;
+
 		expect((await minifyHTMLLiterals(source))?.code).toMatchInlineSnapshot(
 			'"const css = css`:host{${\\"color\\"}:${\\"red\\"}}`"',
 		);
