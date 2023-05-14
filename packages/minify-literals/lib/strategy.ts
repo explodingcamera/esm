@@ -233,6 +233,7 @@ export function adjustMinifyCSSOptions(options: CleanCSS.Options = {}) {
 function fixCleanCssTidySelectors(original: string, result: string) {
 	const regex = /(::?.+\((.*)\))[\s\r\n]*{/gm;
 	let match: RegExpMatchArray | null;
+	// rome-ignore lint/suspicious/noAssignInExpressions: this is fine
 	while ((match = regex.exec(original)) != null) {
 		const pseudoClass = match[1] ?? "";
 		const parameters = match[2];

@@ -67,7 +67,8 @@ export class Mutation<
 	}
 
 	constructor(host: ReactiveControllerHost, name: string, fetcher: TFetcher) {
-		(this.#host = host).addController(this);
+		this.#host = host;
+		this.#host.addController(this);
 
 		this.#name = name;
 		this.#fetcher = fetcher;
@@ -113,10 +114,6 @@ export class Mutation<
 
 // a query is a mutation that runs on connect, and doesn't need to be manually run
 export class Query<T = unknown> extends Mutation<T> {
-	constructor(host: ReactiveControllerHost, name: string, fetcher: () => Promise<T>) {
-		super(host, name, fetcher);
-	}
-
 	override hostConnected() {
 		this.run();
 	}

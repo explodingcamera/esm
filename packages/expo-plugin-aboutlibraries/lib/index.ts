@@ -61,10 +61,9 @@ const withAboutLibraries: ConfigPlugin<{
 }> = (config, value) => {
 	const ABOUT_LIBRARIES_VERSION = value?.aboutLibrariesVersion ?? DEFAULT_VERSION;
 
-	config = withAboutLibrariesApp(config);
-	config = withAboutLibrariesProject(config, { aboutLibrariesVersion: ABOUT_LIBRARIES_VERSION });
-
-	return config;
+	return withAboutLibrariesProject(withAboutLibrariesApp(config), {
+		aboutLibrariesVersion: ABOUT_LIBRARIES_VERSION,
+	});
 };
 
 export const withAndroidAboutLibraries = createRunOncePlugin(withAboutLibraries, pkg.name, pkg.version);

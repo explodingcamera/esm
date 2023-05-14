@@ -14,10 +14,12 @@
         "useBlockStatements": "off",
         "useSingleVarDeclarator": "off",
         "noUnusedTemplateLiteral": "off",
-        "noNonNullAssertion": "off"
+        "noNonNullAssertion": "off",
+        "noParameterAssign": "warn"
       },
       "suspicious": {
-        "noExplicitAny": "warn"
+        "noExplicitAny": "warn",
+        "noRedeclare": "off"
       }
     }
   }

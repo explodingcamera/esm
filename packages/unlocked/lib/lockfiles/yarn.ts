@@ -17,7 +17,7 @@ export interface YarnLockDep {
 		[depName: string]: string;
 	};
 	optionalDependencies?: {
-		[depName: string]: string;
+		[depName2: string]: string;
 	};
 }
 

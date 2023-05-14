@@ -2,16 +2,16 @@ export interface Lockfile {
 	PODS: PodEntry[];
 	DEPENDENCIES: string[];
 	"SPEC REPOS"?: {
-		[key: string]: string[];
+		[specKey: string]: string[];
 	};
 	"EXTERNAL SOURCES"?: {
-		[key: string]: ExternalSourceInfo;
+		[externKey: string]: ExternalSourceInfo;
 	};
 	"CHECKOUT OPTIONS"?: {
-		[key: string]: CheckoutOptions;
+		[checkoutKey: string]: CheckoutOptions;
 	};
 	"SPEC CHECKSUMS": {
-		[key: string]: string;
+		[specCheckKey: string]: string;
 	};
 	"PODFILE CHECKSUM"?: string;
 	COCOAPODS?: string;

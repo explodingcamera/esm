@@ -22,6 +22,6 @@ export async function getWantedLockfileName(
  * 1. Git branch name may contains slashes, which is not allowed in filenames
  * 2. Filesystem may be case-insensitive, so we need to convert branch name to lowercase
  */
-function stringifyBranchName(branchName: string = "") {
+function stringifyBranchName(branchName = "") {
 	return branchName.replace(/[^a-zA-Z0-9-_.]/g, "!").toLowerCase();
 }

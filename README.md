@@ -9,7 +9,7 @@
 
 - All packages are written in TypeScript
 - 3rd party dependencies are kept to a minimum (if any)
-- Only the latest LTS version of Node.js is officially supported (currently 18)
+- Only the latest LTS version of Node.js is officially supported (currently 20)
 
 <br />
 
