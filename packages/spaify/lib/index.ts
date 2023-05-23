@@ -51,7 +51,7 @@ const init = (opts: Partial<Options> = {}) => {
 		if (
 			!target ||
 			target.tagName !== "A" ||
-			window.location.origin !== target.origin ||
+			location.origin !== target.origin ||
 			target.matches(options.selectors.ignore)
 		)
 			return;
@@ -63,7 +63,7 @@ const init = (opts: Partial<Options> = {}) => {
 
 	let abort = new AbortController();
 	const handlePageTransition = async (to: string) => {
-		const reload = () => window.location.assign(to);
+		const reload = () => location.assign(to);
 		if (abort.signal) abort.abort();
 		abort = new AbortController();
 
@@ -77,7 +77,7 @@ const init = (opts: Partial<Options> = {}) => {
 
 		// collect all scripts that should be run for this pageload
 		const runScripts = doc.querySelectorAll(
-			`head script${options.selectors.always},body>script${options.selectors.always},${options.selectors.main} script:not(${options.selectors.once})`,
+			`script${options.selectors.always},${options.selectors.main} script:not(${options.selectors.once})`,
 		);
 
 		const newMain = doc.querySelector(options.selectors.main);
@@ -97,7 +97,7 @@ const init = (opts: Partial<Options> = {}) => {
 		window.scrollTo(0, 0);
 	};
 
-	const onPopState = () => handlePageTransition(window.location.href);
+	const onPopState = () => handlePageTransition(location.href);
 	document.addEventListener("click", onLinkClick);
 	window.addEventListener("popstate", onPopState);
 
@@ -113,14 +113,13 @@ const insertScript = (el: Element) => {
 	if (!(el instanceof HTMLScriptElement)) return;
 	const newScript = document.createElement("script");
 	newScript.innerHTML = el.innerHTML;
-	if (el.innerHTML !== "") newScript.innerHTML = el.innerHTML;
-	if (el.integrity !== "") newScript.integrity = el.integrity;
-	if (el.referrerPolicy !== "") newScript.referrerPolicy = el.referrerPolicy;
-	if (el.crossOrigin !== "") newScript.crossOrigin = el.crossOrigin;
-	if (el.noModule !== false) newScript.noModule = el.noModule;
-	if (el.type !== "") newScript.type = el.type;
-	if (el.src !== "") newScript.src = el.src;
-	newScript.setAttribute("data-spaify", "true");
+	newScript.integrity = el.integrity;
+	newScript.referrerPolicy = el.referrerPolicy;
+	newScript.crossOrigin = el.crossOrigin;
+	newScript.noModule = el.noModule;
+	newScript.type = el.type;
+	newScript.src = el.src;
+	newScript.setAttribute("data-spaify", "1");
 	document.head.appendChild(newScript);
 };
 

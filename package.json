@@ -12,10 +12,10 @@
   "devDependencies": {
     "@changesets/changelog-github": "^0.4.8",
     "@changesets/cli": "^2.26.1",
-    "@types/node": "^20.1.4",
-    "rome": "12.1.0",
+    "@types/node": "^20.2.3",
+    "rome": "12.1.2",
     "scripts": "workspace:*",
-    "turbo": "^1.9.4"
+    "turbo": "^1.9.9"
   },
   "dependencies": {
     "typescript": "^5.0.4"

@@ -1,5 +1,5 @@
 const cache = new Map<string, Document>();
-cache.set(window.location.href, document.cloneNode(true) as Document);
+cache.set(location.href, document.cloneNode(true) as Document);
 
 export async function getDoc(
 	url: string,
