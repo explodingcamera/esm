@@ -22,7 +22,7 @@
   },
   "devDependencies": {
     "@npm/types": "^1.0.2",
-    "@types/node": "^20.2.3",
-    "vitest": "^0.31.1"
+    "@types/node": "^20.2.5",
+    "vitest": "^0.32.0"
   }
 }

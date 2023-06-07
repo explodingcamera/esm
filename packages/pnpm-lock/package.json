@@ -27,13 +27,13 @@
     "test": "scripts test run"
   },
   "devDependencies": {
-    "@pnpm/constants": "^7.0.0",
-    "@pnpm/lockfile-types": "^5.0.0",
-    "@pnpm/types": "^9.0.0",
+    "@pnpm/constants": "^7.1.0",
+    "@pnpm/lockfile-types": "^5.1.0",
+    "@pnpm/types": "^9.1.0",
     "@types/js-yaml": "^4.0.5",
     "@types/semver": "^7.5.0",
     "scripts": "workspace:*",
-    "vitest": "^0.31.1"
+    "vitest": "^0.32.0"
   },
   "dependencies": {
     "js-yaml": "^4.1.0",
