@@ -1,49 +1,49 @@
 {
-  "name": "minify-literals",
-  "version": "1.0.5",
-  "description": "Minify CSS and HTML literals",
-  "keywords": [
-    "literals",
-    "minify",
-    "minification",
-    "css",
-    "html",
-    "template-literals"
-  ],
-  "homepage": "https://github.com/explodingcamera/esm/tree/main/packages/minify-literals",
-  "repository": "https://github.com/explodingcamera/esm",
-  "license": "MIT",
-  "author": "Henry Gressmann <mail@henrygressmann.de> (https://henrygressmann.de)",
-  "type": "module",
-  "exports": {
-    ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs",
-      "types": "./dist/index.d.ts"
-    }
-  },
-  "main": "dist/index.cjs",
-  "module": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "files": [
-    "dist"
-  ],
-  "scripts": {
-    "build": "scripts build --name minify-literals",
-    "test": "vitest run"
-  },
-  "dependencies": {
-    "clean-css": "^5.3.2",
-    "html-minifier-terser": "^7.2.0",
-    "magic-string": "^0.30.0",
-    "parse-literals": "^1.2.1"
-  },
-  "devDependencies": {
-    "@types/clean-css": "^4.2.6",
-    "@types/html-minifier-terser": "^7.0.0",
-    "@types/sinon": "^10.0.15",
-    "scripts": "workspace:*",
-    "sinon": "^15.1.0",
-    "vitest": "^0.32.0"
-  }
+	"name": "minify-literals",
+	"version": "1.0.5",
+	"description": "Minify CSS and HTML literals",
+	"keywords": [
+		"literals",
+		"minify",
+		"minification",
+		"css",
+		"html",
+		"template-literals"
+	],
+	"homepage": "https://github.com/explodingcamera/esm/tree/main/packages/minify-literals",
+	"repository": "https://github.com/explodingcamera/esm",
+	"license": "MIT",
+	"author": "Henry Gressmann <mail@henrygressmann.de> (https://henrygressmann.de)",
+	"type": "module",
+	"exports": {
+		".": {
+			"import": "./dist/index.js",
+			"require": "./dist/index.cjs",
+			"types": "./dist/index.d.ts"
+		}
+	},
+	"main": "dist/index.cjs",
+	"module": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"files": [
+		"dist"
+	],
+	"scripts": {
+		"build": "scripts build --name minify-literals",
+		"test": "vitest run"
+	},
+	"dependencies": {
+		"clean-css": "^5.3.2",
+		"html-minifier-terser": "^7.2.0",
+		"magic-string": "^0.30.0",
+		"parse-literals": "^1.2.1"
+	},
+	"devDependencies": {
+		"@types/clean-css": "^4.2.6",
+		"@types/html-minifier-terser": "^7.0.0",
+		"@types/sinon": "^10.0.15",
+		"scripts": "workspace:*",
+		"sinon": "^15.2.0",
+		"vitest": "^0.32.2"
+	}
 }

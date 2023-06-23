@@ -37,11 +37,11 @@
     "@types/js-yaml": "^4.0.5",
     "@types/yarnpkg__lockfile": "^1.1.6",
     "scripts": "workspace:*",
-    "vitest": "^0.32.0"
+    "vitest": "^0.32.2"
   },
   "dependencies": {
     "@yarnpkg/lockfile": "^1.1.0",
-    "@yarnpkg/parsers": "3.0.0-rc.45",
+    "@yarnpkg/parsers": "3.0.0-rc.46",
     "import-meta-resolve": "^3.0.0",
     "js-yaml": "^4.1.0",
     "pnpm-lock": "workspace:0.1.4"
