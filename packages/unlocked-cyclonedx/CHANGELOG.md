@@ -1,5 +1,11 @@
 # unlocked-cyclonedx
 
+## 0.1.5
+
+### Patch Changes
+
+- chore: update dependencies
+
 ## 0.1.4
 
 ### Patch Changes

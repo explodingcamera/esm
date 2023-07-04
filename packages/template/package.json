@@ -1,6 +1,6 @@
 {
   "name": "template",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "private": true,
   "description": "",
   "keywords": [],
@@ -28,6 +28,6 @@
   },
   "devDependencies": {
     "scripts": "workspace:*",
-    "vitest": "^0.32.2"
+    "vitest": "^0.32.4"
   }
 }

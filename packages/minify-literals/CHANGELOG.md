@@ -1,5 +1,13 @@
 # minify-literals
 
+## 1.0.6
+
+### Patch Changes
+
+- [`7f1660c`](https://github.com/explodingcamera/esm/commit/7f1660c88677547d9eafb8ab30ff9032a75b42be) Thanks [@explodingcamera](https://github.com/explodingcamera)! - fix linting issues
+
+- chore: update dependencies
+
 ## 1.0.5
 
 ### Patch Changes

@@ -1,5 +1,15 @@
 # legalizer
 
+## 0.1.10
+
+### Patch Changes
+
+- chore: update dependencies
+
+- Updated dependencies [[`7f1660c`](https://github.com/explodingcamera/esm/commit/7f1660c88677547d9eafb8ab30ff9032a75b42be)]:
+  - unlocked@0.2.5
+  - ucmd@0.4.4
+
 ## 0.1.9
 
 ### Patch Changes

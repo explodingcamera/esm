@@ -1,5 +1,15 @@
 # pnpm-lock
 
+## 0.1.5
+
+### Patch Changes
+
+- [`7f1660c`](https://github.com/explodingcamera/esm/commit/7f1660c88677547d9eafb8ab30ff9032a75b42be) Thanks [@explodingcamera](https://github.com/explodingcamera)! - fix linting issues
+
+- chore: update dependencies
+
+- [`b8b2d3d`](https://github.com/explodingcamera/esm/commit/b8b2d3dbb0c99159f5d643f476e623cd56278017) Thanks [@explodingcamera](https://github.com/explodingcamera)! - update dependencies
+
 ## 0.1.4
 
 ### Patch Changes

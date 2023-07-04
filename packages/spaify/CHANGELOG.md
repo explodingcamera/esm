@@ -1,5 +1,13 @@
 # spaify
 
+## 0.0.4
+
+### Patch Changes
+
+- chore: update dependencies
+
+- [`b8b2d3d`](https://github.com/explodingcamera/esm/commit/b8b2d3dbb0c99159f5d643f476e623cd56278017) Thanks [@explodingcamera](https://github.com/explodingcamera)! - update dependencies
+
 ## 0.0.3
 
 ### Patch Changes

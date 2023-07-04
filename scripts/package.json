@@ -1,6 +1,6 @@
 {
   "name": "scripts",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "private": true,
   "type": "module",
   "description": "",
@@ -17,12 +17,12 @@
     }
   },
   "dependencies": {
-    "tsup": "^7.0.0",
+    "tsup": "^7.1.0",
     "ucmd": "workspace:*"
   },
   "devDependencies": {
     "@npm/types": "^1.0.2",
-    "@types/node": "^20.3.1",
-    "vitest": "^0.32.2"
+    "@types/node": "^20.3.3",
+    "vitest": "^0.32.4"
   }
 }
