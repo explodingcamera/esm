@@ -32,16 +32,16 @@
   },
   "devDependencies": {
     "@npm/types": "^1.0.2",
-    "@pnpm/lockfile-types": "^5.1.0",
-    "@pnpm/types": "^9.1.0",
+    "@pnpm/lockfile-types": "^5.1.1",
+    "@pnpm/types": "^9.2.0",
     "@types/js-yaml": "^4.0.5",
     "@types/yarnpkg__lockfile": "^1.1.6",
     "scripts": "workspace:*",
-    "vitest": "^0.32.4"
+    "vitest": "^0.33.0"
   },
   "dependencies": {
     "@yarnpkg/lockfile": "^1.1.0",
-    "@yarnpkg/parsers": "3.0.0-rc.46",
+    "@yarnpkg/parsers": "3.0.0-rc.48.1",
     "import-meta-resolve": "^3.0.0",
     "js-yaml": "^4.1.0",
     "pnpm-lock": "workspace:0.1.5"

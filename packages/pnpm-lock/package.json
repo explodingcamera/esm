@@ -28,15 +28,15 @@
   },
   "devDependencies": {
     "@pnpm/constants": "^7.1.1",
-    "@pnpm/lockfile-types": "^5.1.0",
-    "@pnpm/types": "^9.1.0",
+    "@pnpm/lockfile-types": "^5.1.1",
+    "@pnpm/types": "^9.2.0",
     "@types/js-yaml": "^4.0.5",
     "@types/semver": "^7.5.0",
     "scripts": "workspace:*",
-    "vitest": "^0.32.4"
+    "vitest": "^0.33.0"
   },
   "dependencies": {
     "js-yaml": "^4.1.0",
-    "semver": "^7.5.3"
+    "semver": "^7.5.4"
   }
 }
