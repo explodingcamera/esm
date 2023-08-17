@@ -38,14 +38,14 @@
     "test": "scripts test run"
   },
   "dependencies": {
-    "@rollup/pluginutils": "^5.0.2",
+    "@rollup/pluginutils": "^5.0.3",
     "minify-literals": "workspace:*"
   },
   "devDependencies": {
-    "@types/sinon": "^10.0.15",
-    "rollup": "^3.26.3",
+    "@types/sinon": "^10.0.16",
+    "rollup": "^3.28.0",
     "scripts": "workspace:*",
     "sinon": "^15.2.0",
-    "vitest": "^0.33.0"
+    "vitest": "^0.34.2"
   }
 }

@@ -32,6 +32,6 @@
   "devDependencies": {
     "scripts": "workspace:*",
     "unlocked": "workspace:*",
-    "vitest": "^0.33.0"
+    "vitest": "^0.34.2"
   }
 }
