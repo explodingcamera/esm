@@ -1,5 +1,11 @@
 # unlocked-cocoapods
 
+## 0.1.6
+
+### Patch Changes
+
+- [`3169f4f`](https://github.com/explodingcamera/esm/commit/3169f4f5924f4e870bf25910ab2e9c79fd718057) Thanks [@explodingcamera](https://github.com/explodingcamera)! - chore: update dependencies
+
 ## 0.1.5
 
 ### Patch Changes

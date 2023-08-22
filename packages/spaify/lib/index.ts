@@ -30,8 +30,8 @@ export type Options = {
 };
 
 const init = (opts: Partial<Options> = {}) => {
-	if ((window as any)["__spaify"]) throw new Error("Spaify's already initialized");
-	(window as any)["__spaify"] = true;
+	if ((window as any).__spaify) throw new Error("Spaify's already initialized");
+	(window as any).__spaify = true;
 
 	const a = opts.attribute || "data-spaify";
 	const options = {

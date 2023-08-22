@@ -1,6 +1,6 @@
 import { test, expect } from "vitest";
-import { func } from ".";
+import { func } from "./index";
 
 test("test", async () => {
-	expect(func()).toMatchInlineSnapshot('"Hello, World!"');
+	expect(func()).toMatch("Hello, World!");
 });

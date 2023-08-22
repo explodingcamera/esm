@@ -1,6 +1,6 @@
 {
   "name": "expo-plugin-aboutlibraries",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "description": "A simple expo config plugin to add the aboutlibraries plugin to your app",
   "keywords": [
     "expo",

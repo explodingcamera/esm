@@ -1,5 +1,16 @@
 # unlocked
 
+## 0.2.6
+
+### Patch Changes
+
+- update dependencies
+
+- [`3169f4f`](https://github.com/explodingcamera/esm/commit/3169f4f5924f4e870bf25910ab2e9c79fd718057) Thanks [@explodingcamera](https://github.com/explodingcamera)! - chore: update dependencies
+
+- Updated dependencies [[`3169f4f`](https://github.com/explodingcamera/esm/commit/3169f4f5924f4e870bf25910ab2e9c79fd718057)]:
+  - pnpm-lock@0.1.6
+
 ## 0.2.5
 
 ### Patch Changes
