@@ -28,6 +28,6 @@
   },
   "devDependencies": {
     "scripts": "workspace:*",
-    "vitest": "^0.34.2"
+    "vitest": "^0.34.3"
   }
 }

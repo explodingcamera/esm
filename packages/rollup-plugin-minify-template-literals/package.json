@@ -38,7 +38,7 @@
     "test": "scripts test run"
   },
   "dependencies": {
-    "@rollup/pluginutils": "^5.0.3",
+    "@rollup/pluginutils": "^5.0.4",
     "minify-literals": "workspace:*"
   },
   "devDependencies": {
@@ -46,6 +46,6 @@
     "rollup": "^3.28.1",
     "scripts": "workspace:*",
     "sinon": "^15.2.0",
-    "vitest": "^0.34.2"
+    "vitest": "^0.34.3"
   }
 }

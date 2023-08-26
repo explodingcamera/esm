@@ -35,7 +35,7 @@
   },
   "devDependencies": {
     "scripts": "workspace:*",
-    "vitest": "^0.34.2"
+    "vitest": "^0.34.3"
   },
   "dependencies": {
     "@expo/config-plugins": "^7.2.5"
