@@ -53,6 +53,7 @@ export type NPMLockfile = {
 	lockfileVersion: 2 | 3;
 	requires?: boolean;
 	packages?: {
+		// rome-ignore lint/complexity/useLiteralKeys: <explanation>
 		"": NPMLockfilePackage;
 		[packageName: string]: NPMLockfilePackage;
 	};

@@ -4,6 +4,9 @@
 		"indentStyle": "tab",
 		"lineWidth": 110
 	},
+	"organizeImports": {
+		"enabled": false
+	},
 	"files": {
 		"ignore": ["**/node_modules/*", "**/dist/*", "**/.turbo/*"]
 	},

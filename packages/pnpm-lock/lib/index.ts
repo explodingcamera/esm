@@ -114,12 +114,12 @@ export const parseLockfileContents = async ({
  * Reverts changes from the "forceSharedFormat" write option if necessary.
  */
 function convertFromLockfileFileMutable(lockfileFile: PnpmLockfileFile): Lockfile {
-	if (typeof lockfileFile?.["importers"] === "undefined") {
+	if (typeof lockfileFile.importers === "undefined") {
 		lockfileFile.importers = {
 			".": {
-				specifiers: lockfileFile["specifiers"] ?? {},
-				dependenciesMeta: lockfileFile["dependenciesMeta"],
-				publishDirectory: lockfileFile["publishDirectory"],
+				specifiers: lockfileFile.specifiers ?? {},
+				dependenciesMeta: lockfileFile.dependenciesMeta,
+				publishDirectory: lockfileFile.publishDirectory,
 			},
 		};
 		lockfileFile.specifiers = undefined;
