@@ -23,6 +23,9 @@
 			"suspicious": {
 				"noExplicitAny": "off",
 				"noRedeclare": "off"
+			},
+			"complexity": {
+				"noBannedTypes": "off"
 			}
 		}
 	}

@@ -30,12 +30,12 @@
     "test": "scripts test run"
   },
   "dependencies": {
-    "spdx-license-list": "^6.6.0",
+    "spdx-license-list": "^6.7.0",
     "ucmd": "workspace:^0.4.5",
     "unlocked": "workspace:0.2.6"
   },
   "devDependencies": {
     "scripts": "workspace:*",
-    "vitest": "^0.34.3"
+    "vitest": "^0.34.4"
   }
 }

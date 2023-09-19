@@ -39,11 +39,11 @@
 		"parse-literals": "^1.2.1"
 	},
 	"devDependencies": {
-		"@types/clean-css": "^4.2.6",
+		"@types/clean-css": "^4.2.7",
 		"@types/html-minifier-terser": "^7.0.0",
 		"@types/sinon": "^10.0.16",
 		"scripts": "workspace:*",
-		"sinon": "^15.2.0",
-		"vitest": "^0.34.3"
+		"sinon": "^16.0.0",
+		"vitest": "^0.34.4"
 	}
 }
