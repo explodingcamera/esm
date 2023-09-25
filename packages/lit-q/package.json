@@ -34,12 +34,12 @@
     "test": "scripts test run"
   },
   "devDependencies": {
-    "@types/node": "^20.6.2",
+    "@types/node": "^20.6.5",
     "jsdom": "^22.1.0",
     "lit": "^2.8.0",
     "scripts": "workspace:0.0.8",
     "vite": "^4.4.9",
-    "vitest": "^0.34.4"
+    "vitest": "^0.34.5"
   },
   "peerDependencies": {
     "lit": "^2.5.0"
