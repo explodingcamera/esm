@@ -31,9 +31,9 @@
     "@pnpm/lockfile-types": "^5.1.1",
     "@pnpm/types": "^9.2.0",
     "@types/js-yaml": "^4.0.6",
-    "@types/semver": "^7.5.2",
+    "@types/semver": "^7.5.3",
     "scripts": "workspace:*",
-    "vitest": "^0.34.5"
+    "vitest": "^0.34.6"
   },
   "dependencies": {
     "js-yaml": "^4.1.0",
