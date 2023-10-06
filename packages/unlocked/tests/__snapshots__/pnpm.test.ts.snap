@@ -33,6 +33,39 @@ exports[`pnpm parse > should parse a pnpm lockfile 1`] = `
 }
 `;
 
+exports[`pnpm parse should parse a pnpm lockfile 1`] = `
+{
+  "dependencies": undefined,
+  "devDependencies": undefined,
+  "importers": {
+    ".": {
+      "dependencies": {
+        "tslib": {
+          "specifier": "^2.5.0",
+          "version": "2.5.0",
+        },
+      },
+      "dependenciesMeta": undefined,
+      "devDependencies": undefined,
+      "optionalDependencies": undefined,
+      "publishDirectory": undefined,
+      "specifiers": {},
+    },
+  },
+  "lockfileVersion": "6.0",
+  "optionalDependencies": undefined,
+  "packages": {
+    "/tslib@2.5.0": {
+      "dev": false,
+      "resolution": {
+        "integrity": "sha512-336iVw3rtn2BUK7ORdIAHTyxHGRIHVReokCR3XjbckJMK7ms8FysBfhLR8IXnAgy7T0PTPNBWKiH514FOW/WSg==",
+      },
+    },
+  },
+  "specifiers": undefined,
+}
+`;
+
 exports[`pnpm toCommonLockfile > should convert a pnpm lockfile to a common lockfile 1`] = `
 {
   "commonLockVersion": 0,
@@ -71,6 +104,60 @@ exports[`pnpm toCommonLockfile > should convert a pnpm lockfile to a common lock
       "optionalPeerDependencies": [],
       "os": undefined,
       "packageJsonPath": "./../../..",
+      "patched": undefined,
+      "peerDependencies": undefined,
+      "repository": undefined,
+      "requiresBuild": undefined,
+      "resolution": {
+        "integrity": "sha512-336iVw3rtn2BUK7ORdIAHTyxHGRIHVReokCR3XjbckJMK7ms8FysBfhLR8IXnAgy7T0PTPNBWKiH514FOW/WSg==",
+      },
+      "spdxLicenseId": undefined,
+      "version": undefined,
+    },
+  },
+  "path": undefined,
+  "version": "1.0.0",
+}
+`;
+
+exports[`pnpm toCommonLockfile should convert a pnpm lockfile to a common lockfile 1`] = `
+{
+  "commonLockVersion": 0,
+  "importers": {
+    ".": {
+      "dependencies": {
+        "tslib": {
+          "specifier": "^2.5.0",
+          "version": "2.5.0",
+        },
+      },
+      "dependenciesMeta": undefined,
+      "devDependencies": undefined,
+      "optionalDependencies": undefined,
+      "publishDirectory": undefined,
+      "specifiers": {},
+    },
+  },
+  "lockfileType": "pnpm",
+  "lockfileVersion": "6.0",
+  "name": "test",
+  "overrides": undefined,
+  "packages": {
+    "/tslib@2.5.0": {
+      "authors": [],
+      "cpu": undefined,
+      "dependencies": undefined,
+      "dev": false,
+      "engines": undefined,
+      "funding": undefined,
+      "hasBin": undefined,
+      "homepage": undefined,
+      "licenseFiles": undefined,
+      "optional": undefined,
+      "optionalDependencies": undefined,
+      "optionalPeerDependencies": [],
+      "os": undefined,
+      "packageJsonPath": "./../../../../..",
       "patched": undefined,
       "peerDependencies": undefined,
       "repository": undefined,

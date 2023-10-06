@@ -42,7 +42,7 @@
     "minify-literals": "workspace:*"
   },
   "devDependencies": {
-    "@types/sinon": "^10.0.17",
+    "@types/sinon": "^10.0.18",
     "rollup": "^3.29.4",
     "scripts": "workspace:*",
     "sinon": "^16.0.0",
