@@ -8,7 +8,11 @@
 		"enabled": false
 	},
 	"files": {
-		"ignore": ["**/node_modules/*", "**/dist/*", "**/.turbo/*"]
+		"ignore": [
+			"**/node_modules/*",
+			"**/dist/*",
+			"**/.turbo/*"
+		]
 	},
 	"linter": {
 		"enabled": true,
@@ -25,7 +29,8 @@
 				"noRedeclare": "off"
 			},
 			"complexity": {
-				"noBannedTypes": "off"
+				"noBannedTypes": "off",
+				"noForEach": "off"
 			}
 		}
 	}

@@ -3,18 +3,36 @@ import { resolve } from "import-meta-resolve";
 import { readdir, readFile, stat } from "node:fs/promises";
 import { join, relative } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
-import type { CommonLock, DependencyName, Funding, PackageJson, QualifiedDependencyName } from "./types";
+import type {
+	CommonLock,
+	Dependencies,
+	DependencyName,
+	ImporterSnapshots,
+	PackageJson,
+	PackageSnapshots,
+	QualifiedDependencyName,
+} from "./types";
 
 export const mergeCommonLockFiles = (...lockFiles: CommonLock[]): CommonLock => {
+	const importers: ImporterSnapshots = {};
+	const packages: PackageSnapshots = {};
+	const overrides: Dependencies = {};
+
+	for (const lock of lockFiles) {
+		Object.assign(importers, lock.importers);
+		Object.assign(packages, lock.packages);
+		Object.assign(overrides, lock.overrides);
+	}
+
 	const lockfile: CommonLock = {
 		commonLockVersion: 0,
 		lockfileType: "unknown",
 		lockfileVersion: 0,
 		name: "unknown",
 		version: "0.0.0",
-		importers: lockFiles.reduce((acc, lock) => ({ ...acc, ...lock.importers }), {}),
-		packages: lockFiles.reduce((acc, lock) => ({ ...acc, ...lock.packages }), {}),
-		overrides: lockFiles.reduce((acc, lock) => ({ ...acc, ...lock.overrides }), {}),
+		importers,
+		packages,
+		overrides,
 	};
 
 	return lockfile;
