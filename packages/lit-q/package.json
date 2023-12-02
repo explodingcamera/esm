@@ -1,6 +1,6 @@
 {
   "name": "lit-q",
-  "version": "0.3.7",
+  "version": "0.3.8",
   "description": "A simple async query/mutation library for Lit/LitElement inspired by react-query",
   "keywords": [
     "lit",
@@ -37,7 +37,7 @@
     "@types/node": "^20.8.2",
     "jsdom": "^22.1.0",
     "lit": "^2.8.0",
-    "scripts": "workspace:0.0.8",
+    "scripts": "workspace:0.0.9",
     "vite": "^4.4.10",
     "vitest": "^0.34.6"
   },

@@ -1,5 +1,11 @@
 # pnpm-lock
 
+## 0.1.7
+
+### Patch Changes
+
+- [`2b328ea`](https://github.com/explodingcamera/esm/commit/2b328eacef3fe12dcce1587d4f7f3dce14f26764) Thanks [@explodingcamera](https://github.com/explodingcamera)! - update dependencies
+
 ## 0.1.6
 
 ### Patch Changes

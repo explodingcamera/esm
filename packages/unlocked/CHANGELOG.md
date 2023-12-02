@@ -1,5 +1,14 @@
 # unlocked
 
+## 0.2.7
+
+### Patch Changes
+
+- [`2b328ea`](https://github.com/explodingcamera/esm/commit/2b328eacef3fe12dcce1587d4f7f3dce14f26764) Thanks [@explodingcamera](https://github.com/explodingcamera)! - update dependencies
+
+- Updated dependencies [[`2b328ea`](https://github.com/explodingcamera/esm/commit/2b328eacef3fe12dcce1587d4f7f3dce14f26764)]:
+  - pnpm-lock@0.1.7
+
 ## 0.2.6
 
 ### Patch Changes

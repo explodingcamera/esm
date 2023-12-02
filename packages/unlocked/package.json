@@ -1,7 +1,7 @@
 {
   "name": "unlocked",
   "support": "preview",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "description": "Parse lockfiles from npm, yarn, and pnpm into a common format",
   "keywords": [],
   "homepage": "https://github.com/explodingcamera/esm/tree/main/packages/unlocked",
@@ -44,6 +44,6 @@
     "@yarnpkg/parsers": "3.0.0-rc.53",
     "import-meta-resolve": "^3.0.0",
     "js-yaml": "^4.1.0",
-    "pnpm-lock": "workspace:0.1.6"
+    "pnpm-lock": "workspace:0.1.7"
   }
 }
