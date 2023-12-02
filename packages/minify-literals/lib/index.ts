@@ -97,7 +97,7 @@ export interface BaseOptions {
 }
 
 /**
- * A MagicString-like instance. <code>minify-html-literals</code> only uses a
+ * A MagicString-like instance. <code>minify-literals</code> only uses a
  * subset of the MagicString API to overwrite the source code and generate
  * source maps.
  */
@@ -111,7 +111,7 @@ export interface MagicStringLike {
  * A v3 SourceMap.
  *
  * <code>magic-string> incorrectly declares the SourceMap type with a version
- * string instead of a number, so <code>minify-html-literals</code> declares
+ * string instead of a number, so <code>minify-literals</code> declares
  * its own type.
  */
 export interface SourceMap {
@@ -270,14 +270,14 @@ export async function minifyHTMLLiterals(source: string, options: Options = {}):
 
 	if (strategy.minifyCSS && source.includes("unsafeCSS")) {
 		console.warn(
-			`minify-html-literals: unsafeCSS() detected in source. CSS minification will not be performed for this file.`,
+			`minify-literals: unsafeCSS() detected in source. CSS minification will not be performed for this file.`,
 		);
 		skipCSS = true;
 	}
 
 	if (source.includes("unsafeHTML")) {
 		console.warn(
-			`minify-html-literals: unsafeHTML() detected in source. HTML minification will not be performed for this file.`,
+			`minify-literals: unsafeHTML() detected in source. HTML minification will not be performed for this file.`,
 		);
 		skipHTML = true;
 	}

@@ -54,15 +54,15 @@ type CommandContextBody<TCommandArguments extends CommandArgs> = {
 	args: CommandArgValues<TCommandArguments>;
 };
 
-type GetCommandArgType<TCommandArgOptions extends CommandArgOptions,> = (TCommandArgOptions["type"] extends
+type GetCommandArgType<TCommandArgOptions extends CommandArgOptions> = (TCommandArgOptions["type"] extends
 	| "string"
 	| undefined
 	? string
 	: TCommandArgOptions["type"] extends "number"
-	? number
-	: TCommandArgOptions["type"] extends "boolean"
-	? boolean
-	: string) &
+	  ? number
+	  : TCommandArgOptions["type"] extends "boolean"
+		  ? boolean
+		  : string) &
 	(TCommandArgOptions["required"] extends true ? undefined : never);
 
 export type CommandArgValues<TCommandArguments extends CommandArgs> = {

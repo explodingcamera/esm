@@ -112,7 +112,7 @@ export const defaultStrategy: Strategy<HTMLOptions, CleanCSS.Options> = {
 
 		if (html.match(/<!--(.*?)@TEMPLATE_EXPRESSION\(\);(.*?)-->/g)) {
 			console.warn(
-				"minify-html-literals: HTML minification is not supported for template expressions inside comments. Minification for this file will be skipped.",
+				"minify-literals: HTML minification is not supported for template expressions inside comments. Minification for this file will be skipped.",
 			);
 			return html;
 		}
@@ -184,7 +184,7 @@ export const defaultStrategy: Strategy<HTMLOptions, CleanCSS.Options> = {
 		if (output.warnings.length) {
 			console.warn(output.warnings.join("\n\n"));
 			console.warn(
-				"minify-html-literals: warnings during CSS minification, file was skipped. See above for details.",
+				"minify-literals: warnings during CSS minification, file was skipped. See above for details.",
 			);
 			return css.replace(/(\n)|(\r)/g, "");
 		}
@@ -212,7 +212,7 @@ export function adjustMinifyCSSOptions(options: CleanCSS.Options = {}) {
 
 	const plugin = {
 		level1: {
-			value: function (_name: any, value: string) {
+			value: (_name: any, value: string) => {
 				if (!value.startsWith("@TEMPLATE_EXPRESSION") || value.endsWith(";")) return value;
 
 				// The CSS minifier has removed the semicolon from the placeholder
