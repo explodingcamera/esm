@@ -8,10 +8,10 @@
     "scripts"
   ],
   "scripts": {
-    "build": "bun turbo run build  --include-dependencies",
+    "build": "bunx turbo run build  --include-dependencies",
     "lint": "biome check packages",
     "format": "biome format packages",
-    "publish-packages": "bun turbo run build test && changeset version && changeset publish",
+    "publish-packages": "bunx turbo run build test && changeset version && changeset publish",
     "test": "bun test"
   },
   "devDependencies": {
