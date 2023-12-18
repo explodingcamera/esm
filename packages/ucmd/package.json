@@ -22,7 +22,7 @@
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
-    "build": "tsup lib/index.ts --format cjs,esm --dts --sourcemap"
+    "build": "bunx tsup lib/index.ts --format cjs,esm --dts --sourcemap"
   },
   "devDependencies": {
     "tsup": "^7.2.0"
