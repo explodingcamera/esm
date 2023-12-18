@@ -14,7 +14,7 @@
   ],
   "homepage": "https://github.com/explodingcamera/esm/tree/main/packages/lit-q",
   "repository": "https://github.com/explodingcamera/esm",
-  "license": "ISC",
+  "license": "MIT",
   "type": "module",
   "exports": {
     ".": {
@@ -30,16 +30,14 @@
     "dist"
   ],
   "scripts": {
-    "build": "scripts build --name lit-q",
-    "test": "scripts test run"
+    "build": "scripts build --name lit-q"
   },
   "devDependencies": {
     "@types/node": "^20.8.2",
     "jsdom": "^22.1.0",
     "lit": "^2.8.0",
     "scripts": "workspace:0.0.9",
-    "vite": "^4.4.10",
-    "vitest": "^0.34.6"
+    "@happy-dom/global-registrator": "^12.10.3"
   },
   "peerDependencies": {
     "lit": "^2.5.0"

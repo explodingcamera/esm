@@ -8,21 +8,12 @@
   "scripts": {
     "build": "tsup lib/index.ts --target node19 --format esm --dts"
   },
-  "peerDependencies": {
-    "vitest": "^0.26.3"
-  },
-  "peerDependenciesMeta": {
-    "vitest": {
-      "optional": false
-    }
-  },
   "dependencies": {
     "tsup": "^7.2.0",
     "ucmd": "workspace:*"
   },
   "devDependencies": {
     "@npm/types": "^1.0.2",
-    "@types/node": "^20.8.2",
-    "vitest": "^0.34.6"
+    "@types/node": "^20.8.2"
   }
 }

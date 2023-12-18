@@ -29,8 +29,7 @@
 		"dist"
 	],
 	"scripts": {
-		"build": "scripts build --name minify-literals",
-		"test": "vitest run"
+		"build": "scripts build --name minify-literals"
 	},
 	"dependencies": {
 		"clean-css": "^5.3.2",
@@ -41,9 +40,6 @@
 	"devDependencies": {
 		"@types/clean-css": "^4.2.7",
 		"@types/html-minifier-terser": "^7.0.0",
-		"@types/sinon": "^10.0.18",
-		"scripts": "workspace:*",
-		"sinon": "^16.0.0",
-		"vitest": "^0.34.6"
+		"scripts": "workspace:*"
 	}
 }

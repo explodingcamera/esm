@@ -15,24 +15,20 @@ jobs:
       - name: Git Checkout
         uses: actions/checkout@v3
 
-      - name: Install Node.js
+      - name: Use Node.js 20.x
         uses: actions/setup-node@v3
         with:
           node-version: 20
-          registry-url: "https://npm.pkg.github.com"
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v2
-        id: pnpm-install
+      - uses: oven-sh/setup-bun@v1
         with:
-          version: 8
-          run_install: true
+          bun-version: latest
 
       - name: Build
-        run: pnpm run build
+        run: bun run build
 
       - name: Build
-        run: pnpm run lint
+        run: bun lint
 
       - name: Test
-        run: pnpm run test
+        run: bun test

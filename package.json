@@ -1,25 +1,30 @@
 {
-	"name": "@explodingcamera/es",
-	"private": true,
-	"keywords": [],
-	"license": "ISC",
-	"scripts": {
-		"build": "turbo run build  --include-dependencies",
-		"lint": "biome check packages",
-		"format": "biome format packages",
-		"publish-packages": "turbo run build test && changeset version && changeset publish",
-		"test": "turbo run test --include-dependencies"
-	},
-	"devDependencies": {
-		"@biomejs/biome": "1.4.1",
-		"@biomejs/cli-linux-x64": "^1.4.1",
-		"@changesets/changelog-github": "^0.5.0",
-		"@changesets/cli": "^2.27.1",
-		"@types/node": "^20.10.2",
-		"scripts": "workspace:*",
-		"turbo": "^1.10.16"
-	},
-	"dependencies": {
-		"typescript": "^5.3.2"
-	}
+  "name": "@explodingcamera/esm",
+  "private": true,
+  "keywords": [],
+  "license": "MIT",
+  "workspaces": [
+    "packages/*",
+    "scripts"
+  ],
+  "scripts": {
+    "build": "turbo run build  --include-dependencies",
+    "lint": "biome check packages",
+    "format": "biome format packages",
+    "publish-packages": "turbo run build test && changeset version && changeset publish",
+    "test": "bun test"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.4.1",
+    "@biomejs/cli-linux-x64": "^1.4.1",
+    "@changesets/changelog-github": "^0.5.0",
+    "@changesets/cli": "^2.27.1",
+    "@types/node": "^20.10.5",
+    "bun-types": "^1.0.18",
+    "scripts": "workspace:*",
+    "turbo": "^1.11.2"
+  },
+  "dependencies": {
+    "typescript": "^5.3.3"
+  }
 }

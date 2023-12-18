@@ -242,7 +242,7 @@ export async function minifyHTMLLiterals<S extends Strategy>(
 ): Promise<Result | null>;
 
 export async function minifyHTMLLiterals(source: string, options: Options = {}): Promise<Result | null> {
-	options.MagicString = options.MagicString || MagicString;
+	options.MagicString = (options.MagicString || MagicString) as typeof options.MagicString;
 	options.parseLiterals = options.parseLiterals || parseLiterals;
 	options.shouldMinify = options.shouldMinify || defaultShouldMinify;
 	options.shouldMinifyCSS = options.shouldMinifyCSS || defaultShouldMinifyCSS;
@@ -282,6 +282,7 @@ export async function minifyHTMLLiterals(source: string, options: Options = {}):
 		skipHTML = true;
 	}
 
+	if (!options.MagicString) throw new Error("MagicString is required, this should never happen");
 	const ms = new options.MagicString(source);
 
 	const promises = templates.map(async (template) => {

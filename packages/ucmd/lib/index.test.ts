@@ -1,4 +1,4 @@
-import { describe, expect, test } from "vitest";
+import { describe, expect, test } from "bun:test";
 import { createCommand, ucmd } from ".";
 import type { CommandContext, Command } from ".";
 
@@ -23,37 +23,8 @@ describe("parse commands", () => {
 				},
 			});
 
-		expect(x.parse(["build", "test1", "--foo", "--test", "test", "test2"])).toMatchInlineSnapshot(`
-			{
-			  "res": {
-			    "positionals": [
-			      "test1",
-			      "test2",
-			    ],
-			    "values": {
-			      "foo": true,
-			      "test": "test",
-			    },
-			  },
-			  "run": [Function],
-			}
-		`);
-
-		expect(x.parse(["test1", "--foo", "test", "test2"])).toMatchInlineSnapshot(`
-			{
-			  "res": {
-			    "positionals": [
-			      "test1",
-			      "test",
-			      "test2",
-			    ],
-			    "values": {
-			      "foo": true,
-			    },
-			  },
-			  "run": [Function],
-			}
-		`);
+		expect(x.parse(["build", "test1", "--foo", "--test", "test", "test2"])).toMatchSnapshot();
+		expect(x.parse(["test1", "--foo", "test", "test2"])).toMatchSnapshot();
 	});
 });
 
@@ -106,7 +77,7 @@ describe("basic api", () => {
 				bar: {},
 				baz: false,
 			},
-		} satisfies Command;
+		} as const satisfies Command;
 
 		expect(twoCmd).toEqual(twoCmdDirect);
 
@@ -115,7 +86,6 @@ describe("basic api", () => {
 		};
 
 		const two = ucmd("example").withCommand(twoCmd, twoFn);
-
-		expect(one).toEqual(two);
+		expect(one).toEqual(two as typeof one);
 	});
 });

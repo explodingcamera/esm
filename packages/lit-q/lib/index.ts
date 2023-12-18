@@ -1,3 +1,6 @@
+/// <reference lib="dom" />
+/// <reference lib="dom.iterable" />
+
 import type { ReactiveController, ReactiveControllerHost } from "lit";
 
 export type LitQContext = {

@@ -1,11 +1,9 @@
 import { ucmd } from "ucmd";
 import { buildCommand, buildCommandOptions } from "./build";
 import { mdtableCommand, mdtableCommandOptions } from "./mdtable";
-import { testCommand } from "./test";
 
 const cmd = ucmd()
 	.withName("scripts")
-	.withCommand(testCommand)
 	.withCommand({ ...buildCommandOptions, run: buildCommand })
 	.withCommand({ ...mdtableCommandOptions, run: mdtableCommand });
 

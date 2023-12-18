@@ -93,7 +93,7 @@ export const mdtableCommand = async ({ args }: CommandContext<typeof mdtableComm
 
 				let support: Row["support"] = "stable";
 
-				const supportOverride = (pkgJson as any)["support"] as Row["support"];
+				const supportOverride = (pkgJson as any).support as Row["support"];
 				if (supportOverride) {
 					support = supportOverride;
 				} else if (!pkgJson.version.startsWith("0.")) {
@@ -120,18 +120,18 @@ export const mdtableCommand = async ({ args }: CommandContext<typeof mdtableComm
 			a.support === b.support
 				? a.name.localeCompare(b.name)
 				: a.support === "stable"
-				? -1
-				: b.support === "stable"
-				? 1
-				: a.support === "unstable"
-				? -1
-				: b.support === "unstable"
-				? 1
-				: a.support === "preview"
-				? -1
-				: b.support === "preview"
-				? 1
-				: 0,
+				  ? -1
+				  : b.support === "stable"
+					  ? 1
+					  : a.support === "unstable"
+						  ? -1
+						  : b.support === "unstable"
+							  ? 1
+							  : a.support === "preview"
+								  ? -1
+								  : b.support === "preview"
+									  ? 1
+									  : 0,
 		);
 
 	const code = createTable(table);

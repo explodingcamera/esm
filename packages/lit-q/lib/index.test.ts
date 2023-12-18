@@ -1,9 +1,9 @@
+import "./../test-preload";
 import { html, LitElement } from "lit";
-import { customElement } from "lit/decorators.js";
-import { describe, expect, it, vi } from "vitest";
+import { describe, expect, it, mock } from "bun:test";
 import { Mutation, Query } from ".";
 
-const fetchMock = vi.fn((_url: string, _options?: RequestInit) => {
+const fetchMock = mock((_url: string, _options?: RequestInit) => {
 	return Promise.resolve({
 		json: () =>
 			Promise.resolve({

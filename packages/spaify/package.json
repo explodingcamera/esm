@@ -9,7 +9,7 @@
   ],
   "homepage": "https://github.com/explodingcamera/esm/tree/main/packages/spaify",
   "repository": "https://github.com/explodingcamera/esm",
-  "license": "ISC",
+  "license": "MIT",
   "author": "Henry Gressmann <mail@henrygressmann.de> (https://henrygressmann.de)",
   "type": "module",
   "exports": {
@@ -31,14 +31,11 @@
     "dist"
   ],
   "scripts": {
-    "build": "scripts build --name spaify ./lib/index.ts && scripts build --name spaify ./lib/default.ts",
-    "test": "scripts test run"
+    "build": "scripts build --name spaify ./lib/index.ts && scripts build --name spaify ./lib/default.ts"
   },
   "devDependencies": {
     "@types/node": "^20.8.2",
     "jsdom": "^22.1.0",
-    "scripts": "workspace:*",
-    "vite": "^4.4.10",
-    "vitest": "^0.34.6"
+    "scripts": "workspace:*"
   }
 }

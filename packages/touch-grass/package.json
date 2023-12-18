@@ -1,10 +1,10 @@
 {
-  "name": "template",
-  "version": "0.0.9",
+  "name": "touch-grass",
+  "version": "0.0.1",
   "private": true,
   "description": "",
   "keywords": [],
-  "homepage": "https://github.com/explodingcamera/esm/tree/main/packages/template",
+  "homepage": "https://github.com/explodingcamera/esm/tree/main/packages/touch-grass",
   "repository": "https://github.com/explodingcamera/esm",
   "license": "MIT",
   "author": "Henry Gressmann <mail@henrygressmann.de> (https://henrygressmann.de)",
@@ -23,7 +23,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "scripts build --name template"
+    "build": "scripts build --name touch-grass"
   },
   "devDependencies": {
     "scripts": "workspace:*"

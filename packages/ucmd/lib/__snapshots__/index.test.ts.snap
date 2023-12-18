@@ -1,0 +1,33 @@
+// Bun Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`parse commands ucmd 1`] = `
+{
+  "res": {
+    "positionals": [
+      "test1",
+      "test2",
+    ],
+    "values": {
+      "foo": true,
+      "test": "test",
+    },
+  },
+  "run": [Function],
+}
+`;
+
+exports[`parse commands ucmd 2`] = `
+{
+  "res": {
+    "positionals": [
+      "test1",
+      "test",
+      "test2",
+    ],
+    "values": {
+      "foo": true,
+    },
+  },
+  "run": [Function],
+}
+`;

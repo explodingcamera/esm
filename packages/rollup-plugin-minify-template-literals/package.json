@@ -34,18 +34,14 @@
     "dist"
   ],
   "scripts": {
-    "build": "scripts build --name index",
-    "test": "scripts test run"
+    "build": "scripts build --name index"
   },
   "dependencies": {
     "@rollup/pluginutils": "^5.0.4",
     "minify-literals": "workspace:*"
   },
   "devDependencies": {
-    "@types/sinon": "^10.0.18",
     "rollup": "^3.29.4",
-    "scripts": "workspace:*",
-    "sinon": "^16.0.0",
-    "vitest": "^0.34.6"
+    "scripts": "workspace:*"
   }
 }
