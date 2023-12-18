@@ -4,7 +4,8 @@ on:
   push:
     paths:
       - "packages/**/*"
-      - "pnpm-lock.yaml"
+      - "scripts/**/*"
+      - "bun.lockdb"
       - ".github/workflows/*"
 
 jobs:
