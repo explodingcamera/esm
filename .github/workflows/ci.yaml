@@ -25,6 +25,9 @@ jobs:
         with:
           bun-version: latest
 
+      - name: Install
+        run: bun install
+
       - name: Build
         run: bun run build
 
