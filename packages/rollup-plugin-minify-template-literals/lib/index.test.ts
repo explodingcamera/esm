@@ -1,6 +1,6 @@
 import path from "node:path";
 import { expect, describe, mock, it } from "bun:test";
-import * as minify from "minify-literals";
+import * as minify from "./../../minify-literals/lib/index";
 import type { TransformPluginContext } from "rollup";
 import minifyHTML, { type Options } from "./index.js";
 
