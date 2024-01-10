@@ -368,7 +368,7 @@ describe("minifyHTMLLiterals()", () => {
 		});
 
 		it("should use MagicString constructor", async () => {
-			let msUsed;
+			let msUsed: MagicStringLike | undefined;
 			await minifyHTMLLiterals(SOURCE, {
 				fileName: "test.js",
 				generateSourceMap(ms) {
@@ -381,7 +381,7 @@ describe("minifyHTMLLiterals()", () => {
 		});
 
 		it("should allow custom MagicStringLike constructor", async () => {
-			let msUsed;
+			let msUsed: MagicStringLike | undefined;
 			await minifyHTMLLiterals(SOURCE, {
 				fileName: "test.js",
 				MagicString: MagicStringLike,

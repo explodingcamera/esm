@@ -70,7 +70,7 @@ const init = (opts: Partial<Options> = {}) => {
 		if (abort.signal) abort.abort();
 		abort = new AbortController();
 
-		let res;
+		let res: { doc: Document; firstLoad: boolean };
 		try {
 			res = await getDoc(to, abort.signal);
 		} catch (e: unknown) {

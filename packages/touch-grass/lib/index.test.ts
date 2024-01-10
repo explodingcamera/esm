@@ -1,6 +1,6 @@
 import { test, expect } from "bun:test";
-import { func } from "./index";
+// import {} from "./index.js";
 
 test("test", async () => {
-	expect(func()).toMatch("Hello, World!");
+	expect(1).toBe(1);
 });

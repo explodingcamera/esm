@@ -9,8 +9,8 @@ import type {
 	CommandFn,
 	CommandsLike,
 	ucmdState,
-} from "./types";
-import { normalizeCommandArgs, type NormalizedCommandArg, toParseArgOptions } from "./utils";
+} from "./types.js";
+import { normalizeCommandArgs, type NormalizedCommandArg, toParseArgOptions } from "./utils.js";
 
 const defaultState: ucmdState<{}> = {
 	name: "",

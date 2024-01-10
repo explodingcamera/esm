@@ -1,4 +1,4 @@
-import type { CommandArgOptions, CommandArgs, ParseArgsOptionConfig } from "./types";
+import type { CommandArgOptions, CommandArgs, ParseArgsOptionConfig } from "./types.js";
 
 export type NormalizedCommandArg = CommandArgOptions & { name: string };
 

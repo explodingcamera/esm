@@ -1,6 +1,6 @@
 import { ucmd } from "ucmd";
-import { buildCommand, buildCommandOptions } from "./build";
-import { mdtableCommand, mdtableCommandOptions } from "./mdtable";
+import { buildCommand, buildCommandOptions } from "./build.js";
+import { mdtableCommand, mdtableCommandOptions } from "./mdtable.js";
 
 const cmd = ucmd()
 	.withName("scripts")
