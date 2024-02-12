@@ -6,10 +6,10 @@
   "description": "",
   "bin": "bin.mjs",
   "scripts": {
-    "build": "bunx tsup lib/index.ts --target node19 --format esm --dts"
+    "build": "tsup lib/index.ts --target node19 --format esm --dts"
   },
   "dependencies": {
-    "tsup": "^7.2.0",
+    "tsup": "^8.0.2",
     "typescript": "^5.3.3",
     "ucmd": "workspace:*"
   },

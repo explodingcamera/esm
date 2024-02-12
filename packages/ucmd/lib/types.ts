@@ -16,7 +16,7 @@ export type CommandArgs<TCommandArgs extends Record<string, CommandArgOptions | 
 export type BaseCommand<TCommandArguments extends CommandArgs> = {
 	description?: string | undefined;
 	run?: CommandFn<TCommandArguments>;
-	args?: Record<string, CommandArgOptions | boolean> | TCommandArguments;
+	args?: TCommandArguments | Record<string, CommandArgOptions | boolean>;
 };
 
 export type CommandLike = Command<CommandArgs, string>;
@@ -54,7 +54,17 @@ type CommandContextBody<TCommandArguments extends CommandArgs> = {
 	args: CommandArgValues<TCommandArguments>;
 };
 
-type GetCommandArgType<TCommandArgOptions extends CommandArgOptions> = (TCommandArgOptions["type"] extends
+type GetCommandArgType<TCommandArgOptions extends CommandArgOptions> =
+	TCommandArgOptions["required"] extends true
+		? _GetCommandArgType<TCommandArgOptions>
+		: _GetCommandArgType<TCommandArgOptions> | undefined;
+
+type _GetCommandArgType<TCommandArgOptions extends CommandArgOptions> =
+	TCommandArgOptions["multiple"] extends true
+		? __GetCommandArgType<TCommandArgOptions>[]
+		: __GetCommandArgType<TCommandArgOptions>;
+
+type __GetCommandArgType<TCommandArgOptions extends CommandArgOptions> = TCommandArgOptions["type"] extends
 	| "string"
 	| undefined
 	? string
@@ -62,20 +72,20 @@ type GetCommandArgType<TCommandArgOptions extends CommandArgOptions> = (TCommand
 	  ? number
 	  : TCommandArgOptions["type"] extends "boolean"
 		  ? boolean
-		  : string) &
-	(TCommandArgOptions["required"] extends true ? undefined : never);
+		  : string;
 
 export type CommandArgValues<TCommandArguments extends CommandArgs> = {
-	[key in keyof TCommandArguments]: TCommandArguments[key] extends CommandArgOptions
-		? TCommandArguments[key]["multiple"] extends true
-			? GetCommandArgType<TCommandArguments[key]>[]
-			: GetCommandArgType<TCommandArguments[key]>
-		: never;
+	[key in keyof TCommandArguments]: TCommandArguments[key] extends Record<string, unknown>
+		? GetCommandArgType<TCommandArguments[key]>
+		: TCommandArguments[key] extends boolean
+		  ? boolean
+		  : never;
 };
 
 export type CommandFn<TCommandArguments extends CommandArgs> = (
 	ctx: CommandContextBody<TCommandArguments>,
 ) => void;
+
 export type CommandContext<T> = T extends Command<infer TArgs, string> ? CommandContextBody<TArgs> : never;
 
 export type ValueOf<T> = T[keyof T];

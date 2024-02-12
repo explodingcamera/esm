@@ -83,6 +83,7 @@ describe("basic api", () => {
 
 		const twoFn = (ctx: CommandContext<typeof twoCmd>) => {
 			ctx.args.foo;
+			ctx.args.bar;
 		};
 
 		const two = ucmd("example").withCommand(twoCmd, twoFn);

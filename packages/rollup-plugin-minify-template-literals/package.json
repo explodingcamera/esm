@@ -34,14 +34,14 @@
     "dist"
   ],
   "scripts": {
-    "build": "scripts build --name index"
+    "build": "scripts build --name index --noBundle"
   },
   "dependencies": {
-    "@rollup/pluginutils": "^5.0.4",
+    "@rollup/pluginutils": "^5.1.0",
     "minify-literals": "workspace:*"
   },
   "devDependencies": {
-    "rollup": "^3.29.4",
+    "rollup": "^4.10.0",
     "scripts": "workspace:*"
   }
 }

@@ -33,14 +33,12 @@
     "build": "scripts build --name lit-q"
   },
   "devDependencies": {
-    "@types/node": "^20.8.2",
-    "jsdom": "^22.1.0",
-    "lit": "^2.8.0",
+    "lit": "^3.1.2",
     "scripts": "workspace:0.0.9",
-    "@happy-dom/global-registrator": "^12.10.3"
+    "@happy-dom/global-registrator": "^13.3.8"
   },
   "peerDependencies": {
-    "lit": "^2.5.0"
+    "lit": "^3.1.2"
   },
   "peerDependenciesMeta": {
     "lit": {

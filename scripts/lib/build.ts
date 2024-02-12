@@ -15,8 +15,7 @@ export const buildCommandOptions = {
 		},
 		target: {
 			type: "string",
-			multiple: true,
-			default: ["es2020"],
+			default: "es2020",
 			description: "The target environment",
 		},
 		format: {
@@ -30,10 +29,10 @@ export const buildCommandOptions = {
 			default: true,
 			description: "Minify the output",
 		},
-		bundle: {
+		noBundle: {
 			type: "boolean",
-			default: true,
-			description: "Bundle the output",
+			default: false,
+			description: "Disable bundling",
 		},
 		name: {
 			short: "n",
@@ -41,7 +40,7 @@ export const buildCommandOptions = {
 			description: "The name of the package",
 		},
 	},
-} satisfies Command;
+} as const satisfies Command;
 
 export const buildCommand = async ({ args, positionals }: CommandContext<typeof buildCommandOptions>) => {
 	let entryPoints = positionals?.length ? positionals : ["lib/index.ts"];
@@ -49,15 +48,15 @@ export const buildCommand = async ({ args, positionals }: CommandContext<typeof 
 
 	tsbuild({
 		config: false,
-		name: "tsup",
+		name: args.name,
 		external: args.external,
 		entryPoints,
 		format: (args.format as Format[]) ?? ["esm", "cjs"],
 		dts: true,
 		sourcemap: true,
-		target: args.target ?? "es2020",
+		target: (args.target as any) ?? "es2020",
 		minify: args.minify ?? true,
-		bundle: args.bundle ?? true,
+		bundle: !args.noBundle,
 		outDir: "dist",
 		treeshake: true,
 	});

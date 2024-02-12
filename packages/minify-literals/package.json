@@ -29,17 +29,17 @@
 		"dist"
 	],
 	"scripts": {
-		"build": "scripts build --name minify-literals"
+		"build": "scripts build --name minify-literals --noBundle"
 	},
 	"dependencies": {
-		"clean-css": "^5.3.2",
+		"clean-css": "^5.3.3",
 		"html-minifier-terser": "^7.2.0",
-		"magic-string": "^0.30.4",
+		"magic-string": "^0.30.7",
 		"parse-literals": "^1.2.1"
 	},
 	"devDependencies": {
-		"@types/clean-css": "^4.2.7",
-		"@types/html-minifier-terser": "^7.0.0",
+		"@types/clean-css": "^4.2.11",
+		"@types/html-minifier-terser": "^7.0.2",
 		"scripts": "workspace:*"
 	}
 }
