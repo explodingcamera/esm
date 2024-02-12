@@ -1,5 +1,14 @@
 # scripts
 
+## 0.0.10
+
+### Patch Changes
+
+- [`7adf233`](https://github.com/explodingcamera/esm/commit/7adf23335c7ae82b5237e3bb8e5288fdaf78b701) Thanks [@explodingcamera](https://github.com/explodingcamera)! - chore: update dependencies
+
+- Updated dependencies [[`7adf233`](https://github.com/explodingcamera/esm/commit/7adf23335c7ae82b5237e3bb8e5288fdaf78b701), [`7adf233`](https://github.com/explodingcamera/esm/commit/7adf23335c7ae82b5237e3bb8e5288fdaf78b701)]:
+  - ucmd@0.4.7
+
 ## 0.0.9
 
 ### Patch Changes
