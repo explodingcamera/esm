@@ -1,6 +1,6 @@
 {
   "name": "rollup-plugin-minify-template-literals",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "description": "A Vite/Rollup plugin that minifies template literals.",
   "keywords": [
     "rollup",
@@ -34,14 +34,16 @@
     "dist"
   ],
   "scripts": {
-    "build": "scripts build --name index --noBundle"
+    "build": "tsup lib/index.ts --target node20 --format cjs,esm --dts --sourcemap"
   },
   "dependencies": {
     "@rollup/pluginutils": "^5.1.0",
     "minify-literals": "workspace:*"
   },
   "devDependencies": {
-    "rollup": "^4.10.0",
-    "scripts": "workspace:*"
+    "rollup": "^4.11.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
   }
 }

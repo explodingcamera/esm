@@ -1,5 +1,11 @@
 # expo-plugin-aboutlibraries
 
+## 0.2.10
+
+### Patch Changes
+
+- fix: update build scripts
+
 ## 0.2.9
 
 ### Patch Changes

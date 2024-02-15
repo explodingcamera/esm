@@ -1,6 +1,6 @@
 {
   "name": "multichat",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "private": true,
   "description": "",
   "keywords": [],
@@ -23,7 +23,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "scripts build --name multichat"
+    "build": "tsup lib/index.ts --target node20 --format cjs,esm --dts --sourcemap"
   },
   "devDependencies": {
     "scripts": "workspace:*"

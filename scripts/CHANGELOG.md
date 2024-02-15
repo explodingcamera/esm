@@ -1,5 +1,14 @@
 # scripts
 
+## 0.0.11
+
+### Patch Changes
+
+- fix: update build scripts
+
+- Updated dependencies []:
+  - ucmd@0.4.8
+
 ## 0.0.10
 
 ### Patch Changes

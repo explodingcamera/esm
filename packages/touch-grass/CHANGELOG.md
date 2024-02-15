@@ -1,5 +1,11 @@
 # template
 
+## 0.0.3
+
+### Patch Changes
+
+- fix: update build scripts
+
 ## 0.0.2
 
 ### Patch Changes

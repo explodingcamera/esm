@@ -1,5 +1,11 @@
 # ucmd
 
+## 0.4.8
+
+### Patch Changes
+
+- fix: update build scripts
+
 ## 0.4.7
 
 ### Patch Changes

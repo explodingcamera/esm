@@ -1,5 +1,11 @@
 # minify-literals
 
+## 1.0.10
+
+### Patch Changes
+
+- fix: update build scripts
+
 ## 1.0.9
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # spaify
 
+## 0.0.8
+
+### Patch Changes
+
+- fix: update build scripts
+
 ## 0.0.7
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "touch-grass",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "private": true,
   "description": "",
   "types": "module",
@@ -28,5 +28,8 @@
   "dependencies": {
     "ink": "^4.4.1",
     "react": "^18.2.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "@explodingcamera/css",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "",
   "keywords": [],
   "homepage": "https://github.com/explodingcamera/esm/tree/main/packages/css",
@@ -18,8 +18,5 @@
   },
   "main": "dist/index.cjs",
   "module": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "scripts": {
-    "build": "exit 0"
-  }
+  "types": "dist/index.d.ts"
 }

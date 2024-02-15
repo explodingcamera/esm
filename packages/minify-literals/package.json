@@ -1,6 +1,6 @@
 {
 	"name": "minify-literals",
-	"version": "1.0.9",
+	"version": "1.0.10",
 	"description": "Minify CSS and HTML literals",
 	"keywords": [
 		"literals",
@@ -29,7 +29,7 @@
 		"dist"
 	],
 	"scripts": {
-		"build": "scripts build --name minify-literals --noBundle"
+		"build": "tsup lib/index.ts --target node20 --format cjs,esm --dts --sourcemap"
 	},
 	"dependencies": {
 		"clean-css": "^5.3.3",
@@ -39,7 +39,9 @@
 	},
 	"devDependencies": {
 		"@types/clean-css": "^4.2.11",
-		"@types/html-minifier-terser": "^7.0.2",
-		"scripts": "workspace:*"
+		"@types/html-minifier-terser": "^7.0.2"
+	},
+	"engines": {
+		"node": ">=20.0.0"
 	}
 }

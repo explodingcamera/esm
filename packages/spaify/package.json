@@ -1,6 +1,6 @@
 {
   "name": "spaify",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "support": "unstable",
   "description": "Seamless page transitions for your static site in less than 2kb of JavaScript",
   "keywords": [
@@ -31,9 +31,9 @@
     "dist"
   ],
   "scripts": {
-    "build": "scripts build --name spaify ./lib/index.ts && scripts build --name spaify ./lib/default.ts"
+    "build": "tsup lib/index.ts lib/default.ts --no-splitting --target node20 --format esm --dts --sourcemap --minify"
   },
-  "devDependencies": {
-    "scripts": "workspace:*"
+  "engines": {
+    "node": ">=20.0.0"
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "ucmd",
-  "version": "0.4.7",
+  "version": "0.4.8",
   "description": "µCMD is a minimal and strictly typed argument parsing library for node.js",
   "keywords": [
     "cli",
@@ -22,13 +22,9 @@
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
-    "build": "bunx tsup lib/index.ts --format cjs,esm --dts --sourcemap"
-  },
-  "devDependencies": {
-    "tsup": "^8.0.2",
-    "typescript": "^5.3.3"
+    "build": "tsup lib/index.ts --format cjs,esm --dts --sourcemap"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=20.0.0"
   }
 }

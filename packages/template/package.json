@@ -1,6 +1,6 @@
 {
   "name": "template",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "private": true,
   "description": "",
   "keywords": [],
@@ -23,9 +23,9 @@
     "dist"
   ],
   "scripts": {
-    "build": "scripts build --name template"
+    "build": "tsup lib/index.ts --target node20 --format cjs,esm --dts --sourcemap"
   },
-  "devDependencies": {
-    "scripts": "workspace:*"
+  "engines": {
+    "node": ">=20.0.0"
   }
 }
