@@ -6,7 +6,7 @@
   "description": "",
   "bin": "bin.mjs",
   "scripts": {
-    "build": "tsup lib/index.ts --target node19 --format esm --dts"
+    "build": "tsup lib/index.ts --target node20 --format esm --dts"
   },
   "dependencies": {
     "tsup": "^8.0.2",
