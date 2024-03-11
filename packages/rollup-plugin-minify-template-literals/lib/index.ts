@@ -1,4 +1,4 @@
-import * as minify from "./../../minify-literals/lib/index";
+import * as minify from "minify-literals";
 import type { Plugin, SourceMapInput } from "rollup";
 import { createFilter } from "@rollup/pluginutils";
 
