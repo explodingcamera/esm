@@ -38,7 +38,7 @@
   },
   "dependencies": {
     "@rollup/pluginutils": "^5.1.0",
-    "minify-literals": "workspace:*"
+    "minify-literals": "^1.0.0"
   },
   "devDependencies": {
     "rollup": "^4.12.1"
