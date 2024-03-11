@@ -11,7 +11,8 @@
 		"ignore": [
 			"**/node_modules/*",
 			"**/dist/*",
-			"**/.turbo/*"
+			"**/.turbo/*",
+			"**/*.json"
 		]
 	},
 	"linter": {
