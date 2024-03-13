@@ -13,8 +13,7 @@ const fetchMock = mock((_url: string, _options?: RequestInit) => {
 });
 
 describe("Mutation", () => {
-	// currently not working: https://github.com/capricorn86/happy-dom/issues/1258
-	test.skip("works with a basic query/mutation", async (t) => {
+	test("works with a basic query/mutation", async () => {
 		class ExampleElement extends LitElement {
 			myQuery = new Query(this, "my-query", () => fetchMock("https://example.com/"));
 			myMutation = new Mutation(this, "my-mutation", (ctx, x: number) => {
