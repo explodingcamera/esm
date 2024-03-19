@@ -22,7 +22,7 @@
   },
   "devDependencies": {
     "@types/ink": "^2.0.3",
-    "@types/react": "^18.2.65",
+    "@types/react": "^18.2.67",
     "scripts": "workspace:*"
   },
   "dependencies": {
