@@ -31,8 +31,8 @@ describe("Mutation", () => {
 						this.myQuery.loading
 							? "Loading..."
 							: this.myQuery.error
-							  ? "Error!"
-							  : JSON.stringify(this.myQuery.data)
+								? "Error!"
+								: JSON.stringify(this.myQuery.data)
 					}
 				</p>
 				<h1>My Mutation</h1>
@@ -42,8 +42,8 @@ describe("Mutation", () => {
 						this.myMutation.loading
 							? "Loading..."
 							: this.myMutation.error
-							  ? "Error!"
-							  : JSON.stringify(this.myMutation.data)
+								? "Error!"
+								: JSON.stringify(this.myMutation.data)
 					}
 				</p>
 				`;

@@ -69,17 +69,17 @@ type __GetCommandArgType<TCommandArgOptions extends CommandArgOptions> = TComman
 	| undefined
 	? string
 	: TCommandArgOptions["type"] extends "number"
-	  ? number
-	  : TCommandArgOptions["type"] extends "boolean"
-		  ? boolean
-		  : string;
+		? number
+		: TCommandArgOptions["type"] extends "boolean"
+			? boolean
+			: string;
 
 export type CommandArgValues<TCommandArguments extends CommandArgs> = {
 	[key in keyof TCommandArguments]: TCommandArguments[key] extends Record<string, unknown>
 		? GetCommandArgType<TCommandArguments[key]>
 		: TCommandArguments[key] extends boolean
-		  ? boolean
-		  : never;
+			? boolean
+			: never;
 };
 
 export type CommandFn<TCommandArguments extends CommandArgs> = (
