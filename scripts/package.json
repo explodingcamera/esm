@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "tsup": "^8.0.2",
-    "typescript": "^5.4.3",
+    "typescript": "^5.4.4",
     "ucmd": "workspace:*"
   },
   "devDependencies": {
