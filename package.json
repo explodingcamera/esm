@@ -12,6 +12,7 @@
     "build": "turbo build",
     "lint": "biome check packages",
     "format": "biome format packages",
+    "typecheck": "tsc --noEmit",
     "publish-packages": "turbo build && changeset version && changeset publish",
     "test": "bun test"
   },
@@ -23,9 +24,10 @@
     "typescript": "^5.4.5",
     "bun-types": "^1.1.13",
     "scripts": "workspace:*",
-    "turbo": "^2.0.3"
+    "turbo": "^2.0.4"
   },
   "trustedDependencies": [
     "@biomejs/biome"
-  ]
+  ],
+  "packageManager": "^bun@1.1.13"
 }
