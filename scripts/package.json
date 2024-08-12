@@ -9,7 +9,7 @@
     "build": "tsup lib/index.ts --target node20 --format esm --dts"
   },
   "dependencies": {
-    "tsup": "^8.2.3",
+    "tsup": "^8.2.4",
     "typescript": "^5.5.4",
     "ucmd": "workspace:*"
   },
