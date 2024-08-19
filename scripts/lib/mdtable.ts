@@ -1,7 +1,7 @@
 import { readdir, readFile, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import type { Command, CommandContext } from "ucmd";
-import type { PackageJson } from "@npm/types";
+import type { PackageJSON } from "@npm/types";
 
 export const mdtableCommandOptions = {
 	name: "mdtable",
@@ -25,6 +25,7 @@ type Row = {
 
 type Table = Row[];
 
+// biome-ignore lint/suspicious/noExplicitAny: this is required to satisfy the type
 const html = (strings: TemplateStringsArray, ...values: any[]) => {
 	return (
 		strings
@@ -80,19 +81,25 @@ const createTable = (table: Table) => {
 const notEmpty = <TValue>(value: TValue | null | undefined): value is TValue =>
 	value !== null && value !== undefined;
 
-export const mdtableCommand = async ({ args }: CommandContext<typeof mdtableCommandOptions>) => {
+export const mdtableCommand = async ({
+	args,
+}: CommandContext<typeof mdtableCommandOptions>) => {
 	const packages = await readdir(join(process.cwd(), "packages"));
 	const table: Table = (
 		await Promise.all(
 			packages.map(async (pkg) => {
-				const pkgJson: PackageJson = JSON.parse(
-					await readFile(join(process.cwd(), "packages", pkg, "package.json"), "utf8"),
+				const pkgJson: PackageJSON = JSON.parse(
+					await readFile(
+						join(process.cwd(), "packages", pkg, "package.json"),
+						"utf8",
+					),
 				);
 
 				if (pkgJson.private) return null;
 
 				let support: Row["support"] = "stable";
 
+				// biome-ignore lint/suspicious/noExplicitAny: needed to access the support field
 				const supportOverride = (pkgJson as any).support as Row["support"];
 				if (supportOverride) {
 					support = supportOverride;
@@ -120,18 +127,18 @@ export const mdtableCommand = async ({ args }: CommandContext<typeof mdtableComm
 			a.support === b.support
 				? a.name.localeCompare(b.name)
 				: a.support === "stable"
-				  ? -1
-				  : b.support === "stable"
-					  ? 1
-					  : a.support === "unstable"
-						  ? -1
-						  : b.support === "unstable"
-							  ? 1
-							  : a.support === "preview"
-								  ? -1
-								  : b.support === "preview"
-									  ? 1
-									  : 0,
+					? -1
+					: b.support === "stable"
+						? 1
+						: a.support === "unstable"
+							? -1
+							: b.support === "unstable"
+								? 1
+								: a.support === "preview"
+									? -1
+									: b.support === "preview"
+										? 1
+										: 0,
 		);
 
 	const code = createTable(table);
