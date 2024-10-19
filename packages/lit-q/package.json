@@ -33,7 +33,7 @@
     "build": "tsup lib/index.ts --target node20 --format cjs,esm --dts --sourcemap"
   },
   "devDependencies": {
-    "lit": "^3.2.0",
+    "lit": "^3.2.1",
     "@happy-dom/global-registrator": "^15.7.4"
   },
   "peerDependencies": {
