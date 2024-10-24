@@ -37,7 +37,7 @@
     "build": "tsup lib/index.ts --target node20 --format cjs,esm --dts --sourcemap"
   },
   "dependencies": {
-    "@rollup/pluginutils": "^5.1.2",
+    "@rollup/pluginutils": "^5.1.3",
     "minify-literals": "^1.0.0"
   },
   "devDependencies": {
