@@ -41,7 +41,7 @@
     "minify-literals": "^1.0.0"
   },
   "devDependencies": {
-    "rollup": "^4.24.0"
+    "rollup": "^4.24.3"
   },
   "engines": {
     "node": ">=20.0.0"
