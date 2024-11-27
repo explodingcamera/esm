@@ -21,14 +21,14 @@
     "@changesets/changelog-github": "^0.5.0",
     "@changesets/cli": "^2.27.10",
     "tsup": "^8.3.5",
-    "typescript": "^5.6.3",
-    "bun-types": "^1.1.36",
+    "typescript": "^5.7.2",
+    "bun-types": "^1.1.37",
     "scripts": "workspace:*",
-    "turbo": "^2.3.0"
+    "turbo": "^2.3.3"
   },
   "trustedDependencies": [
     "@biomejs/biome",
     "esbuild"
   ],
-  "packageManager": "bun@1.1.36"
+  "packageManager": "bun@1.1.37"
 }

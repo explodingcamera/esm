@@ -34,7 +34,7 @@
 	"dependencies": {
 		"clean-css": "^5.3.3",
 		"html-minifier-terser": "^7.2.0",
-		"magic-string": "^0.30.12",
+		"magic-string": "^0.30.14",
 		"parse-literals": "^1.2.1"
 	},
 	"devDependencies": {
