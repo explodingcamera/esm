@@ -3,15 +3,15 @@
 *,
 ::before,
 ::after {
-  box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 html {
-  font-family: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji";
-  line-height: 1.15;
-  -webkit-text-size-adjust: 100%; /* Prevent adjustments of font size after orientation changes in iOS. */
-  tab-size: 4; /* Use a more readable tab size */
+	font-family: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji",
+		"Segoe UI Emoji";
+	line-height: 1.15;
+	-webkit-text-size-adjust: 100%; /* Prevent adjustments of font size after orientation changes in iOS. */
+	tab-size: 4; /* Use a more readable tab size */
 }
 
 button,
@@ -19,85 +19,84 @@ input,
 optgroup,
 select,
 textarea {
-  font-family: inherit;
-  font-size: 100%;
-  line-height: 1.15;
-  margin: 0;
+	font-family: inherit;
+	font-size: 100%;
+	line-height: 1.15;
+	margin: 0;
 }
 
 legend {
-  padding: 0;
+	padding: 0;
 }
 
 code,
 kbd,
 samp,
 pre {
-  font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo,
-    monospace; /* 1 */
-  font-size: 1em; /* 2 */
+	font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace; /* 1 */
+	font-size: 1em; /* 2 */
 }
 
 table {
-  text-indent: 0;
-  border-color: inherit;
+	text-indent: 0;
+	border-color: inherit;
 }
 
 /* browser specific fixes */
 
 summary {
-  display: list-item; /* Add the correct display in Chrome and Safari. */
+	display: list-item; /* Add the correct display in Chrome and Safari. */
 }
 
 ::-webkit-search-decoration {
-  -webkit-appearance: none; /* Remove the inner padding in Chrome and Safari on macOS. */
+	-webkit-appearance: none; /* Remove the inner padding in Chrome and Safari on macOS. */
 }
 
 ::-webkit-file-upload-button {
-  -webkit-appearance: button; /* Correct the inability to style clickable types in iOS and Safari */
-  font: inherit; /* Change font properties to 'inherit' in Safari */
+	-webkit-appearance: button; /* Correct the inability to style clickable types in iOS and Safari */
+	font: inherit; /* Change font properties to 'inherit' in Safari */
 }
 
 [type="search"] {
-  -webkit-appearance: textfield; /* Correct the odd appearance in Chrome and Safari */
-  outline-offset: -2px; /* Correct the outline style in Safari */
+	-webkit-appearance: textfield; /* Correct the odd appearance in Chrome and Safari */
+	outline-offset: -2px; /* Correct the outline style in Safari */
 }
 
 ::-webkit-inner-spin-button,
 ::-webkit-outer-spin-button {
-  height: auto; /* Correct the cursor style of increment and decrement buttons in Safari. */
+	height: auto; /* Correct the cursor style of increment and decrement buttons in Safari. */
 }
 
 progress {
-  vertical-align: baseline; /* Add the correct vertical alignment in Chrome and Firefox. */
+	vertical-align: baseline; /* Add the correct vertical alignment in Chrome and Firefox. */
 }
 
 button,
 [type="button"],
 [type="reset"],
 [type="submit"] {
-  -webkit-appearance: button; /* Correct the inability to style clickable types in iOS and Safari. */
+	-webkit-appearance: button; /* Correct the inability to style clickable types in iOS and Safari. */
 }
 
 ::-moz-focus-inner {
-  border-style: none;
-  padding: 0;
+	border-style: none;
+	padding: 0;
 }
 
 :-moz-focusring {
-  outline: 1px dotted ButtonText;
+	outline: 1px dotted ButtonText;
 }
 
 :-moz-ui-invalid {
-  box-shadow: none;
+	box-shadow: none;
 }
 
 button,
 select {
-  text-transform: none; /* Remove the inheritance of text transform in Edge and Firefox. */
+	text-transform: none; /* Remove the inheritance of text transform in Edge and Firefox. */
 }
 
 b,
 strong {
-  font-weight: bolder; /* Add the correct font weight in Edge and Safari. */
+	font-weight: bolder; /* Add the correct font weight in Edge and Safari. */
 }

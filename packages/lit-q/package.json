@@ -34,7 +34,7 @@
   },
   "devDependencies": {
     "lit": "^3.2.1",
-    "@happy-dom/global-registrator": "^16.5.3"
+    "@happy-dom/global-registrator": "^17.1.8"
   },
   "peerDependencies": {
     "lit": "^3.1.2"

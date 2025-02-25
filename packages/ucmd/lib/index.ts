@@ -74,9 +74,8 @@ class UCMD<TCommands extends CommandsLike, TBaseCommand> {
 			const argDescription = opts.description ?? "";
 			const argRequired = opts.required ?? false;
 			const short = opts.short ? `-${opts.short}, ` : "    ";
-			helpString += `    ${short}--${(opts.type === "boolean"
-				? argName
-				: `${argName} <${argName}>${opts.multiple ? "..." : ""}`
+			helpString += `    ${short}--${(
+				opts.type === "boolean" ? argName : `${argName} <${argName}>${opts.multiple ? "..." : ""}`
 			).padEnd(maxArgLength)}${argDescription}${argRequired ? " [required]" : ""}${
 				opts.default ? ` [default: ${opts.default}]` : ""
 			}\n`;

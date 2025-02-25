@@ -81,18 +81,13 @@ const createTable = (table: Table) => {
 const notEmpty = <TValue>(value: TValue | null | undefined): value is TValue =>
 	value !== null && value !== undefined;
 
-export const mdtableCommand = async ({
-	args,
-}: CommandContext<typeof mdtableCommandOptions>) => {
+export const mdtableCommand = async ({ args }: CommandContext<typeof mdtableCommandOptions>) => {
 	const packages = await readdir(join(process.cwd(), "packages"));
 	const table: Table = (
 		await Promise.all(
 			packages.map(async (pkg) => {
 				const pkgJson: PackageJSON = JSON.parse(
-					await readFile(
-						join(process.cwd(), "packages", pkg, "package.json"),
-						"utf8",
-					),
+					await readFile(join(process.cwd(), "packages", pkg, "package.json"), "utf8"),
 				);
 
 				if (pkgJson.private) return null;

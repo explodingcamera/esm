@@ -33,7 +33,7 @@
     "build": "tsup lib/index.ts --target node20 --format cjs,esm --dts --sourcemap"
   },
   "dependencies": {
-    "@expo/config-plugins": "^9.0.13"
+    "@expo/config-plugins": "^9.0.15"
   },
   "engines": {
     "node": ">=20.0.0"
