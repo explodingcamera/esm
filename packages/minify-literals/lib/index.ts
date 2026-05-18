@@ -171,7 +171,7 @@ export interface Result {
  * @param fileName the name of the source file
  * @returns a v3 SourceMap
  */
-export function defaultGenerateSourceMap(ms: MagicStringLike, fileName: string) {
+export function defaultGenerateSourceMap(ms: MagicStringLike, fileName: string): SourceMap {
 	return ms.generateMap({
 		file: `${fileName}.map`,
 		source: fileName,
@@ -187,7 +187,7 @@ export function defaultGenerateSourceMap(ms: MagicStringLike, fileName: string) 
  * @param template the template to check
  * @returns true if the template should be minified
  */
-export function defaultShouldMinify(template: Template) {
+export function defaultShouldMinify(template: Template): boolean {
 	const tag = template.tag?.toLowerCase();
 	return !!tag && (tag.includes("html") || tag.includes("svg"));
 }
@@ -200,7 +200,7 @@ export function defaultShouldMinify(template: Template) {
  * @param template the template to check
  * @returns true if the template should be minified
  */
-export function defaultShouldMinifyCSS(template: Template) {
+export function defaultShouldMinifyCSS(template: Template): boolean {
 	if (!template?.tag?.toLowerCase().includes("css")) return false;
 	return true;
 }

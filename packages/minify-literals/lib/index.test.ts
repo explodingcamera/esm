@@ -1,22 +1,22 @@
-import { afterEach, beforeEach, describe, expect, it, test } from "bun:test";
+import { describe, expect, it, test } from "bun:test";
 
 import MagicString, { type SourceMapOptions } from "magic-string";
-import { type ParseLiteralsOptions, type Template, type TemplatePart, parseLiterals } from "parse-literals";
+import { type ParseLiteralsOptions, type Template, parseLiterals } from "parse-literals";
 import {
 	type SourceMap,
-	defaultGenerateSourceMap,
 	defaultShouldMinify,
 	defaultShouldMinifyCSS,
 	defaultValidation,
 	minifyHTMLLiterals,
 } from "./";
-import { defaultMinifyOptions, defaultStrategy } from "./strategy";
+import { defaultStrategy } from "./strategy";
 
 // https://github.com/explodingcamera/esm/issues/1
 describe("handle key value pairs correctly", () => {
 	it("should minify html", async () => {
 		const source = `const css = css\`:host{\${"color"}: \${"red"}}\``;
-		expect((await minifyHTMLLiterals(source))?.code).toMatch('const css = css`:host{${"color"}:${"red"}}`');
+		const expected = `const css = css\`:host{\${"color"}:\${"red"}}\``;
+		expect((await minifyHTMLLiterals(source))?.code).toMatch(expected);
 	});
 });
 

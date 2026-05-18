@@ -7,8 +7,8 @@
 }
 
 html {
-	font-family: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji",
-		"Segoe UI Emoji";
+	font-family:
+		system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
 	line-height: 1.15;
 	-webkit-text-size-adjust: 100%; /* Prevent adjustments of font size after orientation changes in iOS. */
 	tab-size: 4; /* Use a more readable tab size */

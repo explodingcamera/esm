@@ -32,7 +32,11 @@ export type Options = {
 	attribute: string;
 };
 
-const init = (opts: Partial<Options> = {}) => {
+export type SpaifyInstance = {
+	unload(): void;
+};
+
+const init = (opts: Partial<Options> = {}): SpaifyInstance => {
 	if ((window as any).__spaify) throw new Error("Spaify's already initialized");
 	(window as any).__spaify = true;
 
@@ -90,8 +94,14 @@ const init = (opts: Partial<Options> = {}) => {
 		main.replaceWith(newMain);
 
 		// append the new scripts to the document
-		runScripts.forEach((el) => insertScript(el));
-		if (res.firstLoad) doc.querySelectorAll(options.selectors.once).forEach((el) => insertScript(el));
+		runScripts.forEach((el) => {
+			insertScript(el);
+		});
+		if (res.firstLoad) {
+			doc.querySelectorAll(options.selectors.once).forEach((el) => {
+				insertScript(el);
+			});
+		}
 
 		// update the title
 		if (doc.title) document.title = doc.title;

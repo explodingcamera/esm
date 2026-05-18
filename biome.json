@@ -4,11 +4,15 @@
 		"indentStyle": "tab",
 		"lineWidth": 110
 	},
-	"organizeImports": {
-		"enabled": false
-	},
 	"files": {
-		"ignore": ["**/node_modules/*", "**/dist/*", "**/.turbo/*", "**/*.json"]
+		"includes": ["**", "!**/node_modules/**", "!**/dist/**", "!**/*.json"]
+	},
+	"assist": {
+		"actions": {
+			"source": {
+				"organizeImports": "off"
+			}
+		}
 	},
 	"linter": {
 		"enabled": true,

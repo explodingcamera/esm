@@ -13,23 +13,23 @@
 	"homepage": "https://github.com/explodingcamera/esm/tree/main/packages/minify-literals",
 	"repository": "https://github.com/explodingcamera/esm",
 	"license": "MIT",
-	"author": "Henry Gressmann <mail@henrygressmann.de> (https://henrygressmann.de)",
+	"author": "Henry Gressmann <npm@henrygressmann.de>",
 	"type": "module",
 	"exports": {
 		".": {
-			"import": "./dist/index.js",
-			"require": "./dist/index.cjs",
-			"types": "./dist/index.d.ts"
+			"types": "./dist/index.d.mts",
+			"import": "./dist/index.mjs",
+			"default": "./dist/index.mjs"
 		}
 	},
-	"main": "dist/index.cjs",
-	"module": "dist/index.js",
-	"types": "dist/index.d.ts",
+	"main": "dist/index.mjs",
+	"module": "dist/index.mjs",
+	"types": "dist/index.d.mts",
 	"files": [
 		"dist"
 	],
-	"scripts": {
-		"build": "tsup lib/index.ts --target node20 --format cjs,esm --dts --sourcemap"
+	"tsdown": {
+		"entry": "lib/index.ts"
 	},
 	"dependencies": {
 		"clean-css": "^5.3.3",
@@ -42,6 +42,6 @@
 		"@types/html-minifier-terser": "^7.0.2"
 	},
 	"engines": {
-		"node": ">=20.0.0"
+		"node": ">=22.0.0"
 	}
 }

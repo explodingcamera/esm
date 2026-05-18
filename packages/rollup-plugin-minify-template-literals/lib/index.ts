@@ -68,7 +68,7 @@ export const minifyTemplateLiterals = function RollupPluginMinifyHTMLLiterals(op
 };
 
 export default minifyTemplateLiterals;
-export const RollupPluginMinifyHTMLLiterals = minifyTemplateLiterals;
+export const RollupPluginMinifyHTMLLiterals: typeof minifyTemplateLiterals = minifyTemplateLiterals;
 
 /**
  * @deprecated Use `minifyTemplateLiterals` instead.
@@ -76,4 +76,4 @@ export const RollupPluginMinifyHTMLLiterals = minifyTemplateLiterals;
  * @see {@link Options}
  * Remove in v2.0.0.
  */
-export const minifyHTMLLiterals = minifyTemplateLiterals;
+export const minifyHTMLLiterals: typeof minifyTemplateLiterals = minifyTemplateLiterals;

@@ -2,8 +2,13 @@
 
 html {
 	min-height: 100vh;
-	min-height: 100dvh;
 	display: flex;
+}
+
+@supports (min-height: 100dvh) {
+	html {
+		min-height: 100dvh;
+	}
 }
 
 body {

@@ -10,30 +10,31 @@
   "homepage": "https://github.com/explodingcamera/esm/tree/main/packages/spaify",
   "repository": "https://github.com/explodingcamera/esm",
   "license": "MIT",
-  "author": "Henry Gressmann <mail@henrygressmann.de> (https://henrygressmann.de)",
+  "author": "Henry Gressmann <npm@henrygressmann.de>",
   "type": "module",
   "exports": {
     ".": {
-      "require": "./dist/index.cjs",
-      "import": "./dist/index.js",
-      "types": "./types/index.d.ts"
+      "types": "./dist/index.d.mts",
+      "import": "./dist/index.mjs",
+      "default": "./dist/index.mjs"
     },
     "./default": {
-      "require": "./dist/default.cjs",
-      "import": "./dist/default.js",
-      "types": "./types/default.d.ts"
+      "types": "./dist/default.d.mts",
+      "import": "./dist/default.mjs",
+      "default": "./dist/default.mjs"
     }
   },
-  "main": "dist/index.cjs",
-  "module": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/index.mjs",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.mts",
   "files": [
     "dist"
   ],
-  "scripts": {
-    "build": "tsup lib/index.ts lib/default.ts --no-splitting --target node20 --format esm --dts --sourcemap --minify"
+  "tsdown": {
+    "entry": ["lib/index.ts", "lib/default.ts"],
+    "minify": true
   },
   "engines": {
-    "node": ">=20.0.0"
+    "node": ">=22.0.0"
   }
 }

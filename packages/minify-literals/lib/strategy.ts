@@ -207,7 +207,7 @@ export const defaultStrategy: Strategy<HTMLOptions, CleanCSS.Options> = {
 	},
 };
 
-export function adjustMinifyCSSOptions(options: CleanCSS.Options = {}) {
+export function adjustMinifyCSSOptions(options: CleanCSS.Options = {}): CleanCSS.Options {
 	const level = options.level;
 
 	const plugin = {
@@ -226,7 +226,7 @@ export function adjustMinifyCSSOptions(options: CleanCSS.Options = {}) {
 		...options,
 		level,
 		plugins: [plugin],
-	};
+	} as unknown as CleanCSS.Options;
 }
 
 // Should be fixed in clean-css https://github.com/clean-css/clean-css/issues/996, but is still happening
