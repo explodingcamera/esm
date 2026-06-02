@@ -1,79 +1,48 @@
-import * as minify from "minify-literals";
-import type { Plugin, SourceMapInput } from "rollup";
 import { createFilter } from "@rollup/pluginutils";
+import { minifyHTMLLiterals, type Options as MinifyOptions } from "minify-literals";
+import type { Plugin } from "rollup";
 
-/**
- * Plugin options.
- */
-export interface Options {
-	/**
-	 * Pattern or array of patterns of files to minify.
-	 */
-	include?: string | string[];
-	/**
-	 * Pattern or array of patterns of files not to minify.
-	 */
-	exclude?: string | string[];
-	/**
-	 * Minify options, see
-	 * https://github.com/explodingcamera/esm/tree/main/packages/minify-literals#options.
-	 */
-	options?: Partial<minify.Options>;
-	/**
-	 * If true, any errors while parsing or minifying will abort the bundle
-	 * process. Defaults to false, which will only show a warning.
-	 */
-	failOnError?: boolean;
-	/**
-	 * Override minify-html-literals function.
-	 */
-	minifyHTMLLiterals?: typeof minify.minifyHTMLLiterals;
-	/**
-	 * Override include/exclude filter.
-	 */
-	filter?: (id: string) => boolean;
-}
+/** Options for {@link minifyTemplateLiterals}. */
+export type Options = {
+	/** Files to include. Passed to `@rollup/pluginutils#createFilter`. */
+	include?: string | RegExp | Array<string | RegExp>;
 
-export const minifyTemplateLiterals = function RollupPluginMinifyHTMLLiterals(options: Options = {}): Plugin {
-	options.minifyHTMLLiterals = options.minifyHTMLLiterals || minify.minifyHTMLLiterals;
-	options.filter = options.filter || createFilter(options.include, options.exclude);
-	const minifyOptions = options.options || {};
+	/** Files to exclude. Passed to `@rollup/pluginutils#createFilter`. */
+	exclude?: string | RegExp | Array<string | RegExp>;
+
+	/** Options passed to `minify-literals`. */
+	minify?: MinifyOptions;
+};
+
+/** Rollup/Vite plugin that minifies HTML, SVG, and CSS tagged template literals. */
+export function minifyTemplateLiterals(options: Options = {}): Plugin {
+	const filter = createFilter(options.include, options.exclude);
+	const minifyOptions = options.minify ?? {};
 
 	return {
-		name: "minify-literals",
+		name: "minify-template-literals",
 		async transform(code, id) {
-			if (!options.filter?.(id)) return;
+			if (!filter(id)) return null;
 
 			try {
-				// <SourceDescription>
-				const res = await options.minifyHTMLLiterals!(code, {
+				const result = await minifyHTMLLiterals(code, {
 					...minifyOptions,
 					fileName: id,
 				});
 
-				if (res === null || res?.code === code) return {};
+				if (!result) return null;
 
 				return {
-					code: res.code,
-					map: res.map as SourceMapInput,
+					code: result.code,
+					map: result.map ?? null,
 				};
-			} catch (error: unknown) {
-				if (!(error instanceof Error)) return;
-				(options.failOnError ? this.error : this.warn)(error.message);
+			} catch (error) {
+				const message = error instanceof Error ? error.message : String(error);
+				this.warn(message);
+				return null;
 			}
-
-			return {};
 		},
 	};
-};
+}
 
 export default minifyTemplateLiterals;
-export const RollupPluginMinifyHTMLLiterals: typeof minifyTemplateLiterals = minifyTemplateLiterals;
-
-/**
- * @deprecated Use `minifyTemplateLiterals` instead.
- * @see {@link minifyTemplateLiterals}
- * @see {@link Options}
- * Remove in v2.0.0.
- */
-export const minifyHTMLLiterals: typeof minifyTemplateLiterals = minifyTemplateLiterals;

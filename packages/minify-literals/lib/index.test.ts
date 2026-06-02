@@ -1,15 +1,6 @@
 import { describe, expect, it, test } from "bun:test";
 
-import MagicString, { type SourceMapOptions } from "magic-string";
-import { type ParseLiteralsOptions, type Template, parseLiterals } from "parse-literals";
-import {
-	type SourceMap,
-	defaultShouldMinify,
-	defaultShouldMinifyCSS,
-	defaultValidation,
-	minifyHTMLLiterals,
-} from "./";
-import { defaultStrategy } from "./strategy";
+import { minifyHTMLLiterals } from "./";
 
 // https://github.com/explodingcamera/esm/issues/1
 describe("handle key value pairs correctly", () => {
@@ -17,6 +8,80 @@ describe("handle key value pairs correctly", () => {
 		const source = `const css = css\`:host{\${"color"}: \${"red"}}\``;
 		const expected = `const css = css\`:host{\${"color"}:\${"red"}}\``;
 		expect((await minifyHTMLLiterals(source))?.code).toMatch(expected);
+	});
+});
+
+// https://github.com/explodingcamera/esm/issues/7
+describe("handle inline style suffixes after expressions", () => {
+	it("should preserve text after a template expression in an inline style", async () => {
+		const source = `
+    const o = 30;
+    const el = html\`<div style="height:\${o}px;"> <h1>  Hello World  </h1 > </div>\`;
+  `;
+
+		expect((await minifyHTMLLiterals(source))?.code).toBe(`
+    const o = 30;
+    const el = html\`<div style="height:\${o}px"><h1>Hello World</h1></div>\`;
+  `);
+	});
+});
+
+// https://github.com/explodingcamera/esm/issues/5
+describe("handle nested CSS", () => {
+	it("should minify nested CSS templates", async () => {
+		const source = `
+    const styles = css\`
+      .card {
+        color: red;
+
+        & .title {
+          color: blue;
+        }
+      }
+    \`;
+  `;
+
+		expect((await minifyHTMLLiterals(source))?.code).toBe(`
+    const styles = css\`.card{color:red;& .title{color:#00f}}\`;
+  `);
+	});
+});
+
+describe("handle Lit-style web components", () => {
+	it("should minify static styles and render templates", async () => {
+		const source = `
+    import { LitElement, css, html } from "lit";
+
+    class MyElement extends LitElement {
+      static styles = css\`
+        :host {
+          display: block;
+
+			&[hidden] {
+            display: none;
+          }
+        }
+      \`;
+
+      render() {
+        const height = 30;
+        return html\`<div style="height:\${height}px;"> <slot></slot> </div>\`;
+      }
+    }
+  `;
+
+		expect((await minifyHTMLLiterals(source))?.code).toBe(`
+    import { LitElement, css, html } from "lit";
+
+    class MyElement extends LitElement {
+      static styles = css\`:host{display:block;&[hidden]{display:none}}\`;
+
+      render() {
+        const height = 30;
+        return html\`<div style="height:\${height}px"><slot></slot></div>\`;
+      }
+    }
+  `);
 	});
 });
 
@@ -85,33 +150,6 @@ test("example", async () => {
 	expect(await minifyHTMLLiterals(source)).toMatchSnapshot();
 });
 
-class MagicStringLike {
-	generateMap(options?: Partial<SourceMapOptions>): SourceMap {
-		return {
-			version: 3,
-			file: options?.file || null,
-			sources: [options?.source || null],
-			sourcesContent: [],
-			names: [],
-			mappings: "",
-			toString() {
-				return "";
-			},
-			toUrl() {
-				return "";
-			},
-		};
-	}
-
-	overwrite(_start: number, _end: number, _content: string): any {
-		// noop
-	}
-
-	toString(): string {
-		return "";
-	}
-}
-
 describe("minifyHTMLLiterals()", () => {
 	const SOURCE = `
     function render(title, items, styles) {
@@ -173,7 +211,7 @@ describe("minifyHTMLLiterals()", () => {
 
 	const SOURCE_MIN = `
     function render(title, items, styles) {
-      return html\`<style>\${styles}</style><h1 class="heading">\${title}</h1><button onclick="\${() => eventHandler()}"></button><ul>\${items.map(item => {
+      return html\`<style>\${styles};</style><h1 class="heading">\${title}</h1><button onclick="\${() => eventHandler()}"></button><ul>\${items.map(item => {
             return getHTML()\`<li>\${item}</li>\`;
           })}</ul>\`;
     }
@@ -197,12 +235,12 @@ describe("minifyHTMLLiterals()", () => {
     }
 
     function taggedCSSMinify(extra) {
-      return css\`.heading{font-size:24px}\${extra}\`;
+      return css\`.heading{font-size:24px}\${extra};\`;
     }
 
     function cssProperty(property) {
       const width = '20px';
-      return css\`.foo{font-size:1rem;width:\${width};color:\${property}}\`;
+      return css\`.foo{width:\${width};color:\${property};font-size:1rem}\`;
     }
   `;
 
@@ -234,7 +272,7 @@ describe("minifyHTMLLiterals()", () => {
 
 	const COMMENT_SOURCE_MIN = `
     function minifyWithComment() {
-      return html\`<div .icon="\${0/*JS Comment */}"></div>\`;
+      return html\`<div .icon=\${0/*JS Comment */}></div>\`;
     }
   `;
 
@@ -261,8 +299,7 @@ describe("minifyHTMLLiterals()", () => {
       return html\`<pre>
           Keep newlines
 
-          within certain tags
-        </pre><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M6 19h12v2H6z"/><path d="M0                   0h24v24H0V0z" fill="none"/></svg>\`;
+          within certain tags</pre><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M6 19h12v2H6z"/><path d="M0                   0h24v24H0V0z" fill="none"/></svg>\`;
     }
   `;
 
@@ -278,7 +315,7 @@ describe("minifyHTMLLiterals()", () => {
 
 	const SHADOW_PARTS_SOURCE_MIN = `
     function parts() {
-      return css\`foo-bar::part(.space .separated){color:red}\`;
+      return css\`        foo-bar::part(.space .separated) {          color: red;        }      \`;
     }
   `;
 
@@ -354,182 +391,73 @@ describe("minifyHTMLLiterals()", () => {
 	});
 
 	describe("options", () => {
-		it("should use defaultMinifyOptions", () => {
-			minifyHTMLLiterals(SOURCE, { fileName: "test.js" });
-			const parts = parseLiterals(SOURCE)[1]!.parts;
-			defaultStrategy.combineHTMLStrings(parts, defaultStrategy.getPlaceholder(parts));
+		it("should allow custom html options", async () => {
+			const result = await minifyHTMLLiterals(`html\`<div class="foo"></div>\`;`, {
+				html: { removeAttributeQuotes: true },
+			});
+
+			expect(result?.code).toBe(`html\`<div class=foo></div>\`;`);
 		});
 
-		it("should allow custom partial minifyOptions", async () => {
-			const minifyOptions = { caseSensitive: false };
-			await minifyHTMLLiterals(SOURCE, { fileName: "test.js", minifyOptions });
-			const parts = parseLiterals(SOURCE)[1]!.parts;
-			defaultStrategy.combineHTMLStrings(parts, defaultStrategy.getPlaceholder(parts));
+		it("should allow a custom HTML minifier", async () => {
+			const result = await minifyHTMLLiterals(`html\`<div> test </div>\`;`, {
+				html: () => "<custom></custom>",
+			});
+
+			expect(result?.code).toBe(`html\`<custom></custom>\`;`);
 		});
 
-		it("should use MagicString constructor", async () => {
-			let msUsed: MagicStringLike | undefined;
-			await minifyHTMLLiterals(SOURCE, {
-				fileName: "test.js",
-				generateSourceMap(ms) {
-					msUsed = ms;
-					return undefined;
+		it("should allow disabling HTML minification", async () => {
+			const result = await minifyHTMLLiterals(`html\`<div>  test  </div>\`;css\`.foo { color: red; }\`;`, {
+				html: false,
+			});
+
+			expect(result?.code).toBe(`html\`<div>  test  </div>\`;css\`.foo{color:red}\`;`);
+		});
+
+		it("should allow disabling CSS minification", async () => {
+			const result = await minifyHTMLLiterals(
+				`html\`<div> hi </div><style>.foo { color: red; }</style>\`;css\`.foo { color: red; }\`;`,
+				{
+					css: false,
 				},
-			});
+			);
 
-			expect(msUsed).toBeInstanceOf(MagicString);
+			expect(result?.code).toBe(
+				`html\`<div>hi</div><style>.foo { color: red; }</style>\`;css\`.foo { color: red; }\`;`,
+			);
 		});
 
-		it("should allow custom MagicStringLike constructor", async () => {
-			let msUsed: MagicStringLike | undefined;
-			await minifyHTMLLiterals(SOURCE, {
-				fileName: "test.js",
-				MagicString: MagicStringLike,
-				generateSourceMap(ms) {
-					msUsed = ms;
-					return undefined;
-				},
+		it("should allow a custom CSS minifier", async () => {
+			const result = await minifyHTMLLiterals(`css\`.foo { color: red; }\`;`, {
+				css: () => ".custom{}",
 			});
 
-			expect(msUsed).toBeInstanceOf(MagicStringLike);
+			expect(result?.code).toBe(`css\`.custom{}\`;`);
 		});
 
-		it("should allow custom parseLiterals()", async () => {
-			const customParseLiterals = (source: string, options?: ParseLiteralsOptions) => {
-				return parseLiterals(source, options);
-			};
+		it("should minify style and styled templates by default", async () => {
+			const result = await minifyHTMLLiterals(`style\`.foo { color: red; }\`;styled.div\`color: red;\`;`);
 
-			await minifyHTMLLiterals(SOURCE, {
-				fileName: "test.js",
-				parseLiterals: customParseLiterals,
-			});
+			expect(result?.code).toBe(`style\`.foo{color:red}\`;styled.div\`color:red\`;`);
 		});
 
-		it("should allow custom shouldMinify()", async () => {
-			const customShouldMinify = (template: Template) => {
-				return defaultShouldMinify(template);
-			};
-
-			await minifyHTMLLiterals(SOURCE, {
-				fileName: "test.js",
-				shouldMinify: customShouldMinify,
-			});
-		});
-
-		it("should use defaultValidation", () => {
-			minifyHTMLLiterals(SOURCE, {
-				fileName: "test.js",
-				strategy: {
-					getPlaceholder: () => {
-						return ""; // cause an error
-					},
-					combineHTMLStrings: defaultStrategy.combineHTMLStrings,
-					minifyHTML: defaultStrategy.minifyHTML,
-					splitHTMLByPlaceholder: defaultStrategy.splitHTMLByPlaceholder,
-				},
+		it("should allow custom tag lists", async () => {
+			const result = await minifyHTMLLiterals(`view\`<div> hi </div>\`;theme\`.foo { color: red; }\`;`, {
+				htmlTags: ["view"],
+				cssTags: ["theme"],
 			});
 
-			expect(async () => {
-				await minifyHTMLLiterals(SOURCE, {
-					fileName: "test.js",
-					strategy: {
-						getPlaceholder: defaultStrategy.getPlaceholder,
-						combineHTMLStrings: defaultStrategy.combineHTMLStrings,
-						minifyHTML: defaultStrategy.minifyHTML,
-						splitHTMLByPlaceholder: () => {
-							return []; // cause an error
-						},
-					},
-				});
-			}).toThrow();
+			expect(result?.code).toBe(`view\`<div>hi</div>\`;theme\`.foo{color:red}\`;`);
 		});
 
-		it("should allow disabling validation", async () => {
-			await minifyHTMLLiterals(SOURCE, {
-				fileName: "test.js",
-				strategy: {
-					getPlaceholder: () => {
-						return ""; // cause an error
-					},
-					combineHTMLStrings: defaultStrategy.combineHTMLStrings,
-					minifyHTML: defaultStrategy.minifyHTML,
-					splitHTMLByPlaceholder: defaultStrategy.splitHTMLByPlaceholder,
-				},
-				validate: false,
-			});
-		});
-
-		it("should allow disabling generateSourceMap", async () => {
+		it("should allow disabling source maps", async () => {
 			const result = await minifyHTMLLiterals(SOURCE, {
 				fileName: "test.js",
-				generateSourceMap: false,
+				sourceMap: false,
 			});
 			expect(result).toBeTypeOf("object");
 			expect(result!.map).toBeUndefined();
-		});
-	});
-
-	describe("defaultShouldMinify()", () => {
-		it('should return true if the template is tagged with any "html" text', () => {
-			expect(defaultShouldMinify({ tag: "html", parts: [] })).toBe(true);
-			expect(defaultShouldMinify({ tag: "HTML", parts: [] })).toBe(true);
-			expect(defaultShouldMinify({ tag: "hTML", parts: [] })).toBe(true);
-			expect(defaultShouldMinify({ tag: "getHTML()", parts: [] })).toBe(true);
-			expect(defaultShouldMinify({ tag: "templateHtml()", parts: [] })).toBe(true);
-		});
-
-		it('should return false if the template is not tagged or does not contain "html"', () => {
-			expect(defaultShouldMinify({ parts: [] })).toBe(false);
-			expect(defaultShouldMinify({ tag: "css", parts: [] })).toBe(false);
-		});
-
-		it('should return true if the template is tagged with any "svg" text', () => {
-			expect(defaultShouldMinify({ tag: "svg", parts: [] })).toBe(true);
-			expect(defaultShouldMinify({ tag: "SVG", parts: [] })).toBe(true);
-			expect(defaultShouldMinify({ tag: "sVg", parts: [] })).toBe(true);
-			expect(defaultShouldMinify({ tag: "getSVG()", parts: [] })).toBe(true);
-			expect(defaultShouldMinify({ tag: "templateSvg()", parts: [] })).toBe(true);
-		});
-	});
-
-	describe("defaultShouldMinifyCSS()", () => {
-		it('should return true if the template is tagged with any "css" text', () => {
-			expect(defaultShouldMinifyCSS({ tag: "css", parts: [] })).toBe(true);
-			expect(defaultShouldMinifyCSS({ tag: "CSS", parts: [] })).toBe(true);
-			expect(defaultShouldMinifyCSS({ tag: "csS", parts: [] })).toBe(true);
-			expect(defaultShouldMinifyCSS({ tag: "getCSS()", parts: [] })).toBe(true);
-			expect(defaultShouldMinifyCSS({ tag: "templateCss()", parts: [] })).toBe(true);
-		});
-
-		it('should return false if the template is not tagged or does not contain "css"', () => {
-			expect(defaultShouldMinifyCSS({ parts: [] })).toBe(false);
-			expect(defaultShouldMinifyCSS({ tag: "html", parts: [] })).toBe(false);
-		});
-	});
-
-	describe("defaultValidation", () => {
-		describe("ensurePlaceholderValid()", () => {
-			it("should throw an error if the placeholder is not a string", () => {
-				expect(() => {
-					defaultValidation.ensurePlaceholderValid(undefined);
-				}).toThrow();
-				expect(() => {
-					defaultValidation.ensurePlaceholderValid(true);
-				}).toThrow();
-				expect(() => {
-					defaultValidation.ensurePlaceholderValid({});
-				}).toThrow();
-			});
-
-			it("should throw an error if the placeholder is an empty string", () => {
-				expect(() => {
-					defaultValidation.ensurePlaceholderValid("");
-				}).toThrow();
-			});
-
-			it("should not throw an error if the placeholder is a non-empty string", () => {
-				defaultValidation.ensurePlaceholderValid("EXP");
-			});
 		});
 	});
 });

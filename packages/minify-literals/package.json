@@ -1,6 +1,6 @@
 {
 	"name": "minify-literals",
-	"version": "1.0.10",
+	"version": "2.0.0",
 	"description": "Minify CSS and HTML literals",
 	"keywords": [
 		"literals",
@@ -32,14 +32,10 @@
 		"entry": "lib/index.ts"
 	},
 	"dependencies": {
-		"clean-css": "^5.3.3",
-		"html-minifier-terser": "^7.2.0",
+		"html-minifier-next": "^6.2.8",
+		"lightningcss": "^1.32.0",
 		"magic-string": "^0.30.21",
 		"parse-literals": "^1.2.1"
-	},
-	"devDependencies": {
-		"@types/clean-css": "^4.2.11",
-		"@types/html-minifier-terser": "^7.0.2"
 	},
 	"engines": {
 		"node": ">=22.0.0"

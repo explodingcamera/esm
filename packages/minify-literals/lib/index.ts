@@ -1,342 +1,188 @@
-import MagicString, { type SourceMapOptions } from "magic-string";
-import { type Template, type TemplatePart, type ParseLiteralsOptions, parseLiterals } from "parse-literals";
-import { type Strategy, defaultMinifyOptions, defaultStrategy } from "./strategy.js";
+import MagicString from "magic-string";
+import { type Template, parseLiterals } from "parse-literals";
+import {
+	combineTemplateParts,
+	type CSSOptions,
+	defaultMinifyCSSOptions,
+	defaultMinifyOptions,
+	getPlaceholder,
+	minifyCSS,
+	minifyHTML,
+	splitByPlaceholder,
+} from "./minify.js";
 
-/**
- * Options for `minifyHTMLLiterals()`.
- */
-export type Options = DefaultOptions | CustomOptions<any>;
+type MaybePromise<T> = T | Promise<T>;
 
-/**
- * Options for `minifyHTMLLiterals()`, using default html-minifier
- * strategy.
- */
-export interface DefaultOptions extends BaseOptions {
-	/**
-	 * `html-minifier` options to use. Defaults to
-	 * `defaultMinifyOptions`, for production-ready minification.
-	 */
-	minifyOptions?: Partial<typeof defaultMinifyOptions>;
-}
+/** Options passed to `html-minifier-next` for HTML and SVG template literals. */
+export type HTMLMinifyOptions = typeof defaultMinifyOptions;
 
-/**
- * Options for `minifyHTMLLiterals()`, using a custom strategy.
- */
-export interface CustomOptions<S extends Strategy> extends BaseOptions {
-	/**
-	 * HTML minification options.
-	 */
-	minifyOptions?: S extends Strategy<infer O> ? Partial<O> : never;
-	/**
-	 * Override the default strategy for how to minify HTML. The default is to
-	 * use `html-minifier`.
-	 */
-	strategy: S;
-}
+/** Custom HTML minifier used for HTML and SVG template literals. */
+export type HTMLMinifier = (html: string) => MaybePromise<string>;
 
-/**
- * Options for `minifyHTMLLiterals()`.
- */
-export interface BaseOptions {
+/** Options passed to Lightning CSS for CSS template literals and inline CSS. */
+export type CSSMinifyOptions = CSSOptions;
+
+/** Custom CSS minifier used for CSS template literals and inline CSS. */
+export type CSSMinifier = (css: string) => MaybePromise<string>;
+
+/** Options for {@link minifyHTMLLiterals}. */
+export type Options = {
 	/**
-	 * The name of the file. This is used to determine how to parse the source
-	 * code and for source map filenames. It may be a base name, relative, or
-	 * absolute path.
+	 * Source filename used by `parse-literals` and source map generation.
 	 */
 	fileName?: string;
+
 	/**
-	 * Override how source maps are generated. Set to false to disable source map
-	 * generation.
+	 * HTML minification options or a custom HTML minifier. Set to `false` to skip
+	 * HTML and SVG templates.
 	 *
-	 * @param ms the MagicString instance with code modifications
-	 * @param fileName the name or path of the file
-	 * @returns a v3 SourceMap or undefined
+	 * @defaultValue {@link defaultMinifyOptions}
 	 */
-	generateSourceMap?: ((ms: MagicStringLike, fileName: string) => SourceMap | undefined) | false;
+	html?: false | Partial<HTMLMinifyOptions> | HTMLMinifier;
+
 	/**
-	 * The MagicString-like constructor to use. MagicString is used to replace
-	 * strings and generate source maps.
+	 * CSS minification options or a custom CSS minifier. Set to `false` to skip
+	 * CSS templates and inline CSS inside HTML.
 	 *
-	 * Override if you want to set your own version of MagicString or change how
-	 * strings are overridden. Use `generateSourceMap` if you want to
-	 * change how source maps are created.
+	 * @defaultValue {@link defaultMinifyCSSOptions}
 	 */
-	MagicString?: { new (source: string): MagicStringLike };
+	css?: false | CSSMinifyOptions | CSSMinifier;
+
 	/**
-	 * Override how template literals are parsed from a source string.
-	 */
-	parseLiterals?: typeof parseLiterals;
-	/**
-	 * Options for `parseLiterals()`.
-	 */
-	parseLiteralsOptions?: Partial<ParseLiteralsOptions>;
-	/**
-	 * Determines whether or not a template should be minified. The default is to
-	 * minify all tagged template whose tag name contains "html" (case
-	 * insensitive).
+	 * Template tag substrings treated as HTML-like templates.
+	 * Matching is case-insensitive.
 	 *
-	 * @param template the template to check
-	 * @returns true if the template should be minified
+	 * @defaultValue `["html", "svg"]`
 	 */
-	shouldMinify?(template: Template): boolean;
+	htmlTags?: readonly string[];
+
 	/**
-	 * Determines whether or not a CSS template should be minified. The default is
-	 * to minify all tagged template whose tag name contains "css" (case
-	 * insensitive).
+	 * Template tag substrings treated as CSS-like templates.
+	 * Matching is case-insensitive.
 	 *
-	 * @param template the template to check
-	 * @returns true if the template should be minified
+	 * @defaultValue `["css", "style", "styles", "styled"]`
 	 */
-	shouldMinifyCSS?(template: Template): boolean;
+	cssTags?: readonly string[];
+
 	/**
-	 * Override custom validation or set to false to disable validation. This is
-	 * only useful when implementing your own strategy that may return
-	 * unexpected results.
-	 */
-	validate?: Validation | false;
-}
-
-/**
- * A MagicString-like instance. `minify-literals` only uses a
- * subset of the MagicString API to overwrite the source code and generate
- * source maps.
- */
-export interface MagicStringLike {
-	generateMap(options?: Partial<SourceMapOptions>): SourceMap;
-	overwrite(start: number, end: number, content: string): any;
-	toString(): string;
-}
-
-/**
- * A v3 SourceMap.
- *
- * <code>magic-string> incorrectly declares the SourceMap type with a version
- * string instead of a number, so `minify-literals` declares
- * its own type.
- */
-export interface SourceMap {
-	version: number | string;
-	file: string | null;
-	sources: Array<string | null>;
-	sourcesContent: Array<string | null>;
-	names: string[];
-	mappings: string;
-	toString(): string;
-	toUrl(): string;
-}
-
-/**
- * Validation that is executed when minifying HTML to ensure there are no
- * unexpected errors. This is to alleviate hard-to-troubleshoot errors such as
- * undefined errors.
- */
-export interface Validation {
-	/**
-	 * Throws an error if `strategy.getPlaceholder()` does not return
-	 * a valid placeholder string.
+	 * Generate a source map for changed code.
 	 *
-	 * @param placeholder the placeholder to check
+	 * @defaultValue `true`
 	 */
-	ensurePlaceholderValid(placeholder: any): void;
-	/**
-	 * Throws an error if `strategy.splitHTMLByPlaceholder()` does not
-	 * return an HTML part string for each template part.
-	 *
-	 * @param parts the template parts that generated the strings
-	 * @param htmlParts the split HTML strings
-	 */
-	ensureHTMLPartsValid(parts: TemplatePart[], htmlParts: string[]): void;
-}
-
-/**
- * The result of a call to `minifyHTMLLiterals()`.
- */
-export interface Result {
-	/**
-	 * The minified code.
-	 */
-	code: string;
-	/**
-	 * Optional v3 SourceMap for the code.
-	 */
-	map?: SourceMap | undefined;
-}
-
-/**
- * The default method to generate a SourceMap. It will generate the SourceMap
- * from the provided MagicString instance using "fileName.map" as the file and
- * "fileName" as the source.
- *
- * @param ms the MagicString instance with code modifications
- * @param fileName the name of the source file
- * @returns a v3 SourceMap
- */
-export function defaultGenerateSourceMap(ms: MagicStringLike, fileName: string): SourceMap {
-	return ms.generateMap({
-		file: `${fileName}.map`,
-		source: fileName,
-		hires: true,
-	});
-}
-
-/**
- * The default method to determine whether or not to minify a template. It will
- * return true for all tagged templates whose tag name contains "html" (case
- * insensitive).
- *
- * @param template the template to check
- * @returns true if the template should be minified
- */
-export function defaultShouldMinify(template: Template): boolean {
-	const tag = template.tag?.toLowerCase();
-	return !!tag && (tag.includes("html") || tag.includes("svg"));
-}
-
-/**
- * The default method to determine whether or not to minify a CSS template. It
- * will return true for all tagged templates whose tag name contains "css" (case
- * insensitive).
- *
- * @param template the template to check
- * @returns true if the template should be minified
- */
-export function defaultShouldMinifyCSS(template: Template): boolean {
-	if (!template?.tag?.toLowerCase().includes("css")) return false;
-	return true;
-}
-
-/**
- * The default validation.
- */
-export const defaultValidation: Validation = {
-	ensurePlaceholderValid(placeholder) {
-		if (typeof placeholder !== "string" || !placeholder.length) {
-			throw new Error("getPlaceholder() must return a non-empty string");
-		}
-	},
-	ensureHTMLPartsValid(parts, htmlParts) {
-		if (parts.length !== htmlParts.length) {
-			throw new Error("splitHTMLByPlaceholder() must return same number of strings as template parts");
-		}
-	},
+	sourceMap?: boolean;
 };
 
-/**
- * Minifies all HTML template literals in the provided source string.
- *
- * @param source the source code
- * @param options minification options
- * @returns the minified code, or null if no minification occurred.
- */
-export async function minifyHTMLLiterals(source: string, options?: DefaultOptions): Promise<Result | null>;
-/**
- * Minifies all HTML template literals in the provided source string.
- *
- * @param source the source code
- * @param options minification options
- * @returns the minified code, or null if no minification occurred.
- */
-export async function minifyHTMLLiterals<S extends Strategy>(
-	source: string,
-	options?: CustomOptions<S>,
-): Promise<Result | null>;
+/** Result returned by {@link minifyHTMLLiterals} when code changed. */
+export type Result = {
+	/** Minified source code. */
+	code: string;
+	/** Source map for `code`, unless `sourceMap` was disabled. */
+	map?: ReturnType<MagicString["generateMap"]>;
+};
 
+const defaultHTMLTags = ["html", "svg"] as const;
+const defaultCSSTags = ["css", "style", "styles", "styled"] as const;
+
+/**
+ * Minifies HTML, SVG, and CSS tagged template literals in a JavaScript or
+ * TypeScript source string.
+ *
+ * Returns `null` when no code changed.
+ */
 export async function minifyHTMLLiterals(source: string, options: Options = {}): Promise<Result | null> {
-	options.MagicString = (options.MagicString || MagicString) as typeof options.MagicString;
-	options.parseLiterals = options.parseLiterals || parseLiterals;
-	options.shouldMinify = options.shouldMinify || defaultShouldMinify;
-	options.shouldMinifyCSS = options.shouldMinifyCSS || defaultShouldMinifyCSS;
-
-	options.minifyOptions = {
-		...defaultMinifyOptions,
-		...options.minifyOptions,
-	};
-
-	options.parseLiteralsOptions = {
-		fileName: options.fileName,
-		...options.parseLiteralsOptions,
-	};
-
-	const templates = options.parseLiterals(source, options.parseLiteralsOptions);
-	const strategy = <Strategy>(<CustomOptions<any>>options).strategy || defaultStrategy;
-	const { shouldMinify, shouldMinifyCSS } = options;
-	let validate: Validation | undefined;
-	if (options.validate !== false) {
-		validate = options.validate || defaultValidation;
-	}
-
-	let skipCSS = false;
-	let skipHTML = false;
-
-	if (strategy.minifyCSS && source.includes("unsafeCSS")) {
-		console.warn(
-			`minify-literals: unsafeCSS() detected in source. CSS minification will not be performed for this file.`,
-		);
-		skipCSS = true;
-	}
-
-	if (source.includes("unsafeHTML")) {
-		console.warn(
-			`minify-literals: unsafeHTML() detected in source. HTML minification will not be performed for this file.`,
-		);
-		skipHTML = true;
-	}
-
-	if (!options.MagicString) throw new Error("MagicString is required, this should never happen");
-	const ms = new options.MagicString(source);
-
-	const promises = templates.map(async (template) => {
-		const minifyHTML = !skipHTML && shouldMinify(template);
-		const minifyCSS = !skipCSS && strategy.minifyCSS && shouldMinifyCSS(template);
-
-		if (!(minifyHTML || minifyCSS)) return;
-
-		const placeholder = strategy.getPlaceholder(template.parts);
-		if (validate) {
-			validate.ensurePlaceholderValid(placeholder);
-		}
-
-		const combined = strategy.combineHTMLStrings(template.parts, placeholder);
-		let min: string;
-
-		if (minifyCSS) {
-			const minifyCSSOptions = (options as DefaultOptions).minifyOptions?.minifyCSS;
-			if (typeof minifyCSSOptions === "function") {
-				min = minifyCSSOptions(combined);
-			} else if (minifyCSSOptions === false) {
-				min = combined;
-			} else {
-				const cssOptions = typeof minifyCSSOptions === "object" ? minifyCSSOptions : undefined;
-				min = (await strategy.minifyCSS?.(combined, cssOptions)) ?? combined;
-			}
+	let htmlMinifier: false | HTMLMinifyOptions | HTMLMinifier = false;
+	if (options.html !== false) {
+		if (typeof options.html === "function") {
+			htmlMinifier = options.html;
 		} else {
-			min = await strategy.minifyHTML(combined, options.minifyOptions);
+			htmlMinifier = {
+				...defaultMinifyOptions,
+				...options.html,
+			};
+
+			if (options.css === false) {
+				htmlMinifier.minifyCSS = false;
+			} else if (!options.html || !("minifyCSS" in options.html)) {
+				htmlMinifier.minifyCSS = options.css ?? defaultMinifyCSSOptions;
+			}
 		}
-
-		const minParts = strategy.splitHTMLByPlaceholder(min, placeholder);
-		if (validate) validate.ensureHTMLPartsValid(template.parts, minParts);
-
-		for (const [index, part] of template.parts.entries()) {
-			if (part.start < part.end)
-				// Only overwrite if the literal part has text content
-				ms.overwrite(part.start, part.end, minParts[index] ?? "");
-		}
-	});
-
-	await Promise.all(promises);
-
-	const sourceMin = ms.toString();
-
-	if (source === sourceMin) return null;
-
-	let map: SourceMap | undefined;
-	if (options.generateSourceMap !== false) {
-		const generateSourceMap = options.generateSourceMap || defaultGenerateSourceMap;
-		map = generateSourceMap(ms, options.fileName || "");
 	}
 
-	return {
-		map,
-		code: sourceMin,
-	};
+	const cssOptions = options.css ?? defaultMinifyCSSOptions;
+	const htmlTags = options.htmlTags ?? defaultHTMLTags;
+	const cssTags = options.cssTags ?? defaultCSSTags;
+	const templates = parseLiterals(source, { fileName: options.fileName });
+	const ms = new MagicString(source);
+	const skipCSS = cssOptions !== false && source.includes("unsafeCSS");
+	const skipHTML = htmlMinifier !== false && source.includes("unsafeHTML");
+
+	if (skipCSS) {
+		console.warn(
+			"minify-literals: unsafeCSS() detected in source. CSS minification will not be performed for this file.",
+		);
+	}
+
+	if (skipHTML) {
+		console.warn(
+			"minify-literals: unsafeHTML() detected in source. HTML minification will not be performed for this file.",
+		);
+	}
+
+	await Promise.all(
+		templates.map(async (template) => {
+			const shouldMinifyHTML = !skipHTML && htmlMinifier !== false && matchesTag(template, htmlTags);
+			const shouldMinifyCSS = !skipCSS && cssOptions !== false && matchesTag(template, cssTags);
+
+			if (!(shouldMinifyHTML || shouldMinifyCSS)) return;
+
+			const placeholder = getPlaceholder(template.parts);
+			const combined = combineTemplateParts(template.parts, placeholder);
+			let min: string;
+			if (shouldMinifyCSS) {
+				min =
+					typeof cssOptions === "function"
+						? await cssOptions(combined)
+						: await minifyCSS(combined, cssOptions);
+				min = min
+					.replaceAll(new RegExp(`(${placeholder})\\s+:\\s*`, "g"), "$1:")
+					.replaceAll(new RegExp(`(${placeholder})\\s*;(?=})`, "g"), "$1");
+			} else if (shouldMinifyHTML && htmlMinifier !== false) {
+				min =
+					typeof htmlMinifier === "function"
+						? await htmlMinifier(combined)
+						: await minifyHTML(combined, htmlMinifier);
+			} else {
+				return;
+			}
+			const minParts = splitByPlaceholder(min, placeholder);
+
+			if (template.parts.length !== minParts.length) {
+				throw new Error(
+					"minify-literals: minified template did not preserve template expression placeholders",
+				);
+			}
+
+			for (const [index, part] of template.parts.entries()) {
+				if (part.start < part.end) ms.overwrite(part.start, part.end, minParts[index] ?? "");
+			}
+		}),
+	);
+
+	const code = ms.toString();
+	if (source === code) return null;
+
+	const map =
+		options.sourceMap === false
+			? undefined
+			: ms.generateMap({
+					file: `${options.fileName ?? ""}.map`,
+					source: options.fileName ?? "",
+					hires: true,
+				});
+	return { code, map };
+}
+
+function matchesTag(template: Template, tags: readonly string[]) {
+	const tag = template.tag?.toLowerCase();
+	return !!tag && tags.some((match) => tag.includes(match.toLowerCase()));
 }

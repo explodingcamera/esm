@@ -1,5 +1,12 @@
 # rollup-plugin-minify-template-literals
 
+## 2.0.0
+
+### Major Changes
+
+- Update for minify-literals v2 and simplify plugin options.
+- Rename nested `options` to `minify` and remove deprecated/custom override hooks and `failOnError`.
+
 ## 1.1.7
 
 ### Patch Changes

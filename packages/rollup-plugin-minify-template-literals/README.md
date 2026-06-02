@@ -68,37 +68,18 @@ export interface Options {
   /**
    * Pattern or array of patterns of files to minify.
    */
-  include?: string | string[];
+  include?: string | RegExp | Array<string | RegExp>;
   /**
    * Pattern or array of patterns of files not to minify.
    */
-  exclude?: string | string[];
+  exclude?: string | RegExp | Array<string | RegExp>;
   /**
-   * Minify options, see
-   * https://github.com/explodingcamera/esm/tree/main/packages/minify-literals#options.
+   * Options passed to minify-literals.
    */
-  options?: Partial<minify.Options>;
-  /**
-   * If true, any errors while parsing or minifying will abort the bundle
-   * process. Defaults to false, which will only show a warning.
-   */
-  failOnError?: boolean;
-  /**
-   * Override minify-html-literals function.
-   */
-  minifyHTMLLiterals?: typeof minify.minifyHTMLLiterals;
-  /**
-   * Override include/exclude filter.
-   */
-  filter?: (id: string) => boolean;
+  minify?: MinifyOptions;
 }
 ```
 
 ## Related Packages
 
 - [minify-literals](../minify-literals/README.md) - Minify HTML & CSS markup inside JavaScript/TypeScript template literal strings.
-
-## Credits
-
-This package is based on [rollup-plugin-minify-html-literals](https://github.com/asyncLiz/minify-html-literals) by [Elizabeth Mitchell](https://github.com/asyncLiz).
-I've fixed a few bugs, ported it to ES modules, and refactored it a bit.

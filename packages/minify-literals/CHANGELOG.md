@@ -1,5 +1,12 @@
 # minify-literals
 
+## 2.0.0
+
+### Major Changes
+
+- Replace html-minifier-terser/clean-css with html-minifier-next/Lightning CSS and simplify the options API.
+- Remove custom strategy/parser/MagicString hooks: use `html`, `css`, `htmlTags`, `cssTags`, and `sourceMap` options instead.
+
 ## 1.0.10
 
 ### Patch Changes

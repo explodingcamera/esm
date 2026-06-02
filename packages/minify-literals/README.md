@@ -2,7 +2,7 @@
 
 > Minify HTML & CSS markup inside JavaScript/TypeScript template literal strings.
 
-Uses [html-minifier-terser](https://www.npmjs.com/package/html-minifier-terser) to minify HTML and [clean-css](https://www.npmjs.com/package/clean-css) to minify CSS.
+Uses [html-minifier-next](https://www.npmjs.com/package/html-minifier-next) to minify HTML and [lightningcss](https://lightningcss.dev/) to minify CSS.
 
 ## Installation
 
@@ -60,22 +60,32 @@ console.log(map);
 ## Options
 
 ```ts
-export interface Options {
-  /**
-   * Minify HTML options, see https://github.com/terser/html-minifier-terser#options-quick-reference
-   * @default .//src/defaultOptions.ts
-   */
-  minifyOptions?: Partial<minify.Options>;
+export type Options = {
+  /** Source filename used for parsing and source map generation. */
+  fileName?: string;
 
   /**
-   * Override the default strategy for how to minify HTML.
-   * More info:
-   *  https://github.com/explodingcamera/esm/blob/main/packages/minify-literals/lib/strategy.ts
-   *
-   * @optional
+   * Options passed to html-minifier-next, or a custom HTML minifier. Set to false to skip HTML and SVG templates.
    */
-  strategy: S;
-}
+  html?:
+    | false
+    | Partial<HTMLMinifyOptions>
+    | ((html: string) => string | Promise<string>);
+
+  /**
+   * Options passed to Lightning CSS, or a custom CSS minifier. Set to false to skip CSS.
+   */
+  css?: false | CSSMinifyOptions | ((css: string) => string | Promise<string>);
+
+  /** Template tag substrings treated as HTML. Defaults to ["html", "svg"]. */
+  htmlTags?: readonly string[];
+
+  /** Template tag substrings treated as CSS. Defaults to ["css", "style", "styles", "styled"]. */
+  cssTags?: readonly string[];
+
+  /** Generate a source map for changed code. Defaults to true. */
+  sourceMap?: boolean;
+};
 ```
 
 ## Related Packages
@@ -84,12 +94,4 @@ export interface Options {
 
 ## Credits
 
-This package is based on [minify-html-literals](https://github.com/asyncLiz/minify-html-literals) by [Elizabeth Mitchell](https://github.com/asyncLiz)
-I've fixed a few bugs, ported it to ES modules, and refactored it a bit.
-
-Some of the fixed bugs:
-
-- https://github.com/asyncLiz/minify-html-literals/issues/37
-- https://github.com/asyncLiz/minify-html-literals/issues/45
-- https://github.com/asyncLiz/minify-html-literals/issues/46
-- https://github.com/asyncLiz/minify-html-literals/issues/40
+This package was originally a fork of [minify-html-literals](https://github.com/asyncLiz/minify-html-literals) by [Elizabeth Mitchell](https://github.com/asyncLiz)
