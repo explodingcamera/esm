@@ -5,7 +5,7 @@
 		"lineWidth": 110
 	},
 	"files": {
-		"includes": ["**", "!**/node_modules/**", "!**/dist/**", "!**/*.json"]
+		"includes": ["**", "!**/node_modules", "!**/dist"]
 	},
 	"assist": {
 		"actions": {

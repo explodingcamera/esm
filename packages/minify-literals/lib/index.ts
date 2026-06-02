@@ -3,24 +3,24 @@ import { type Template, type TemplatePart, type ParseLiteralsOptions, parseLiter
 import { type Strategy, defaultMinifyOptions, defaultStrategy } from "./strategy.js";
 
 /**
- * Options for <code>minifyHTMLLiterals()</code>.
+ * Options for `minifyHTMLLiterals()`.
  */
 export type Options = DefaultOptions | CustomOptions<any>;
 
 /**
- * Options for <code>minifyHTMLLiterals()</code>, using default html-minifier
+ * Options for `minifyHTMLLiterals()`, using default html-minifier
  * strategy.
  */
 export interface DefaultOptions extends BaseOptions {
 	/**
-	 * <code>html-minifier</code> options to use. Defaults to
-	 * <code>defaultMinifyOptions</code>, for production-ready minification.
+	 * `html-minifier` options to use. Defaults to
+	 * `defaultMinifyOptions`, for production-ready minification.
 	 */
 	minifyOptions?: Partial<typeof defaultMinifyOptions>;
 }
 
 /**
- * Options for <code>minifyHTMLLiterals()</code>, using a custom strategy.
+ * Options for `minifyHTMLLiterals()`, using a custom strategy.
  */
 export interface CustomOptions<S extends Strategy> extends BaseOptions {
 	/**
@@ -29,13 +29,13 @@ export interface CustomOptions<S extends Strategy> extends BaseOptions {
 	minifyOptions?: S extends Strategy<infer O> ? Partial<O> : never;
 	/**
 	 * Override the default strategy for how to minify HTML. The default is to
-	 * use <code>html-minifier</code>.
+	 * use `html-minifier`.
 	 */
 	strategy: S;
 }
 
 /**
- * Options for <code>minifyHTMLLiterals()</code>.
+ * Options for `minifyHTMLLiterals()`.
  */
 export interface BaseOptions {
 	/**
@@ -58,7 +58,7 @@ export interface BaseOptions {
 	 * strings and generate source maps.
 	 *
 	 * Override if you want to set your own version of MagicString or change how
-	 * strings are overridden. Use <code>generateSourceMap</code> if you want to
+	 * strings are overridden. Use `generateSourceMap` if you want to
 	 * change how source maps are created.
 	 */
 	MagicString?: { new (source: string): MagicStringLike };
@@ -67,7 +67,7 @@ export interface BaseOptions {
 	 */
 	parseLiterals?: typeof parseLiterals;
 	/**
-	 * Options for <code>parseLiterals()</code>.
+	 * Options for `parseLiterals()`.
 	 */
 	parseLiteralsOptions?: Partial<ParseLiteralsOptions>;
 	/**
@@ -97,7 +97,7 @@ export interface BaseOptions {
 }
 
 /**
- * A MagicString-like instance. <code>minify-literals</code> only uses a
+ * A MagicString-like instance. `minify-literals` only uses a
  * subset of the MagicString API to overwrite the source code and generate
  * source maps.
  */
@@ -111,7 +111,7 @@ export interface MagicStringLike {
  * A v3 SourceMap.
  *
  * <code>magic-string> incorrectly declares the SourceMap type with a version
- * string instead of a number, so <code>minify-literals</code> declares
+ * string instead of a number, so `minify-literals` declares
  * its own type.
  */
 export interface SourceMap {
@@ -132,14 +132,14 @@ export interface SourceMap {
  */
 export interface Validation {
 	/**
-	 * Throws an error if <code>strategy.getPlaceholder()</code> does not return
+	 * Throws an error if `strategy.getPlaceholder()` does not return
 	 * a valid placeholder string.
 	 *
 	 * @param placeholder the placeholder to check
 	 */
 	ensurePlaceholderValid(placeholder: any): void;
 	/**
-	 * Throws an error if <code>strategy.splitHTMLByPlaceholder()</code> does not
+	 * Throws an error if `strategy.splitHTMLByPlaceholder()` does not
 	 * return an HTML part string for each template part.
 	 *
 	 * @param parts the template parts that generated the strings
@@ -149,7 +149,7 @@ export interface Validation {
 }
 
 /**
- * The result of a call to <code>minifyHTMLLiterals()</code>.
+ * The result of a call to `minifyHTMLLiterals()`.
  */
 export interface Result {
 	/**

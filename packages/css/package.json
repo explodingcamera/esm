@@ -1,19 +1,19 @@
 {
-  "name": "@explodingcamera/css",
-  "version": "0.0.4",
-  "description": "",
-  "keywords": [],
-  "homepage": "https://github.com/explodingcamera/esm/tree/main/packages/css",
-  "repository": "https://github.com/explodingcamera/esm",
-  "license": "MIT",
-  "author": "Henry Gressmann <npm@henrygressmann.de>",
-  "type": "module",
-  "exports": {
-    "./reset": "./reset.js",
-    "./reset.css": "./reset.css",
-    "./base": "./base.js",
-    "./base.css": "./base.css",
-    ".": "./index.js",
-    "./all.css": "./all.css"
-  }
+	"name": "@explodingcamera/css",
+	"version": "0.0.4",
+	"description": "",
+	"keywords": [],
+	"homepage": "https://github.com/explodingcamera/esm/tree/main/packages/css",
+	"repository": "https://github.com/explodingcamera/esm",
+	"license": "MIT",
+	"author": "Henry Gressmann <npm@henrygressmann.de>",
+	"type": "module",
+	"exports": {
+		"./reset": "./reset.js",
+		"./reset.css": "./reset.css",
+		"./base": "./base.js",
+		"./base.css": "./base.css",
+		".": "./index.js",
+		"./all.css": "./all.css"
+	}
 }

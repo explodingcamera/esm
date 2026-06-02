@@ -1,40 +1,43 @@
 {
-  "name": "spaify",
-  "version": "0.0.8",
-  "support": "unstable",
-  "description": "Seamless page transitions for your static site in less than 2kb of JavaScript",
-  "keywords": [
-    "ssg",
-    "turbolinks"
-  ],
-  "homepage": "https://github.com/explodingcamera/esm/tree/main/packages/spaify",
-  "repository": "https://github.com/explodingcamera/esm",
-  "license": "MIT",
-  "author": "Henry Gressmann <npm@henrygressmann.de>",
-  "type": "module",
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.mts",
-      "import": "./dist/index.mjs",
-      "default": "./dist/index.mjs"
-    },
-    "./default": {
-      "types": "./dist/default.d.mts",
-      "import": "./dist/default.mjs",
-      "default": "./dist/default.mjs"
-    }
-  },
-  "main": "dist/index.mjs",
-  "module": "dist/index.mjs",
-  "types": "dist/index.d.mts",
-  "files": [
-    "dist"
-  ],
-  "tsdown": {
-    "entry": ["lib/index.ts", "lib/default.ts"],
-    "minify": true
-  },
-  "engines": {
-    "node": ">=22.0.0"
-  }
+	"name": "spaify",
+	"version": "0.0.8",
+	"support": "unstable",
+	"description": "Seamless page transitions for your static site in less than 2kb of JavaScript",
+	"keywords": [
+		"ssg",
+		"turbolinks"
+	],
+	"homepage": "https://github.com/explodingcamera/esm/tree/main/packages/spaify",
+	"repository": "https://github.com/explodingcamera/esm",
+	"license": "MIT",
+	"author": "Henry Gressmann <npm@henrygressmann.de>",
+	"type": "module",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.mts",
+			"import": "./dist/index.mjs",
+			"default": "./dist/index.mjs"
+		},
+		"./default": {
+			"types": "./dist/default.d.mts",
+			"import": "./dist/default.mjs",
+			"default": "./dist/default.mjs"
+		}
+	},
+	"main": "dist/index.mjs",
+	"module": "dist/index.mjs",
+	"types": "dist/index.d.mts",
+	"files": [
+		"dist"
+	],
+	"tsdown": {
+		"entry": [
+			"lib/index.ts",
+			"lib/default.ts"
+		],
+		"minify": true
+	},
+	"engines": {
+		"node": ">=24.0.0"
+	}
 }

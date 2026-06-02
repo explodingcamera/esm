@@ -56,8 +56,7 @@ const init = (opts: Partial<Options> = {}): SpaifyInstance => {
 		const target = (e.target as Element).closest("a")!;
 
 		if (
-			!target ||
-			target.tagName !== "A" ||
+			target?.tagName !== "A" ||
 			location.origin !== target.origin ||
 			target.matches(options.selectors.ignore)
 		)

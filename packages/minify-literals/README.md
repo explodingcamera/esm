@@ -1,4 +1,4 @@
-# minify-literals [![API Docs](https://img.shields.io/badge/API%20Docs-blue.svg)](https://paka.dev/npm/minify-literals)
+# minify-literals [![API Docs](https://img.shields.io/badge/API%20Docs-blue.svg)](https://paka.dev/npm/minify-literals) [![NPM Version](https://img.shields.io/npm/v/minify-literals.svg)](https://www.npmjs.com/package/minify-literals)
 
 > Minify HTML & CSS markup inside JavaScript/TypeScript template literal strings.
 

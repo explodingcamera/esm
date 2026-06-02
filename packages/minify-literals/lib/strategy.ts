@@ -60,14 +60,12 @@ export interface Strategy<O = any, C = any> {
 }
 
 /**
- * The default <code>clean-css</code> options, optimized for production
- * minification.
+ * The default `clean-css` options, optimized for production minification.
  */
 export const defaultMinifyCSSOptions: CleanCSS.Options = {};
 
 /**
- * The default <code>html-minifier</code> options, optimized for production
- * minification.
+ * The default `html-minifier` options, optimized for production minification.
  */
 export const defaultMinifyOptions: HTMLOptions = {
 	caseSensitive: true,
@@ -85,8 +83,8 @@ export const defaultMinifyOptions: HTMLOptions = {
 };
 
 /**
- * The default strategy. This uses <code>html-minifier</code> to minify HTML and
- * <code>clean-css</code> to minify CSS.
+ * The default strategy. This uses `html-minifier` to minify HTML and
+ * `clean-css` to minify CSS.
  */
 export const defaultStrategy: Strategy<HTMLOptions, CleanCSS.Options> = {
 	getPlaceholder(parts) {
