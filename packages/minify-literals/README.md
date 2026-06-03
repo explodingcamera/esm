@@ -27,9 +27,9 @@ $ pnpm add minify-literals
 import { minifyHTMLLiterals } from "minify-literals";
 
 const source = `
-		const el = html\`<div > <h1>  Hello World  </h1 > </div>\`;
-		const css = css\` .foo { color: red; }  \`;
-	`;
+  const el = html\`<div > <h1>  Hello World  </h1 > </div>\`;
+  const css = css\` .foo { color: red; }  \`;
+`;
 
 let { code, map } = await minifyHTMLLiterals(source);
 // or with options: await minifyHTMLLiterals(source, { fileName: "test.js" });

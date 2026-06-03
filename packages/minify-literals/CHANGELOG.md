@@ -1,5 +1,11 @@
 # minify-literals
 
+## 2.0.1
+
+### Patch Changes
+
+- Replace `parse-literals` with a local implementation
+
 ## 2.0.0
 
 ### Major Changes
@@ -75,7 +81,7 @@
 
 - [`2ed7279`](https://github.com/explodingcamera/esm/commit/2ed72792bf13fa4b712fb477208ebb7d061a1e8f) - update dependencies
 
-- [`de8e91f`](https://github.com/explodingcamera/esm/commit/de8e91f4f1052fbd6bf4f82b3c8010195b98a7b1) - update depdendencies
+- [`de8e91f`](https://github.com/explodingcamera/esm/commit/de8e91f4f1052fbd6bf4f82b3c8010195b98a7b1) - update dependencies
 
 ## 1.0.0
 

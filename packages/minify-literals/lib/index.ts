@@ -1,5 +1,4 @@
 import MagicString from "magic-string";
-import { type Template, parseLiterals } from "parse-literals";
 import {
 	combineTemplateParts,
 	type CSSOptions,
@@ -10,6 +9,7 @@ import {
 	minifyHTML,
 	splitByPlaceholder,
 } from "./minify.js";
+import { type Template, parseTemplates } from "./literals.js";
 
 type MaybePromise<T> = T | Promise<T>;
 
@@ -28,7 +28,7 @@ export type CSSMinifier = (css: string) => MaybePromise<string>;
 /** Options for {@link minifyHTMLLiterals}. */
 export type Options = {
 	/**
-	 * Source filename used by `parse-literals` and source map generation.
+	 * Source filename used by literal parsing and source map generation.
 	 */
 	fileName?: string;
 
@@ -111,7 +111,7 @@ export async function minifyHTMLLiterals(source: string, options: Options = {}):
 	const cssOptions = options.css ?? defaultMinifyCSSOptions;
 	const htmlTags = options.htmlTags ?? defaultHTMLTags;
 	const cssTags = options.cssTags ?? defaultCSSTags;
-	const templates = parseLiterals(source, { fileName: options.fileName });
+	const templates = parseTemplates(source, options.fileName);
 	const ms = new MagicString(source);
 	const skipCSS = cssOptions !== false && source.includes("unsafeCSS");
 	const skipHTML = htmlMinifier !== false && source.includes("unsafeHTML");

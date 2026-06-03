@@ -1,11 +1,11 @@
 import { describe, expect, it } from "bun:test";
-import type { TemplatePart } from "parse-literals";
 import {
 	combineTemplateParts,
 	defaultMinifyOptions,
 	getPlaceholder,
 	minifyHTML,
 	splitByPlaceholder,
+	type TemplatePart,
 } from "./minify";
 
 describe("minify helpers", () => {

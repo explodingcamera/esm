@@ -1,6 +1,8 @@
 import { transform, type TransformOptions } from "lightningcss";
 import { type MinifierOptions as HTMLOptions, minify as minifyHTMLString } from "html-minifier-next";
-import type { TemplatePart } from "parse-literals";
+import type { TemplatePart } from "./literals.js";
+
+export type { TemplatePart } from "./literals.js";
 
 export type CSSOptions = Omit<TransformOptions<any>, "filename" | "code">;
 

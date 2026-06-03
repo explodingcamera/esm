@@ -1,6 +1,6 @@
 {
 	"name": "minify-literals",
-	"version": "2.0.0",
+	"version": "2.0.1",
 	"description": "Minify CSS and HTML literals",
 	"keywords": [
 		"literals",
@@ -32,10 +32,11 @@
 		"entry": "lib/index.ts"
 	},
 	"dependencies": {
+		"@sveltejs/acorn-typescript": "^1.0.10",
+		"acorn": "^8.16.0",
 		"html-minifier-next": "^6.2.8",
 		"lightningcss": "^1.32.0",
-		"magic-string": "^0.30.21",
-		"parse-literals": "^1.2.1"
+		"magic-string": "^0.30.21"
 	},
 	"engines": {
 		"node": ">=22.0.0"
