@@ -82,4 +82,4 @@ export interface Options {
 
 ## Related Packages
 
-- [minify-literals](../minify-literals/README.md) - Minify HTML & CSS markup inside JavaScript/TypeScript template literal strings.
+- [minify-literals](https://npmjs.com/package/minify-literals) - Minify HTML & CSS markup inside JavaScript/TypeScript template literal strings.

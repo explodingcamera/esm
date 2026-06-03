@@ -90,7 +90,7 @@ export type Options = {
 
 ## Related Packages
 
-- [rollup-plugin-minify-template-literals](../rollup-plugin-minify-template-literals/README.md) - Rollup plugin for minifying HTML & CSS markup inside JavaScript/TypeScript template literal strings.
+- [rollup-plugin-minify-template-literals](https://npmjs.com/package/rollup-plugin-minify-template-literals) - Rollup plugin for minifying HTML & CSS markup inside JavaScript/TypeScript template literal strings.
 
 ## Credits
 
