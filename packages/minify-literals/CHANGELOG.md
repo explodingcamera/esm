@@ -1,5 +1,11 @@
 # minify-literals
 
+## 2.0.2
+
+### Patch Changes
+
+- Fixed stale build artifacts in the npm package
+
 ## 2.0.1
 
 ### Patch Changes

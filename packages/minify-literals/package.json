@@ -1,6 +1,6 @@
 {
 	"name": "minify-literals",
-	"version": "2.0.1",
+	"version": "2.0.2",
 	"description": "Minify CSS and HTML literals",
 	"keywords": [
 		"literals",
