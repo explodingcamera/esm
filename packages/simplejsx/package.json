@@ -1,0 +1,62 @@
+{
+	"name": "simplejsx",
+	"version": "0.0.1",
+	"support": "unstable",
+	"description": "A minimal JSX templating library for rendering safe HTML strings",
+	"keywords": [
+		"jsx",
+		"html",
+		"template",
+		"templating",
+		"ssg",
+		"ssr"
+	],
+	"homepage": "https://github.com/explodingcamera/esm/tree/main/packages/simplejsx",
+	"repository": "https://github.com/explodingcamera/esm",
+	"license": "MIT",
+	"author": "Henry Gressmann <npm@henrygressmann.de>",
+	"type": "module",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.mts",
+			"import": "./dist/index.mjs",
+			"default": "./dist/index.mjs"
+		},
+		"./jsx-runtime": {
+			"types": "./dist/jsx-runtime.d.mts",
+			"import": "./dist/jsx-runtime.mjs",
+			"default": "./dist/jsx-runtime.mjs"
+		},
+		"./jsx-dev-runtime": {
+			"types": "./dist/jsx-dev-runtime.d.mts",
+			"import": "./dist/jsx-dev-runtime.mjs",
+			"default": "./dist/jsx-dev-runtime.mjs"
+		}
+	},
+	"main": "dist/index.mjs",
+	"module": "dist/index.mjs",
+	"types": "dist/index.d.mts",
+	"source": "lib/index.ts",
+	"files": [
+		"dist",
+		"lib/elements.ts",
+		"lib/index.ts",
+		"lib/jsx-dev-runtime.ts",
+		"lib/jsx-runtime.ts",
+		"lib/node.ts",
+		"lib/types.ts"
+	],
+	"tsdown": {
+		"entry": [
+			"lib/index.ts",
+			"lib/jsx-runtime.ts",
+			"lib/jsx-dev-runtime.ts"
+		]
+	},
+	"dependencies": {
+		"csstype": "^3.2.3"
+	},
+	"engines": {
+		"node": ">=22.0.0"
+	}
+}
