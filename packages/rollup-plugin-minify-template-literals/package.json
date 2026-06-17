@@ -16,10 +16,15 @@
 		"template-literals"
 	],
 	"homepage": "https://github.com/explodingcamera/esm/tree/main/packages/rollup-plugin-minify-template-literals",
-	"repository": "https://github.com/explodingcamera/esm",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/explodingcamera/esm.git",
+		"directory": "packages/rollup-plugin-minify-template-literals"
+	},
 	"license": "MIT",
 	"author": "Henry Gressmann <npm@henrygressmann.de>",
 	"type": "module",
+	"sideEffects": false,
 	"exports": {
 		".": {
 			"types": "./dist/index.d.mts",
@@ -33,6 +38,9 @@
 	"files": [
 		"dist"
 	],
+	"scripts": {
+		"prepublishOnly": "bun run --cwd ../.. build"
+	},
 	"tsdown": {
 		"entry": "lib/index.ts",
 		"deps": {

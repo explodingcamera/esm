@@ -4,10 +4,18 @@
 	"description": "",
 	"keywords": [],
 	"homepage": "https://github.com/explodingcamera/esm/tree/main/packages/css",
-	"repository": "https://github.com/explodingcamera/esm",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/explodingcamera/esm.git",
+		"directory": "packages/css"
+	},
 	"license": "MIT",
 	"author": "Henry Gressmann <npm@henrygressmann.de>",
 	"type": "module",
+	"sideEffects": [
+		"*.css",
+		"*.js"
+	],
 	"exports": {
 		"./reset": "./reset.js",
 		"./reset.css": "./reset.css",

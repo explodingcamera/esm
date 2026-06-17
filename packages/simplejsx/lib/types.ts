@@ -31,7 +31,7 @@ export type HTMLAttributes = {
 	children?: Child;
 	class?: MaybePromise<string | null | undefined>;
 	id?: MaybePromise<string | null | undefined>;
-	style?: string | CSSProperties | null | undefined;
+	style?: MaybePromise<string | CSSProperties | null | undefined>;
 	[attribute: `aria-${string}`]: MaybePromise<AttributeValue>;
 	[attribute: `data-${string}`]: MaybePromise<AttributeValue>;
 	[attribute: string]: unknown;

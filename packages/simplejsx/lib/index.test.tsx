@@ -66,6 +66,24 @@ test("attributes", () => {
 	expect(render(<input disabled checked={false} value="name" />)).toBe('<input disabled value="name">');
 });
 
+test("element middleware", () => {
+	expect(
+		render(<a href="/docs">Docs</a>, {
+			element: [
+				({ tag, props }) => (tag === "a" ? { ...props, target: "_blank" } : undefined),
+				({ tag, props }) => {
+					if (tag === "a") props["rel"] = "noreferrer";
+				},
+			],
+		}),
+	).toBe('<a href="/docs" target="_blank" rel="noreferrer">Docs</a>');
+	expect(
+		render(<p>Hi</p>, {
+			element: [[({ props }) => ({ ...props, class: "message" })]],
+		}),
+	).toBe('<p class="message">Hi</p>');
+});
+
 test("style", () => {
 	expect(
 		render(
@@ -79,6 +97,18 @@ test("style", () => {
 			/>,
 		),
 	).toBe('<div style="margin-top:10px;opacity:0.5;--gap:2;background-color:red;"></div>');
+	expect(render(<div style={'color: red; --label: "a&b";'} />)).toBe(
+		'<div style="color: red; --label: &quot;a&amp;b&quot;;"></div>',
+	);
+});
+
+test("children arrays and null", () => {
+	function Box({ children }: PropsWithChildren) {
+		return <div>{children}</div>;
+	}
+
+	expect(render(<Box>{[<span>one</span>, null, "two"]}</Box>)).toBe("<div><span>one</span>two</div>");
+	expect(render(jsx("div", { children: null }))).toBe("<div></div>");
 });
 
 test("head hoisting", () => {
@@ -138,6 +168,26 @@ test("async", async () => {
 			</div>,
 		),
 	).resolves.toBe('<div title="a&amp;b"><strong>Async</strong>x&lt;y</div>');
+	await expect(
+		renderAsync(<div title={Promise.resolve(null)} data-id={Promise.resolve(undefined)} />),
+	).resolves.toBe("<div></div>");
+	await expect(
+		renderAsync(jsx("img", { src: "/image.png" }), {
+			element: async ({ tag, props }) =>
+				tag === "img" ? { ...props, alt: Promise.resolve("A&B") } : undefined,
+		}),
+	).resolves.toBe('<img src="/image.png" alt="A&amp;B">');
+	await expect(
+		renderAsync(<img src="/photo.jpg" alt="Mountain lake" />, {
+			element: async ({ tag, props }) => {
+				if (tag !== "img") return;
+
+				await Promise.resolve();
+				props["width"] = 1200;
+				props["height"] = 800;
+			},
+		}),
+	).resolves.toBe('<img src="/photo.jpg" alt="Mountain lake" width="1200" height="800">');
 });
 
 test("async head", async () => {
@@ -166,6 +216,7 @@ test("sync rejects async", () => {
 
 	expect(() => render(<Message />)).toThrow("renderAsync");
 	expect(() => render(<div>{Promise.resolve("Async")}</div>)).toThrow("renderAsync");
+	expect(() => render(<div />, { element: async () => {} })).toThrow("renderAsync");
 });
 
 test("function attrs", () => {

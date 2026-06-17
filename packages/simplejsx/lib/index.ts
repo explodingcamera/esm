@@ -1,15 +1,13 @@
 /**
- * A minimal JSX templating library for rendering safe HTML strings.
+ * Minimal JSX templating for safe HTML strings.
  *
- * `simplejsx` is a small JSX-to-HTML renderer for server-side templates,
- * static site generation, emails, and other places where you just want to emit HTML.
- * It is not a React replacement: there are no hooks, DOM rendering, hydration,
- * Suspense, or React compatibility APIs.
+ * `simplejsx` renders JSX to escaped HTML strings. It works well for
+ * server-side templates, static sites, emails, and other places where a string
+ * is the whole output. This is not a React replacement and does not handle
+ * browser interactivity.
  *
  * @remarks
- * ## Getting started
- *
- * ### Configure JSX
+ * ## Setup
  *
  * Use the automatic JSX runtime. In TypeScript projects, put this in `tsconfig.json`:
  *
@@ -22,19 +20,10 @@
  * }
  * ```
  *
- * In Deno, put the same options in `deno.json`, using `"npm:simplejsx"` unless
- * you have an import map alias:
+ * In Deno, use `"jsxImportSource": "npm:simplejsx"` unless an import map points
+ * `simplejsx` at the package.
  *
- * ```json
- * {
- * 	"compilerOptions": {
- * 		"jsx": "react-jsx",
- * 		"jsxImportSource": "npm:simplejsx"
- * 	}
- * }
- * ```
- *
- * ### Render HTML
+ * ## Render HTML
  *
  * ```tsx
  * import { render, type PropsWithChildren } from "simplejsx";
@@ -47,17 +36,38 @@
  * // "<main>Hello &lt;Henry&gt;</main>"
  * ```
  *
- * ## Rendering model
+ * ## Rendering Rules
  *
  * ### Escaping
  *
- * Text and attributes are escaped by default. Use {@link unsafeHTML} only for
- * trusted markup that should be inserted as-is.
+ * Text and attributes are escaped by default. `null`, `undefined`, and booleans
+ * render nothing. Arrays and other iterables render their children in order.
+ * Use {@link unsafeHTML} only for trusted markup that should be inserted as-is.
+ *
+ * ### Styles
+ *
+ * `style` accepts a CSS string or an object. Object styles accept camelCase,
+ * hyphenated names, and custom properties. Finite numeric values get `px`.
+ * The exceptions are `0`, custom properties, and known unitless properties.
+ *
+ * ### Element middleware
+ *
+ * Pass `element` to {@link render} or {@link renderAsync} to inspect or change
+ * intrinsic element props before they are written. Mutate `props` or return a
+ * replacement props object. Async middleware is supported by {@link renderAsync}.
+ *
+ * ```tsx
+ * render(<a href="/docs">Docs</a>, {
+ * 	element({ tag, props }) {
+ * 		if (tag === "a") props["rel"] = "noreferrer";
+ * 	},
+ * });
+ * ```
  *
  * ### Head hoisting
  *
- * Nested `<head>` elements are merged into the top-level `<head>`. This lets page
- * components set titles and metadata while a layout owns the document shell.
+ * All `<head>` elements are merged into one top-level `<head>`. Page components
+ * can set titles and metadata. A layout can still own the document shell.
  *
  * ```tsx
  * render(<html><head /><body><head><title>Page</title></head></body></html>);
@@ -91,7 +101,7 @@ import {
 	voidTags,
 } from "./elements.js";
 import { HTML, JSXNode } from "./node.js";
-import type { Child, ElementType, Props, PropsWithChildren } from "./types.js";
+import type { Child, ElementType, MaybePromise, Props, PropsWithChildren } from "./types.js";
 
 export { HTML, JSXNode } from "./node.js";
 export type {
@@ -109,21 +119,36 @@ export type {
 
 const asyncRenderError = "simplejsx: render() encountered async content. Use renderAsync() instead.";
 
+export type ElementMiddlewareArgs = {
+	tag: string;
+	props: Props;
+};
+
+type ElementMiddlewareReplacement = (
+	element: ElementMiddlewareArgs,
+) => MaybePromise<Props | null | undefined>;
+type ElementMiddlewareMutation = (element: ElementMiddlewareArgs) => MaybePromise<void>;
+
+/** Runs before an intrinsic element is serialized. */
+export type ElementMiddleware = ElementMiddlewareReplacement | ElementMiddlewareMutation;
+
+export type RenderOptions = {
+	/** Runs before each intrinsic element is serialized. */
+	element?: ElementMiddleware | readonly (ElementMiddleware | readonly ElementMiddleware[])[];
+};
+
 type HeadRoot = {
-	head: null | {
-		attributes: string;
-		children: string;
-		marker: string;
-	};
-	hoisted: string[];
+	headAttributes?: string;
+	headChildren: string[];
 };
 
 type RenderContext = {
 	root: HeadRoot;
+	elementMiddleware: readonly ElementMiddleware[];
 	parentTag?: string;
 };
 
-/** JSX runtime entry used by TypeScript; prefer JSX syntax over calling this directly. */
+/** JSX runtime entry used by TypeScript. Prefer JSX syntax over calling this directly. */
 export function jsx(type: ElementType, props: Props | null, _key?: unknown): JSXNode {
 	return new JSXNode(type, props ? { ...props } : {});
 }
@@ -159,7 +184,7 @@ export function Fragment({ children }: PropsWithChildren): Child {
 /**
  * Marks trusted markup as already-safe HTML.
  *
- * Use this only for HTML you control; plain strings are escaped by default.
+ * Use this only for HTML you control. Plain strings are escaped by default.
  *
  * @example
  * ```tsx
@@ -182,15 +207,21 @@ export function unsafeHTML(value: string): HTML {
  * // "<p>Hello &lt;Henry&gt;</p>"
  * ```
  */
-export function render(value: Child): string {
-	const root: HeadRoot = { head: null, hoisted: [] };
-	return renderHead(root, renderChildSync(value, { root }));
+export function render(value: Child, options?: RenderOptions): string {
+	const root: HeadRoot = { headChildren: [] };
+	const elementMiddleware: readonly ElementMiddleware[] = options?.element
+		? Array.isArray(options.element)
+			? options.element.flat()
+			: [options.element]
+		: [];
+	return renderHead(root, renderChildSync(value, { root, elementMiddleware }));
 }
 
 /**
  * Renders JSX to an HTML string and awaits async content.
  *
- * Use this for async components, promise children, or promise attributes.
+ * Use this for async components, promise children, promise attributes, or async
+ * element middleware.
  *
  * @example
  * ```tsx
@@ -201,11 +232,17 @@ export function render(value: Child): string {
  * // "<p title=\"a&amp;b\">Hello &lt;Henry&gt;</p>"
  * ```
  */
-export async function renderAsync(value: Child): Promise<string> {
-	const root: HeadRoot = { head: null, hoisted: [] };
-	return renderHead(root, await renderChildAsync(value, { root }));
+export async function renderAsync(value: Child, options?: RenderOptions): Promise<string> {
+	const root: HeadRoot = { headChildren: [] };
+	const elementMiddleware: readonly ElementMiddleware[] = options?.element
+		? Array.isArray(options.element)
+			? options.element.flat()
+			: [options.element]
+		: [];
+	return renderHead(root, await renderChildAsync(value, { root, elementMiddleware }));
 }
 
+/** Escapes HTML-sensitive characters: `&`, `<`, `>`, `"`, and `'`. */
 export function escapeHTML(value: string): string {
 	return value.replace(/[&<>"']/g, (character) => {
 		switch (character) {
@@ -276,25 +313,14 @@ function renderElementSync(tag: string, props: Props, context: RenderContext): s
 		throw new Error(`simplejsx: invalid JSX tag name \`${tag}\`.`);
 	}
 
+	props = applyElementMiddlewareSync(tag, props, context);
 	const lowerTag = tag.toLowerCase();
-	let attributes = "";
-	for (const [key, value] of Object.entries(props)) {
-		const name = normalizeAttributeName(key);
-		if (!name || value === null || value === undefined) continue;
-		if (isPromiseLike(value)) throw new Error(asyncRenderError);
-		attributes += renderAttribute(name, value);
-	}
+	const attributes = renderAttributesSync(props);
 
 	const children = props.children;
 	const nextContext = { ...context, parentTag: lowerTag };
 	if (lowerTag === "head") {
-		const childHTML = renderChildSync(children, nextContext);
-		if (!context.root.head && (!context.parentTag || context.parentTag === "html")) {
-			context.root.head = { attributes, children: childHTML, marker: "<!--simplejsx-head-->" };
-			return context.root.head.marker;
-		}
-		context.root.hoisted.push(childHTML);
-		return "";
+		return collectHead(context, attributes, renderChildSync(children, nextContext));
 	}
 
 	const html = `<${tag}${attributes}`;
@@ -310,24 +336,14 @@ async function renderElementAsync(tag: string, props: Props, context: RenderCont
 		throw new Error(`simplejsx: invalid JSX tag name \`${tag}\`.`);
 	}
 
+	props = await applyElementMiddlewareAsync(tag, props, context);
 	const lowerTag = tag.toLowerCase();
-	let attributes = "";
-	for (const [key, value] of Object.entries(props)) {
-		const name = normalizeAttributeName(key);
-		if (!name || value === null || value === undefined) continue;
-		attributes += renderAttribute(name, isPromiseLike(value) ? await value : value);
-	}
+	const attributes = await renderAttributesAsync(props);
 
 	const children = props.children;
 	const nextContext = { ...context, parentTag: lowerTag };
 	if (lowerTag === "head") {
-		const childHTML = await renderChildAsync(children, nextContext);
-		if (!context.root.head && (!context.parentTag || context.parentTag === "html")) {
-			context.root.head = { attributes, children: childHTML, marker: "<!--simplejsx-head-->" };
-			return context.root.head.marker;
-		}
-		context.root.hoisted.push(childHTML);
-		return "";
+		return collectHead(context, attributes, await renderChildAsync(children, nextContext));
 	}
 
 	const html = `<${tag}${attributes}`;
@@ -338,17 +354,70 @@ async function renderElementAsync(tag: string, props: Props, context: RenderCont
 	return `${html}>`;
 }
 
-function renderHead(root: HeadRoot, html: string): string {
-	if (root.head) {
-		return html.replace(
-			root.head.marker,
-			`<head${root.head.attributes}>${root.head.children}${root.hoisted.join("")}</head>`,
-		);
+function applyElementMiddlewareSync(tag: string, props: Props, context: RenderContext): Props {
+	if (!context.elementMiddleware.length) return props;
+
+	let nextProps = { ...props };
+	for (const middleware of context.elementMiddleware) {
+		const result = middleware({ tag, props: nextProps });
+		if (isPromiseLike(result)) throw new Error(asyncRenderError);
+		if (result !== null && result !== undefined) nextProps = result;
 	}
+	return nextProps;
+}
 
-	if (!root.hoisted.length) return html;
+async function applyElementMiddlewareAsync(
+	tag: string,
+	props: Props,
+	context: RenderContext,
+): Promise<Props> {
+	if (!context.elementMiddleware.length) return props;
 
-	const head = `<head>${root.hoisted.join("")}</head>`;
+	let nextProps = { ...props };
+	for (const middleware of context.elementMiddleware) {
+		const result = middleware({ tag, props: nextProps });
+		const resolved = isPromiseLike(result) ? await result : result;
+		if (resolved !== null && resolved !== undefined) nextProps = resolved;
+	}
+	return nextProps;
+}
+
+function renderAttributesSync(props: Props): string {
+	let attributes = "";
+	for (const [key, value] of Object.entries(props)) {
+		const name = normalizeAttributeName(key);
+		if (!name || value === null || value === undefined) continue;
+		if (isPromiseLike(value)) throw new Error(asyncRenderError);
+		attributes += renderAttribute(name, value);
+	}
+	return attributes;
+}
+
+async function renderAttributesAsync(props: Props): Promise<string> {
+	let attributes = "";
+	for (const [key, value] of Object.entries(props)) {
+		const name = normalizeAttributeName(key);
+		if (!name || value === null || value === undefined) continue;
+		const attributeValue = isPromiseLike(value) ? await value : value;
+		if (attributeValue === null || attributeValue === undefined) continue;
+		attributes += renderAttribute(name, attributeValue);
+	}
+	return attributes;
+}
+
+function collectHead(context: RenderContext, attributes: string, children: string): string {
+	if (context.root.headAttributes === undefined && (!context.parentTag || context.parentTag === "html")) {
+		context.root.headAttributes = attributes;
+	}
+	context.root.headChildren.push(children);
+	return "";
+}
+
+function renderHead(root: HeadRoot, html: string): string {
+	if (!root.headChildren.length) return html;
+
+	// Head elements render out-of-band so page components can add metadata from anywhere in the tree.
+	const head = `<head${root.headAttributes ?? ""}>${root.headChildren.join("")}</head>`;
 	const bodyIndex = html.search(/<body(?:\s|>)/i);
 	if (bodyIndex !== -1) return `${html.slice(0, bodyIndex)}${head}${html.slice(bodyIndex)}`;
 

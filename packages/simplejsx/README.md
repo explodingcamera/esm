@@ -1,10 +1,10 @@
 # simplejsx
 
-A minimal JSX templating library for rendering safe HTML strings.
+Minimal JSX templating for safe HTML strings.
 
-`simplejsx` is a small JSX-to-HTML renderer for server-side templates, static site generation, emails,
-and other places where you just want to emit HTML. It is not a React replacement: there are no hooks,
-DOM rendering, hydration, Suspense, or React compatibility APIs.
+`simplejsx` renders JSX to HTML strings. It works well for server-side templates, static sites, emails,
+and other places where a string is the whole output. This is not a React replacement and does not handle
+browser interactivity.
 
 Full API docs: [jsdocs.io/package/simplejsx](https://www.jsdocs.io/package/simplejsx)  
 Examples: [`examples/simplejsx`](../../examples/simplejsx)
@@ -17,7 +17,7 @@ npm install simplejsx
 
 ## Setup
 
-Use the automatic JSX runtime with `jsxImportSource` to use `simplejsx` as the JSX factory. In `tsconfig.json`:
+Use the automatic JSX runtime with `jsxImportSource`. In `tsconfig.json`:
 
 ```json
 {
@@ -54,11 +54,14 @@ const html = render(
 );
 ```
 
-Text and attributes are escaped by default. Use `renderAsync()` for async components, promise children,
-or promise attributes. Nested `<head>` elements are merged into the top-level `<head>`, so page
-components can set titles and metadata from inside a shared layout.
+## Behavior
+
+- Text and attributes are escaped by default. Use `unsafeHTML()` only for trusted markup.
+- `style` supports strings and objects, e.g. `style="color:red"` or `style={{ marginTop: 8 }}`.
+- `renderAsync()` awaits async components, promise children, and promise attributes.
+- Nested `<head>` elements are merged into the top-level `<head>`.
 
 ## See Also
 
-- [Hono JSX](https://hono.dev/docs/guides/jsx) - JSX rendering for Hono apps, with a much broader runtime + dom API.
-- [Preact](https://preactjs.com/) - React-compatible UI components with DOM rendering and hydration.
+- [Hono JSX](https://hono.dev/docs/guides/jsx) for Hono apps. It has a much broader runtime and DOM API.
+- [Preact](https://preactjs.com/) for React-compatible UI components, DOM rendering, and hydration.

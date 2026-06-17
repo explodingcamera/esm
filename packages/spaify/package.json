@@ -8,10 +8,17 @@
 		"turbolinks"
 	],
 	"homepage": "https://github.com/explodingcamera/esm/tree/main/packages/spaify",
-	"repository": "https://github.com/explodingcamera/esm",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/explodingcamera/esm.git",
+		"directory": "packages/spaify"
+	},
 	"license": "MIT",
 	"author": "Henry Gressmann <npm@henrygressmann.de>",
 	"type": "module",
+	"sideEffects": [
+		"./dist/default.mjs"
+	],
 	"exports": {
 		".": {
 			"types": "./dist/index.d.mts",
@@ -30,6 +37,9 @@
 	"files": [
 		"dist"
 	],
+	"scripts": {
+		"prepublishOnly": "bun run --cwd ../.. build"
+	},
 	"tsdown": {
 		"entry": [
 			"lib/index.ts",
