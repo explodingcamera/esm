@@ -1,5 +1,5 @@
 {
-	"name": "simplejsx",
+	"name": "microjsx",
 	"version": "0.1.0",
 	"support": "unstable",
 	"description": "Minimal JSX templating for safe HTML strings",
@@ -11,11 +11,11 @@
 		"ssg",
 		"ssr"
 	],
-	"homepage": "https://github.com/explodingcamera/esm/tree/main/packages/simplejsx",
+	"homepage": "https://github.com/explodingcamera/esm/tree/main/packages/microjsx",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/explodingcamera/esm.git",
-		"directory": "packages/simplejsx"
+		"directory": "packages/microjsx"
 	},
 	"license": "MIT",
 	"author": "Henry Gressmann <npm@henrygressmann.de>",

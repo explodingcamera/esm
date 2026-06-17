@@ -1,12 +1,12 @@
-/** @jsxImportSource simplejsx */
-import { renderAsync, type ElementMiddleware, type PropsWithChildren } from "simplejsx";
+/** @jsxImportSource microjsx */
+import { renderAsync, type ElementMiddleware, type PropsWithChildren } from "microjsx";
 
 function Document({ children }: PropsWithChildren) {
 	return (
 		<html lang="en">
 			<head>
 				<meta charset="utf-8" />
-				<title>simplejsx middleware</title>
+				<title>microjsx middleware</title>
 			</head>
 			<body>{children}</body>
 		</html>

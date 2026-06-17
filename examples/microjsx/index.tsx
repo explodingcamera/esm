@@ -1,5 +1,5 @@
-/** @jsxImportSource simplejsx */
-import { renderAsync, unsafeHTML, type PropsWithChildren } from "simplejsx";
+/** @jsxImportSource microjsx */
+import { renderAsync, unsafeHTML, type PropsWithChildren } from "microjsx";
 
 function Document({ children }: PropsWithChildren) {
 	return (
@@ -19,8 +19,8 @@ async function Page() {
 	return (
 		<>
 			<head>
-				<title>simplejsx example</title>
-				<meta name="description" content="Rendered with simplejsx" />
+				<title>microjsx example</title>
+				<meta name="description" content="Rendered with microjsx" />
 			</head>
 			<main class="page">
 				<h1>Hello {name}</h1>

@@ -1,18 +1,18 @@
-# simplejsx
+# microjsx
 
 Minimal JSX templating for safe HTML strings.
 
-`simplejsx` renders JSX to HTML strings. It works well for server-side templates, static sites, emails,
+`microjsx` renders JSX to HTML strings. It works well for server-side templates, static sites, emails,
 and other places where a string is the whole output. This is not a React replacement and does not handle
 browser interactivity.
 
-Full API docs: [jsdocs.io/package/simplejsx](https://www.jsdocs.io/package/simplejsx)  
-Examples: [`examples/simplejsx`](../../examples/simplejsx)
+Full API docs: [jsdocs.io/package/microjsx](https://www.jsdocs.io/package/microjsx)  
+Examples: [`examples/microjsx`](../../examples/microjsx)
 
 ## Install
 
 ```bash
-npm install simplejsx
+npm install microjsx
 ```
 
 ## Setup
@@ -23,17 +23,17 @@ Use the automatic JSX runtime with `jsxImportSource`. In `tsconfig.json`:
 {
   "compilerOptions": {
     "jsx": "react-jsx",
-    "jsxImportSource": "simplejsx"
+    "jsxImportSource": "microjsx"
   }
 }
 ```
 
-For Deno, use `"jsxImportSource": "npm:simplejsx"` in `deno.json`.
+For Deno, use `"jsxImportSource": "npm:microjsx"` in `deno.json`.
 
 ## Example
 
 ```tsx
-import { render, unsafeHTML, type PropsWithChildren } from "simplejsx";
+import { render, unsafeHTML, type PropsWithChildren } from "microjsx";
 
 function Layout({ title, children }: PropsWithChildren<{ title: string }>) {
   return (

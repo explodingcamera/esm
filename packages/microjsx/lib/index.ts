@@ -1,7 +1,7 @@
 /**
  * Minimal JSX templating for safe HTML strings.
  *
- * `simplejsx` renders JSX to escaped HTML strings. It works well for
+ * `microjsx` renders JSX to escaped HTML strings. It works well for
  * server-side templates, static sites, emails, and other places where a string
  * is the whole output. This is not a React replacement and does not handle
  * browser interactivity.
@@ -15,18 +15,18 @@
  * {
  * 	"compilerOptions": {
  * 		"jsx": "react-jsx",
- * 		"jsxImportSource": "simplejsx"
+ * 		"jsxImportSource": "microjsx"
  * 	}
  * }
  * ```
  *
- * In Deno, use `"jsxImportSource": "npm:simplejsx"` unless an import map points
- * `simplejsx` at the package.
+ * In Deno, use `"jsxImportSource": "npm:microjsx"` unless an import map points
+ * `microjsx` at the package.
  *
  * ## Render HTML
  *
  * ```tsx
- * import { render, type PropsWithChildren } from "simplejsx";
+ * import { render, type PropsWithChildren } from "microjsx";
  *
  * function Layout({ children }: PropsWithChildren) {
  * 	return <main>{children}</main>;
@@ -81,7 +81,7 @@
  * work is not accidentally omitted. Use {@link renderAsync} to await the whole tree.
  *
  * ```tsx
- * import { renderAsync } from "simplejsx";
+ * import { renderAsync } from "microjsx";
  *
  * const title = Promise.resolve("a&b");
  * const name = Promise.resolve("<Henry>");
@@ -117,7 +117,7 @@ export type {
 	PropsWithChildren,
 } from "./types.js";
 
-const asyncRenderError = "simplejsx: render() encountered async content. Use renderAsync() instead.";
+const asyncRenderError = "microjsx: render() encountered async content. Use renderAsync() instead.";
 
 export type ElementMiddlewareArgs = {
 	tag: string;
@@ -284,7 +284,7 @@ function renderChildSync(value: Child, context: RenderContext): string {
 		return html;
 	}
 
-	throw new TypeError(`simplejsx: cannot render ${typeof value} as a child.`);
+	throw new TypeError(`microjsx: cannot render ${typeof value} as a child.`);
 }
 
 async function renderChildAsync(value: Child, context: RenderContext): Promise<string> {
@@ -305,12 +305,12 @@ async function renderChildAsync(value: Child, context: RenderContext): Promise<s
 		return html;
 	}
 
-	throw new TypeError(`simplejsx: cannot render ${typeof value} as a child.`);
+	throw new TypeError(`microjsx: cannot render ${typeof value} as a child.`);
 }
 
 function renderElementSync(tag: string, props: Props, context: RenderContext): string {
 	if (!tag || tag.startsWith("!") || tag.startsWith("?") || hasInvalidAttributeNameCharacter(tag)) {
-		throw new Error(`simplejsx: invalid JSX tag name \`${tag}\`.`);
+		throw new Error(`microjsx: invalid JSX tag name \`${tag}\`.`);
 	}
 
 	props = applyElementMiddlewareSync(tag, props, context);
@@ -327,13 +327,13 @@ function renderElementSync(tag: string, props: Props, context: RenderContext): s
 	if (!voidTags.has(lowerTag)) return `${html}>${renderChildSync(children, nextContext)}</${tag}>`;
 
 	if (renderChildSync(children, nextContext))
-		throw new Error(`simplejsx: void element <${tag}> cannot have children.`);
+		throw new Error(`microjsx: void element <${tag}> cannot have children.`);
 	return `${html}>`;
 }
 
 async function renderElementAsync(tag: string, props: Props, context: RenderContext): Promise<string> {
 	if (!tag || tag.startsWith("!") || tag.startsWith("?") || hasInvalidAttributeNameCharacter(tag)) {
-		throw new Error(`simplejsx: invalid JSX tag name \`${tag}\`.`);
+		throw new Error(`microjsx: invalid JSX tag name \`${tag}\`.`);
 	}
 
 	props = await applyElementMiddlewareAsync(tag, props, context);
@@ -350,7 +350,7 @@ async function renderElementAsync(tag: string, props: Props, context: RenderCont
 	if (!voidTags.has(lowerTag)) return `${html}>${await renderChildAsync(children, nextContext)}</${tag}>`;
 
 	if (await renderChildAsync(children, nextContext))
-		throw new Error(`simplejsx: void element <${tag}> cannot have children.`);
+		throw new Error(`microjsx: void element <${tag}> cannot have children.`);
 	return `${html}>`;
 }
 
@@ -443,10 +443,10 @@ function renderAttribute(name: string, value: unknown): string {
 
 	if (typeof value === "function") {
 		if (name.startsWith("on") || name === "ref") return "";
-		throw new TypeError(`simplejsx: cannot render function prop \`${name}\`.`);
+		throw new TypeError(`microjsx: cannot render function prop \`${name}\`.`);
 	}
 
-	throw new TypeError(`simplejsx: cannot render ${typeof value} prop \`${name}\`.`);
+	throw new TypeError(`microjsx: cannot render ${typeof value} prop \`${name}\`.`);
 }
 
 function normalizeAttributeName(key: string): string | null {
