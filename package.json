@@ -1,10 +1,11 @@
 {
 	"workspaces": [
+		"examples",
 		"packages/*"
 	],
 	"scripts": {
 		"build": "bun run --bun tsdown",
-		"check": "biome check packages",
+		"check": "biome check packages examples",
 		"typecheck": "tsc --noEmit",
 		"test": "bun test"
 	},

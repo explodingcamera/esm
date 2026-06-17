@@ -30,7 +30,8 @@
 			},
 			"complexity": {
 				"noBannedTypes": "off",
-				"noForEach": "off"
+				"noForEach": "off",
+				"useLiteralKeys": "off"
 			}
 		}
 	}

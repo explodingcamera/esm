@@ -1,0 +1,70 @@
+{
+	"name": "simplejsx",
+	"version": "0.1.0",
+	"support": "unstable",
+	"description": "Minimal JSX templating for safe HTML strings",
+	"keywords": [
+		"jsx",
+		"html",
+		"template",
+		"templating",
+		"ssg",
+		"ssr"
+	],
+	"homepage": "https://github.com/explodingcamera/esm/tree/main/packages/simplejsx",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/explodingcamera/esm.git",
+		"directory": "packages/simplejsx"
+	},
+	"license": "MIT",
+	"author": "Henry Gressmann <npm@henrygressmann.de>",
+	"type": "module",
+	"sideEffects": false,
+	"exports": {
+		".": {
+			"types": "./dist/index.d.mts",
+			"import": "./dist/index.mjs",
+			"default": "./dist/index.mjs"
+		},
+		"./jsx-runtime": {
+			"types": "./dist/jsx-runtime.d.mts",
+			"import": "./dist/jsx-runtime.mjs",
+			"default": "./dist/jsx-runtime.mjs"
+		},
+		"./jsx-dev-runtime": {
+			"types": "./dist/jsx-dev-runtime.d.mts",
+			"import": "./dist/jsx-dev-runtime.mjs",
+			"default": "./dist/jsx-dev-runtime.mjs"
+		}
+	},
+	"main": "dist/index.mjs",
+	"module": "dist/index.mjs",
+	"types": "dist/index.d.mts",
+	"source": "lib/index.ts",
+	"files": [
+		"dist",
+		"lib/elements.ts",
+		"lib/index.ts",
+		"lib/jsx-dev-runtime.ts",
+		"lib/jsx-runtime.ts",
+		"lib/node.ts",
+		"lib/types.ts"
+	],
+	"scripts": {
+		"prepublishOnly": "bun run --cwd ../.. build"
+	},
+	"tsdown": {
+		"entry": [
+			"lib/index.ts",
+			"lib/jsx-runtime.ts",
+			"lib/jsx-dev-runtime.ts"
+		]
+	},
+	"dependencies": {
+		"csstype": "^3.2.3"
+	},
+	"engines": {
+		"node": ">=22.0.0"
+	}
+}
