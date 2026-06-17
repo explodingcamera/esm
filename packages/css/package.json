@@ -16,6 +16,14 @@
 		"*.css",
 		"*.js"
 	],
+	"files": [
+		"*.css",
+		"*.js",
+		"CHANGELOG.md"
+	],
+	"publishConfig": {
+		"access": "public"
+	},
 	"exports": {
 		"./reset": "./reset.js",
 		"./reset.css": "./reset.css",

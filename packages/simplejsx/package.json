@@ -2,7 +2,7 @@
 	"name": "simplejsx",
 	"version": "0.1.0",
 	"support": "unstable",
-	"description": "A minimal JSX templating library for rendering safe HTML strings",
+	"description": "Minimal JSX templating for safe HTML strings",
 	"keywords": [
 		"jsx",
 		"html",
