@@ -1,2 +1,3 @@
-import spaify from "./index";
-spaify();
+import { init } from "./spaify";
+
+init();
