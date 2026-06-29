@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/2.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.0]
+
+- Updated to `html-minifier-next@7.0.0`
+- Added `& Record<string, unknown>` to `HTMLMinifyOptions` and `CSSMinifyOptions` types to allow for additional options and to avoid breaking changes when `html-minifier-next` or `lightningcss` adds new options in the future.
+
 ## [2.0.2]
 
 - Fix stale build artifacts in the npm package.

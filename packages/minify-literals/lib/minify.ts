@@ -21,8 +21,7 @@ export const defaultMinifyOptions: HTMLOptions = {
 	removeAttributeQuotes: false,
 	removeComments: true,
 	removeEmptyAttributes: true,
-	removeScriptTypeAttributes: true,
-	removeStyleLinkTypeAttributes: true,
+	removeDefaultTypeAttributes: true,
 	useShortDoctype: true,
 };
 

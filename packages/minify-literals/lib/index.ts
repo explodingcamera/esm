@@ -14,13 +14,13 @@ import { type Template, parseTemplates } from "./literals.js";
 type MaybePromise<T> = T | Promise<T>;
 
 /** Options passed to `html-minifier-next` for HTML and SVG template literals. */
-export type HTMLMinifyOptions = typeof defaultMinifyOptions;
+export type HTMLMinifyOptions = typeof defaultMinifyOptions & Record<string, unknown>;
 
 /** Custom HTML minifier used for HTML and SVG template literals. */
 export type HTMLMinifier = (html: string) => MaybePromise<string>;
 
 /** Options passed to Lightning CSS for CSS template literals and inline CSS. */
-export type CSSMinifyOptions = CSSOptions;
+export type CSSMinifyOptions = CSSOptions & Record<string, unknown>;
 
 /** Custom CSS minifier used for CSS template literals and inline CSS. */
 export type CSSMinifier = (css: string) => MaybePromise<string>;
