@@ -40,11 +40,11 @@
 		"entry": "lib/index.ts"
 	},
 	"dependencies": {
-		"@sveltejs/acorn-typescript": "^1.0.10",
+		"@sveltejs/acorn-typescript": "^1.0.11",
 		"acorn": "^8.17.0",
-		"html-minifier-next": "^7.0.0",
+		"html-minifier-next": "^7.2.0",
 		"lightningcss": "^1.32.0",
-		"magic-string": "^0.30.21"
+		"magic-string": "^1.0.0"
 	},
 	"engines": {
 		"node": ">=22.0.0"
