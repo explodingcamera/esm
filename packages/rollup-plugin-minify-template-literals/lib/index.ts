@@ -10,7 +10,11 @@ export type Options = {
 	/** Files to exclude. Passed to `@rollup/pluginutils#createFilter`. */
 	exclude?: string | RegExp | Array<string | RegExp>;
 
-	/** Options passed to `minify-literals`. */
+	/**
+	 * Options passed to `minify-literals`.
+	 * Supported HTML and CSS minifier options, including defaults, may change in
+	 * minor releases and are not covered by semantic versioning.
+	 */
 	minify?: MinifyOptions;
 };
 

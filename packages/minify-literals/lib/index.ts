@@ -35,6 +35,7 @@ export type Options = {
 	/**
 	 * HTML minification options or a custom HTML minifier. Set to `false` to skip
 	 * HTML and SVG templates.
+	 * Supported options, including defaults, may change in minor releases and are not covered by semantic versioning.
 	 *
 	 * @defaultValue {@link defaultMinifyOptions}
 	 */
@@ -43,6 +44,7 @@ export type Options = {
 	/**
 	 * CSS minification options or a custom CSS minifier. Set to `false` to skip
 	 * CSS templates and inline CSS inside HTML.
+	 * Supported options, including defaults, may change in minor releases and are not covered by semantic versioning.
 	 *
 	 * @defaultValue {@link defaultMinifyCSSOptions}
 	 */
