@@ -42,9 +42,9 @@
 	"dependencies": {
 		"@sveltejs/acorn-typescript": "^1.0.13",
 		"acorn": "^8.18.0",
-		"html-minifier-next": "^8.1.0",
+		"html-minifier-next": "^8.3.1",
 		"lightningcss": "^1.33.0",
-		"magic-string": "^1.2.2"
+		"magic-string": "^1.2.3"
 	},
 	"engines": {
 		"node": ">=22.0.0"
